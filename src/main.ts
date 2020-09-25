@@ -1,6 +1,7 @@
 import Vue from 'vue';
 
 import '~/src/plugins/composition-api';
+import '~/src/plugins/sentry';
 import { vuetify } from '~/src/plugins/vuetify';
 import { init } from '~/src/state/secrets';
 import { appLoaded } from '~/src/state/service';
