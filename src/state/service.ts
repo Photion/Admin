@@ -2,6 +2,7 @@
 import { ref, computed, ComputedRef } from '@vue/composition-api';
 
 import { AbstractClient } from '~/src/api/AbstractClient';
+import { BrowserClient } from '~/src/api/BrowserClient';
 import { HttpClient } from '~/src/api/HttpClient';
 import { AwsClient } from '~/src/api/aws/AwsClient';
 import { secrets } from '~/src/state/secrets';
@@ -29,6 +30,7 @@ export class Service<T> {
   }
 }
 
+export const isDev = ref(process.env.NODE_ENV === 'development' || (window as unknown as { Cypress: boolean }).Cypress);
 
 export const aws = new Service({
   name: 'Amazon Web Services',
@@ -51,6 +53,14 @@ export const googleDrive = new Service({
   logo: '/logos/googleDrive.svg',
   slug: 'googleDrive',
   description: 'Store your files on Google Drive. Google Sheet will be used as database for your metadata.',
+  values: {},
+});
+
+export const browser = new Service({
+  name: 'Your Browser (dev)',
+  logo: '/logos/googleChrome.jpg',
+  slug: 'browser',
+  description: 'Developers may use their own browser memory to interact with Photion. Dev only.',
   values: {},
 });
 
@@ -79,6 +89,10 @@ export const ready = computed(() => {
     return true;
   }
 
+  if (isDev.value && clientName.value === 'browser') {
+    return true;
+  }
+
   return Boolean(service.value?.ready.value);
 });
 
@@ -91,6 +105,10 @@ export const client = computed((): AbstractClient => {
       username: user.name,
       ...secrets.aws,
     });
+  }
+
+  if (clientName.value === 'browser') {
+    return new BrowserClient();
   }
 
   return new HttpClient();

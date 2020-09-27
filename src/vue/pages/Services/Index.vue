@@ -14,6 +14,9 @@
           <v-col cols="12" sm="4">
             <Integration :service="googleDrive" class="ml-0" />
           </v-col>
+          <v-col v-if="isDev" cols="12" sm="4">
+            <Integration :service="browser" class="ml-0" />
+          </v-col>
         </v-row>
       </div>
       <div>
@@ -36,7 +39,7 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
 
-import { aws, gcp, googleDrive } from '~/src/state/service';
+import { aws, gcp, googleDrive, browser, isDev } from '~/src/state/service';
 import Integration from '~/src/vue/components/pages/services/Integration.vue';
 
 
@@ -49,8 +52,10 @@ export default defineComponent({
   setup() {
     return {
       aws,
+      browser,
       gcp,
       googleDrive,
+      isDev,
     };
   },
 });

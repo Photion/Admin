@@ -3,7 +3,7 @@
     <slot>
       <div @click="click" style="width: 100%; height: 100%">{{ label }}</div>
     </slot>
-    <input ref="fileInput" type="file" style="display:none" />
+    <input ref="fileInput" type="file" style="display:none" @input="onInput" />
   </div>
 </template>
 
@@ -55,13 +55,22 @@ export default defineComponent({
     const drop = async ($event: DragEvent) => {
       $event.preventDefault();
       count.value = 0;
-      emit('drop', $event);
+      const files = $event.dataTransfer?.files ?? [];
+      emit('drop', files);
+    };
+
+    const onInput = async ($event: InputEvent) => {
+      $event.preventDefault();
+      const files = ($event.target as HTMLInputElement).files ?? [];
+      emit('drop', files);
+
     };
 
     return {
       dragging,
       fileInput,
       click,
+      onInput,
       events: {
         dragenter,
         dragleave,

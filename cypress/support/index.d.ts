@@ -15,6 +15,7 @@ declare namespace Cypress {
    waitJson(alias: string): Chainable<Element>
 
    clearIntegrations(): Chainable<Element>
+   useBrowser(): Chainable<Element>
    useHttp(): Chainable<Element>
    useAws(): Chainable<Element>
   }

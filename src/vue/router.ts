@@ -29,6 +29,7 @@ export const routes: Array<RouteConfig> = [
   createRoute('Services/Aws'),
   createRoute('Services/Gcp'),
   createRoute('Services/GoogleDrive'),
+  createRoute('Services/Browser'),
 
   // Concepts
   createRoute('Concepts/Index'),

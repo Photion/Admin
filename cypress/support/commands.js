@@ -61,6 +61,10 @@ Cypress.Commands.add('clearIntegrations', () => {
   window.sessionStorage.removeItem('PHOTION_SESSION_CREDENTIALS');
 });
 
+Cypress.Commands.add('useBrowser', () => {
+  window.sessionStorage.setItem('PHOTION_USERNAME', Cypress.env('USERNAME'));
+  window.localStorage.setItem('PHOTION_INTEGRATION', 'browser');
+});
 
 Cypress.Commands.add('useHttp', () => {
   window.sessionStorage.setItem('PHOTION_USERNAME', Cypress.env('USERNAME'));

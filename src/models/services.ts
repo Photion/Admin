@@ -24,8 +24,15 @@ export const googleDrive: Service = {
   slug: 'googleDrive',
 };
 
+export const browser: Service = {
+  name: 'Your Browser (dev)',
+  logo: '',
+  slug: 'browser',
+};
+
 export const services = {
   aws,
   gcp,
   googleDrive,
+  browser,
 };

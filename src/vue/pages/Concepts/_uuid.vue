@@ -166,10 +166,8 @@ export default defineComponent({
     };
 
 
-    const onDrop = async ($event: DragEvent) => {
-      $event.preventDefault();
-
-      for await (const file of $event.dataTransfer?.files ?? []) {
+    const onDrop = async (files: File[]) => {
+      for await (const file of files) {
         await addFile(file);
       }
     };

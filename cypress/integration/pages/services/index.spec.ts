@@ -8,6 +8,7 @@ context('/services', () => {
     });
 
     [
+      { label: 'Browser Memory', slug: 'browser' },
       { label: 'Google Drive', slug: 'googleDrive' },
       { label: 'GCP', slug: 'gcp' },
       { label: 'AWS', slug: 'aws' },
