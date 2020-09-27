@@ -35,9 +35,7 @@ export class AwsClient extends HttpClient {
 
   getKey(uuid: string) {
     return {
-      uuid: {
-        S: uuid,
-      },
+      uuid,
     };
   }
 
@@ -80,61 +78,13 @@ export class AwsClient extends HttpClient {
     return new S3(params);
   }
 
-  get dynamo(): DynamoDB {
+  get dynamo(): DynamoDB.DocumentClient {
     const params = {
       apiVersion: '2012-08-10',
       ...this.credentials,
     };
 
-    return new DynamoDB(params);
-  }
-
-  toField(value: any): { [key: string]: any } {
-    if ((value ?? null) === null) {
-      return { NULL: true };
-    }
-
-    switch (value.constructor.name) {
-    case 'Boolean':
-      return { BOOL: value };
-    case 'String':
-      return { S: value };
-    case 'Number':
-      return { N: String(value) };
-    case 'Array':
-      return { L: value.map((el: any) => this.toField(el)) };
-    case 'Object':
-      return { M: this.toQuery(value) };
-    default:
-      throw new Error(`Unrecognised type: ${value}`);
-    }
-  }
-
-  fromField(field: { [key: string]: any }): any {
-    const [[key, value]] = Object.entries(field);
-
-    switch (key) {
-    case 'N':
-      return Number(value);
-    case 'M':
-      return this.fromQuery(value);
-    case 'L':
-      return value.map((sub: { [key: string]: any }) => this.fromField(sub));
-    default:
-      return value;
-    }
-  }
-
-  toQuery<T>(values: T) {
-    const entries = Object.entries(values).map(([key, value]) => [key, this.toField(value)]);
-
-    return Object.fromEntries(entries);
-  }
-
-  fromQuery<T>(values: T) {
-    const entries = Object.entries(values).map(([key, value]) => [key, this.fromField(value)]);
-
-    return Object.fromEntries(entries);
+    return new DynamoDB.DocumentClient(params);
   }
 
   async list<T>(namespace: string): Promise<Required<T>[]> {
@@ -145,7 +95,7 @@ export class AwsClient extends HttpClient {
     const response = await this.dynamo.scan(params).promise();
 
     if (response.Items) {
-      return response.Items.map((item: any) => this.fromQuery(item)) as Required<T>[];
+      return response.Items as Required<T>[];
     }
 
     return [];
@@ -157,10 +107,10 @@ export class AwsClient extends HttpClient {
       Key: this.getKey(uuid),
     };
 
-    const response = await this.dynamo.getItem(params).promise();
+    const response = await this.dynamo.get(params).promise();
 
     if (response.Item) {
-      return this.fromQuery(response.Item) as Required<T>;
+      return response.Item as Required<T>;
     }
 
     return null;
@@ -169,10 +119,10 @@ export class AwsClient extends HttpClient {
   async create<T>(namespace: string, values: Required<T>): Promise<Required<T>> {
     const params = {
       TableName: this.getTable(namespace),
-      Item: this.toQuery(values),
+      Item: values,
     };
 
-    await this.dynamo.putItem(params).promise();
+    await this.dynamo.put(params).promise();
 
     return values;
   }
@@ -180,10 +130,10 @@ export class AwsClient extends HttpClient {
   async update<T>(namespace: string, _uuid: string, values: Required<T>): Promise<Required<T>> {
     const params = {
       TableName: this.getTable(namespace),
-      Item: this.toQuery(values),
+      Item: values,
     };
 
-    await this.dynamo.putItem(params).promise();
+    await this.dynamo.put(params).promise();
 
     return values;
   }
@@ -194,10 +144,10 @@ export class AwsClient extends HttpClient {
       Key: this.getKey(uuid),
     };
 
-    await this.dynamo.deleteItem(params).promise();
+    await this.dynamo.delete(params).promise();
   }
 
-  async uploadFile<T>(namespace: string, uuid: string, meta: FileMetadata, file: any): Promise<void> {
+  async uploadFile<T>(namespace: string, uuid: string, meta: FileMetadata, file: File | Buffer): Promise<void> {
     const params = {
       Bucket: this.getBucket(),
       Key: this.getFileKey(namespace, uuid, meta),

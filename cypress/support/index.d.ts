@@ -8,6 +8,8 @@ declare namespace Cypress {
      *
      * @example cy.get('input').attachFile('path/to/fixture.jpg', 'image/jpg'))
     */
+   getCy(selector: string): Chainable<Element>
+
    getFile(path: string, mime: string): Chainable<{ file: File, dataTransfer: DataTransfer }>
    attachFile(path: string, mime: string): Chainable<Element>
    waitJson(alias: string): Chainable<Element>

@@ -8,15 +8,15 @@ import { secrets } from '~/src/state/secrets';
 import { user } from '~/src/state/user';
 
 
-export class Service {
+export class Service<T> {
   name: string;
   logo: string;
   slug: string;
   description: string;
-  values: any;
+  values: T;
   ready: ComputedRef<boolean>
 
-  constructor(props: { name: string; logo: string; slug: string; description: string; values: any }) {
+  constructor(props: { name: string; logo: string; slug: string; description: string; values: T }) {
     this.name = props.name;
     this.logo = props.logo;
     this.slug = props.slug;

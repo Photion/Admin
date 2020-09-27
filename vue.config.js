@@ -4,7 +4,7 @@ const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
 const releaseId = process.env.PHOTION_RELEASE_ID || process.env.GITHUB_SHA || 'dev';
 
-const webpackConfig = {
+const vueConfig = {
   transpileDependencies: [
     'vuetify',
   ],
@@ -33,7 +33,7 @@ if (process.env.SENTRY_UPLOAD_SOURCE_MAPS) {
     release: `photion.web-admin@${releaseId}`,
   });
 
-  webpackConfig.configureWebpack.plugins.push(sentryPlugin);
+  vueConfig.configureWebpack.plugins.push(sentryPlugin);
 }
 
-module.exports = webpackConfig;
+module.exports = vueConfig;

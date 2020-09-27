@@ -24,6 +24,10 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
+Cypress.Commands.add('getCy', (selector) => {
+  cy.get(`[data-cy="${selector}"]`);
+});
+
 Cypress.Commands.add('getFile', (path, mime) => {
   cy.fixture(path, 'base64')
     .then(content => Cypress.Blob.base64StringToBlob(content, mime))

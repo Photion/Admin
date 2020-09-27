@@ -62,7 +62,7 @@ export class HttpClient extends AbstractClient {
     this.processResponse(await this.client.delete(`/api/${namespace}/${uuid}`));
   }
 
-  async uploadFile<T>(namespace: string, uuid: string, metadata: FileMetadata, file: any): Promise<void> {
+  async uploadFile<T>(namespace: string, uuid: string, metadata: FileMetadata, file: File): Promise<void> {
     this.processResponse(await this.client.post(`/api/${namespace}/${uuid}/upload`, { metadata, file }));
   }
 

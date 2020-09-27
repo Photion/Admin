@@ -12,7 +12,7 @@
         </h2>
         <v-row>
           <v-col cols="12" sm="4">
-            <integration :service="googleDrive" class="ml-0" />
+            <Integration :service="googleDrive" class="ml-0" />
           </v-col>
         </v-row>
       </div>
@@ -22,10 +22,10 @@
         </h2>
         <v-row>
           <v-col cols="12" sm="4">
-            <integration :service="aws" class="ml-0" />
+            <Integration :service="aws" class="ml-0" />
           </v-col>
           <v-col cols="12" sm="4">
-            <integration :service="gcp" class="ml-0" />
+            <Integration :service="gcp" class="ml-0" />
           </v-col>
         </v-row>
       </div>

@@ -63,10 +63,16 @@ export class Fragment extends modelize<FragmentProps>(namespace, fields) {
   }
 
   async upload(file: File | null = null) {
+    const content = file || this.file;
+
+    if (!content) {
+      throw new Error('Either `file` or `this.file` must be a File.');
+    }
+
     // save for the latest metadata
     await this.save();
 
-    await this.client.uploadFile(namespace, this.uuid, this.meta, file || this.file);
+    await this.client.uploadFile(namespace, this.uuid, this.meta, content);
   }
 
   async remove() {

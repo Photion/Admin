@@ -11,19 +11,19 @@
         </v-col>
         <v-col cols="12" sm="6">
           <div>
-            <v-text-field v-model="user.name" label="Photion Username" />
-            <v-text-field v-model="user.password" type="password" label="Encryption Password" />
+            <v-text-field v-model="user.name" label="Photion Username" data-cy="field:user.name" />
+            <v-text-field v-model="user.password" type="password" label="Encryption Password" data-cy="field:user.password" />
           </div>
           <div>
             <slot />
           </div>
           <div v-if="preview">
-            <v-btn text color="error" disabled>
+            <v-btn text color="error" disabled data-cy="button:service.soon">
               Coming Soon
             </v-btn>
           </div>
           <div v-else class="text-right">
-            <v-btn text color="primary" @click="onContinue">
+            <v-btn text color="primary" @click="onContinue" data-cy="button:service.continue">
               Continue
             </v-btn>
           </div>
@@ -55,7 +55,7 @@ export default defineComponent({
       default: false,
     },
     service: {
-      type: Object as () => Service,
+      type: Object as <T>() => Service<T>,
       required: true,
     },
   },

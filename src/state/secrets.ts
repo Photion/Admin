@@ -1,9 +1,25 @@
 import { computed, reactive } from '@vue/composition-api';
-import { LocalStorageHandler } from 'keylocal/storage/localStorage';
-import { WebCryptoAesGcpHandler } from 'keylocal/strategy/web/aes-gcp';
+import { LocalStorageHandler } from 'lucertula/storage/localStorage';
+import { WebCryptoAesGcpHandler } from 'lucertula/strategy/web/aes-gcp';
 
 import { user } from '~/src/state/user';
 
+
+export interface AwsSecrets {
+  region: string;
+  accessKeyId: string;
+  secretAccessKey: string;
+}
+
+export interface GcpSecrets {
+  apiKey: string;
+  apiSecret: string;
+}
+
+export interface Secrets {
+  aws: AwsSecrets;
+  gcp: GcpSecrets;
+}
 
 export const PHOTION_ENCRYPTION_STORAGE_KEY = 'PHOTION_ENCRYPTION_STORAGE_KEY';
 export const PHOTION_SESSION_CREDENTIALS = 'PHOTION_SESSION_CREDENTIALS';
@@ -21,7 +37,7 @@ export const encrypt = (plaintext: string): Promise<string> => strategy.encrypt(
 
 export const decrypt = (encrypted: string): Promise<string> => strategy.decrypt({ password: encryptionKey.value }, encrypted);
 
-export const secrets = reactive({
+export const secrets = reactive<Secrets>({
   aws: {
     region: '',
     accessKeyId: '',
@@ -33,12 +49,16 @@ export const secrets = reactive({
   },
 });
 
-export const deserialize = (payload: any) => {
-  secrets.aws.region = payload?.aws?.region || '';
-  secrets.aws.accessKeyId = payload?.aws?.accessKeyId || '';
-  secrets.aws.secretAccessKey = payload?.aws?.secretAccessKey || '';
-  secrets.gcp.apiKey = payload?.gcp?.apiKey || '';
-  secrets.gcp.apiSecret = payload?.gcp?.apiSecret || '';
+export const deserialize = (payload: unknown) => {
+  if (typeof payload === 'object') {
+    const data: Partial<Secrets> = payload ?? {};
+
+    secrets.aws.region = data.aws?.region || '';
+    secrets.aws.accessKeyId = data.aws?.accessKeyId || '';
+    secrets.aws.secretAccessKey = data.aws?.secretAccessKey || '';
+    secrets.gcp.apiKey = data?.gcp?.apiKey || '';
+    secrets.gcp.apiSecret = data?.gcp?.apiSecret || '';
+  }
 };
 
 export const save = async () => {

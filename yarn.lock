@@ -7091,11 +7091,6 @@ just-extend@^4.0.2:
   resolved "https://registry.yarnpkg.com/just-extend/-/just-extend-4.1.0.tgz#7278a4027d889601640ee0ce0e5a00b992467da4"
   integrity sha512-ApcjaOdVTJ7y4r08xI5wIqpvwS48Q0PBG4DJROcEkH1f8MdAiNFyFxz3xoL0LWAVwjrwPYZdVHHxhRHcx/uGLA==
 
-keylocal@^0.4.1:
-  version "0.4.1"
-  resolved "https://registry.yarnpkg.com/keylocal/-/keylocal-0.4.1.tgz#fd38edd2be2ddc49614a335a891575a4947ccff9"
-  integrity sha512-5+EI+myo3xGclFBMStZ+NLe6AXI15IQuNREvMCGFdOHWikag39bsfdxIo+yaWb7jpN83lXeFQPBHlOhBMU+88g==
-
 killable@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/killable/-/killable-1.0.1.tgz#4c8ce441187a061c7474fb87ca08e2a638194892"
@@ -7415,6 +7410,11 @@ lru-cache@^5.1.1:
   integrity sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
   dependencies:
     yallist "^3.0.2"
+
+lucertula@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/lucertula/-/lucertula-1.0.0.tgz#53d4e98e110203fa519e706e6397aef16a344423"
+  integrity sha512-Udqr5danCqv7PiAmlAw8mEyOW02KTuiVIGm6p2OBWGXMYq6lGfu3sqleqw/9zuBuEUNoLVgVzuRJAkzlMGg8kA==
 
 make-dir@^2.0.0:
   version "2.1.0"

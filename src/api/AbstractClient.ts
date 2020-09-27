@@ -7,7 +7,7 @@ export abstract class AbstractClient {
   abstract async create<T>(namespace: string, values: Required<T>): Promise<Required<T>>;
   abstract async update<T>(namespace: string, uuid: string, values: Required<T>): Promise<Required<T>>;
   abstract async remove<T>(namespace: string, uuid: string): Promise<void>;
-  abstract async uploadFile<T>(namespace: string, uuid: string, metadata: FileMetadata, file: any): Promise<void>
+  abstract async uploadFile<T>(namespace: string, uuid: string, metadata: FileMetadata, file: File | Buffer): Promise<void>
   abstract async deleteFile<T>(namespace: string, uuid: string, metadata: FileMetadata): Promise<void>
 
   get prefix() {

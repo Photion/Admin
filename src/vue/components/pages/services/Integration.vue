@@ -1,5 +1,5 @@
 <template>
-  <v-card outlined>
+  <v-card outlined :data-cy="`integration-${service.slug}`">
     <router-link :to="data.target" class="text--secondary">
       <v-row dense>
         <v-col cols="3" style="text-align: center">

@@ -134,12 +134,14 @@ jobs:
           CYPRESS_BASE_URL: 'https://${{ github.sha }}--photion.netlify.app'
 
       - name: Upload cypress videos folder
+        if: ${{ always() }}
         uses: actions/upload-artifact@v2
         with:
           name: cypress-videos
           path: cypress/videos
 
       - name: Upload cypress screenshots folder
+        if: ${{ always() }}
         uses: actions/upload-artifact@v2
         with:
           name: cypress-screenshots
