@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('/services', () => {
+context.only('/services', () => {
   describe('Without a client in localStorage', () => {
     beforeEach(() => {
       window.localStorage.removeItem('PHOTION_INTEGRATION');
@@ -15,7 +15,7 @@ context('/services', () => {
     ]
       .forEach((testCase) => {
         it(`Displays the ${testCase.label} integration`, () => {
-          cy.get(`[data-cy="integration-${testCase.slug}"]`)
+          cy.getCy(`integration:${testCase.slug}`)
           .contains("Select")
           .click();
 

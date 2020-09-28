@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('/services/gcp', () => {
+context.only('/services/gcp', () => {
   describe('Without a client in localStorage', () => {
     beforeEach(() => {
       window.localStorage.removeItem('PHOTION_INTEGRATION');
@@ -12,7 +12,7 @@ context('/services/gcp', () => {
       cy.getCy('field:user.password');
       cy.getCy('button:service.soon');
 
-      cy.getCy('integration-gcp')
+      cy.getCy('integration:gcp')
         .contains('Back to all services')
         .click();
 

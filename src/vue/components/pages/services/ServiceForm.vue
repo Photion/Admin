@@ -1,39 +1,28 @@
 <template>
   <div>
-    <!-- TODO: Reimplement with Tailwind-->
+    <div>
+      <p>Wonderful! You selected: {{ service.name }}.</p>
+      <p>Photion needs your credentials.</p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <Integration :service="service" selected />
+      <div>
+        <div>
+          <PhoInputText label="Photion Username" v-model="user.name" cy="field:user.name" />
+          <PhoInputText label="Encryption Password" v-model="user.password" type="password" cy="field:user.password" />
+        </div>
+        <div>
+          <slot />
+        </div>
+        <div v-if="preview">
+          <PhoButton cy="button:service.soon">Coming Soon</PhoButton>
+        </div>
+        <div v-else>
+          <PhoButton @click="onContinue" cy="button:service.continue">Continue</PhoButton>
+        </div>
+      </div>
+    </div>
   </div>
-<!--  <div>-->
-<!--    <div>-->
-<!--      <p>Wonderful! You selected {{ service.name }}.</p>-->
-<!--      <p>Photion needs your credentials.</p>-->
-<!--    </div>-->
-<!--    <div>-->
-<!--      <v-row>-->
-<!--        <v-col cols="12" sm="6">-->
-<!--          <integration :service="service" selected />-->
-<!--        </v-col>-->
-<!--        <v-col cols="12" sm="6">-->
-<!--          <div>-->
-<!--            <v-text-field v-model="user.name" label="Photion Username" data-cy="field:user.name" />-->
-<!--            <v-text-field v-model="user.password" type="password" label="Encryption Password" data-cy="field:user.password" />-->
-<!--          </div>-->
-<!--          <div>-->
-<!--            <slot />-->
-<!--          </div>-->
-<!--          <div v-if="preview">-->
-<!--            <v-btn text color="error" disabled data-cy="button:service.soon">-->
-<!--              Coming Soon-->
-<!--            </v-btn>-->
-<!--          </div>-->
-<!--          <div v-else class="text-right">-->
-<!--            <v-btn text color="primary" @click="onContinue" data-cy="button:service.continue">-->
-<!--              Continue-->
-<!--            </v-btn>-->
-<!--          </div>-->
-<!--        </v-col>-->
-<!--      </v-row>-->
-<!--    </div>-->
-<!--  </div>-->
 </template>
 
 
@@ -45,11 +34,15 @@ import { user } from '~/src/state/user';
 import { load, save } from '~/src/state/secrets';
 import { clientName, Service } from '~/src/state/service';
 import Integration from '~/src/vue/components/pages/services/Integration.vue';
+import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
+import PhoInputText from '~/src/vue/components/ui/forms/PhoInputText.vue';
 
 export default defineComponent({
 
   components: {
     Integration,
+    PhoButton,
+    PhoInputText,
   },
 
   props: {

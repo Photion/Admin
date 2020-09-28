@@ -10,27 +10,19 @@
         <h2 class="text-h4 my-5">
           Easy
         </h2>
-        <v-row>
-          <v-col cols="12" sm="4">
-            <Integration :service="googleDrive" class="ml-0" />
-          </v-col>
-          <v-col v-if="isDev" cols="12" sm="4">
-            <Integration :service="browser" class="ml-0" />
-          </v-col>
-        </v-row>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Integration :service="googleDrive" class="ml-0" />
+          <Integration :service="browser" class="ml-0" />
+        </div>
       </div>
       <div>
         <h2 class="text-h4 my-5">
           Nerdy
         </h2>
-        <v-row>
-          <v-col cols="12" sm="4">
-            <Integration :service="aws" class="ml-0" />
-          </v-col>
-          <v-col cols="12" sm="4">
-            <Integration :service="gcp" class="ml-0" />
-          </v-col>
-        </v-row>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Integration :service="aws" class="ml-0" />
+          <Integration :service="gcp" class="ml-0" />
+        </div>
       </div>
     </div>
   </div>

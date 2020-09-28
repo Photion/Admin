@@ -25,7 +25,7 @@
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
 Cypress.Commands.add('getCy', (selector) => {
-  cy.get(`[data-cy="${selector}"]`);
+  cy.get(`[cy="${selector}"]`);
 });
 
 Cypress.Commands.add('getFile', (path, mime) => {
