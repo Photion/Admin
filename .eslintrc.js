@@ -26,6 +26,7 @@ module.exports = {
     'vue/html-indent': ['error', 2],
     'vue/max-attributes-per-line': ['error', { singleline: 4 }],
     'vue/no-mutating-props': 'off',
+    'object-curly-spacing': ['error', 'always'],
   },
   overrides: [
     {

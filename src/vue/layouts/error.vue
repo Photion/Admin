@@ -1,12 +1,15 @@
 <template>
-  <v-app dark>
-    <h1 v-if="error && error.statusCode === 404">
-      {{ title }}
-    </h1>
-    <NuxtLink to="/">
-      Home page
-    </NuxtLink>
-  </v-app>
+  <div>
+    <!-- TODO: Reimplement with Tailwind-->
+  </div>
+<!--  <v-app dark>-->
+<!--    <h1 v-if="error && error.statusCode === 404">-->
+<!--      {{ title }}-->
+<!--    </h1>-->
+<!--    <NuxtLink to="/">-->
+<!--      Home page-->
+<!--    </NuxtLink>-->
+<!--  </v-app>-->
 </template>
 
 <script lang="ts">

@@ -1,6 +1,6 @@
 <template>
   <div class="img-container">
-    <img :src="fragment.url">
+    <img :src="fragment.url" alt="url">
   </div>
 </template>
 
@@ -31,6 +31,7 @@ export default defineComponent({
   height: 150px;
   text-align: center;
 }
+
 img {
   max-width: 100%;
   max-height: 100%;

@@ -2,7 +2,7 @@ import Vue from 'vue';
 
 import '~/src/plugins/composition-api';
 import '~/src/plugins/sentry';
-import { vuetify } from '~/src/plugins/vuetify';
+import '@/assets/scss/main.scss';
 import { init } from '~/src/state/secrets';
 import { appLoaded } from '~/src/state/service';
 import { router } from '~/src/vue/router';
@@ -16,7 +16,6 @@ export const main = async () => {
   new (Vue)({
     router,
     render: (h) => h(App),
-    vuetify,
   }).$mount('#app');
 
   appLoaded.value = true;

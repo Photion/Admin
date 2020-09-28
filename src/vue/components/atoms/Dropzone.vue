@@ -1,14 +1,17 @@
 <template>
-  <div v-on="events" class="dropzone" :class="{ dragging }">
-    <slot>
-      <div @click="click" style="width: 100%; height: 100%">{{ label }}</div>
-    </slot>
-    <input ref="fileInput" type="file" style="display:none" @input="onInput" />
+  <div>
+    <!-- TODO: Reimplement with Tailwind-->
   </div>
+<!--  <div v-on="events" class="dropzone" :class="{ dragging }">-->
+<!--    <slot>-->
+<!--      <div @click="click" style="width: 100%; height: 100%">{{ label }}</div>-->
+<!--    </slot>-->
+<!--    <input ref="fileInput" type="file" style="display:none" @input="onInput" />-->
+<!--  </div>-->
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from '@vue/composition-api';
+import { computed, defineComponent, ref } from '@vue/composition-api';
 
 export default defineComponent({
 

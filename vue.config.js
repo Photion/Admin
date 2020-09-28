@@ -5,9 +5,7 @@ const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const releaseId = process.env.PHOTION_RELEASE_ID || process.env.GITHUB_SHA || 'dev';
 
 const vueConfig = {
-  transpileDependencies: [
-    'vuetify',
-  ],
+
   configureWebpack: {
     optimization: {
       splitChunks: {
