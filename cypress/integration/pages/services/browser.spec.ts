@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('/services/browser', () => {
+context.only('/services/browser', () => {
   const user = {
     name: 'cypress.user',
     password: 'cypress.password',
@@ -18,7 +18,7 @@ context('/services/browser', () => {
       cy.getCy('field:user.name');
       cy.getCy('field:user.password');
 
-      cy.getCy('integration-browser')
+      cy.getCy('integration:browser')
         .contains('Back to all services')
         .click();
 

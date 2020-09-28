@@ -1,6 +1,5 @@
 <template>
-  <service-form :service="browser">
-  </service-form>
+  <ServiceForm :service="browser" />
 </template>
 
 <script lang="ts">

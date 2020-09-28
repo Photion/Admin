@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('/services/googleDrive', () => {
+context.only('/services/googleDrive', () => {
   describe('Without a client in localStorage', () => {
     beforeEach(() => {
       window.localStorage.removeItem('PHOTION_INTEGRATION');
@@ -12,7 +12,7 @@ context('/services/googleDrive', () => {
       cy.getCy('field:user.password');
       cy.getCy('button:service.soon');
 
-      cy.getCy('integration-googleDrive')
+      cy.getCy('integration:googleDrive')
         .contains('Back to all services')
         .click();
 

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('/services/aws', () => {
+context.only('/services/aws', () => {
   const user = {
     name: 'cypress.user',
     password: 'cypress.password',
@@ -28,7 +28,7 @@ context('/services/aws', () => {
       cy.getCy('field:user.name');
       cy.getCy('field:user.password');
 
-      cy.getCy('integration-aws')
+      cy.getCy('integration:aws')
         .contains('Back to all services')
         .click();
 

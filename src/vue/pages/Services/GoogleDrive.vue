@@ -1,9 +1,5 @@
 <template>
-  <service-form :service="googleDrive" preview>
-    <div>
-      No fields.
-    </div>
-  </service-form>
+  <ServiceForm :service="googleDrive" preview />
 </template>
 
 <script lang="ts">
