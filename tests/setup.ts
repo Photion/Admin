@@ -11,7 +11,3 @@ const jsdom = new JSDOM('<!doctype html><html><body></body></html>', { url: 'htt
 
 global.document = jsdom.window.document;
 (global.window as unknown as typeof jsdom.window) = jsdom.window;
-
-if (!process.env.NODE_ENV) {
-  process.env.NODE_ENV = 'test';
-}

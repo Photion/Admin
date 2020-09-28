@@ -8,7 +8,7 @@
     "publish:netlify": "yarn build --modern",
     "serve": "vue-cli-service serve",
     "serve:dist": "yarn serve --mode production",
-    "test": "jest --colors",
+    "test": "NODE_ENV=test jest --colors",
     "test:feat": "yarn test --selectProjects FEAT",
     "test:unit": "yarn test --selectProjects UNIT"
   },
