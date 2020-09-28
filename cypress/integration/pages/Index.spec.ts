@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context('/', () => {
+context.only('/', () => {
   describe('Without a client in localStorage', () => {
     beforeEach(() => {
       window.localStorage.removeItem('PHOTION_INTEGRATION');
