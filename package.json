@@ -20,7 +20,7 @@
     "aws-sdk": "^2.761.0",
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
-    "dayjs": "^1.8.36",
+    "dayjs": "^1.9.0",
     "exifreader": "^3.12.2",
     "lucertula": "^1.0.0",
     "typeface-roboto": "^0.0.75",
