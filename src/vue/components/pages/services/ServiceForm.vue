@@ -6,19 +6,19 @@
     </div>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <Integration :service="service" selected />
-      <div>
-        <div>
-          <PhoInputText label="Photion Username" v-model="user.name" cy="field:user.name" />
-          <PhoInputText label="Encryption Password" v-model="user.password" type="password" cy="field:user.password" />
+      <div class="space-y-4">
+        <div class="space-y-4">
+          <PhoInputText v-model="user.name" cy="field:user.name" label="Photion Username" />
+          <PhoInputText v-model="user.password" cy="field:user.password" label="Encryption Password" type="password" />
         </div>
         <div>
           <slot />
         </div>
         <div v-if="preview">
-          <PhoButton cy="button:service.soon">Coming Soon</PhoButton>
+          <PhoButton :disabled="true" cy="button:service.soon">Coming Soon</PhoButton>
         </div>
         <div v-else>
-          <PhoButton @click="onContinue" cy="button:service.continue">Continue</PhoButton>
+          <PhoButton cy="button:service.continue" @click="onContinue">Continue</PhoButton>
         </div>
       </div>
     </div>
