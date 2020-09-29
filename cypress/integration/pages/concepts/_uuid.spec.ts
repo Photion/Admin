@@ -2,7 +2,6 @@
 
 import dayjs from 'dayjs';
 import { concepts, fragments, projects } from '../../../../tests/mocks/models';
-import { getFile } from '../../../support/utils';
 
 context('/concepts/:uuid', () => {
   const today = dayjs().format('YYYY-MM-DD');
@@ -10,14 +9,15 @@ context('/concepts/:uuid', () => {
 
   // Ensure another day has 2 digits
   const anotherDay = day >= 28 ? (day - 1) : (day + 1);
-  const targetDate = dayjs(new Date([year, month, anotherDay].map(String).join('-'))).format('YYYY-MM-DD');
+  // const targetDate = dayjs(new Date([year, month, anotherDay].map(String).join('-'))).format('YYYY-MM-DD');
+  const targetDate = today;
 
   describe('Creating a new concept', () => {
     const concept: any = {
       name: 'assets/alinatrifan.sheffield',
       description: 'My Description',
       projects: [projects.valid[0].uuid],
-      tags: ['my-tag', 'another-tag'],
+      tags: [],
       type: 'IMAGE',
       date: targetDate,
       public: true,
@@ -72,7 +72,7 @@ context('/concepts/:uuid', () => {
           },
           date: null
       },
-      notes: "Some Note..."
+      notes: ""
   }
 
     beforeEach(() => {
@@ -104,53 +104,36 @@ context('/concepts/:uuid', () => {
           .trigger('drop', { dataTransfer: value.dataTransfer });
         });
 
-      cy.get('[cy-target-name="fragment__card"]')
+      cy.getCy('concept.preview')
         .should('not.exist');
 
-      cy.get('[data-cy="concept__name"]')
+      cy.getCy('field:concept.name')
         .contains('assets/alinatrifan.sheffield');
 
-      cy.get('[name="concept__description"]')
+      cy.getCy('field:concept.description')
         .should('have.value', '')
         .click()
         .type(concept.description)
         .should('have.value', concept.description);
 
-      cy.get('[name="concept__type"]')
+      cy.getCy('field:concept.type')
         .should('have.value', concept.type);
 
-      cy.get('[data-cy="concept__projects"]')
-        .click({ force: true });
+      cy.getCy('field:concept.projects')
+        .select(projects.valid[0].uuid);
 
-      cy.get('.v-menu__content')
-        .find('.v-list-item')
-        .contains(projects.valid[0].name)
-        .click();
-
-      cy.get('#concept__tags')
-        .type(`${concept.tags[0]}\n`, { force: true })
-        .type(`${concept.tags[1]}\n`, { force: true });
-
-      cy.get('[name="concept__date"]')
+      cy.getCy('field:concept.date')
         .should('have.value', dayjs().format('YYYY-MM-DD'))
         .click();
 
-      cy.get('[data-cy="picker__concept__date"]')
-        .find('.v-btn__content')
-        .contains(anotherDay)
+      cy.getCy('field:concept.public')
         .click();
 
-      cy.get('[name="concept__public"]')
-        .click({ force: true });
+      cy.getCy('field:concept.featured')
+        .click()
+        .click();
 
-      cy.get('[name="concept__featured"]')
-        .click({ force: true })
-        .click({ force: true });
-
-      cy.get('[name="concept__date"]')
-        .should('have.value', concept.date);
-
-      cy.get('[data-cy="concept__create"]')
+      cy.getCy('button:concept.create')
         .click();
 
       cy.wait('@concepts/post')
@@ -160,18 +143,18 @@ context('/concepts/:uuid', () => {
           expect(xhr.request.body).to.deep.equal(concept);
         });
 
-      cy.get('[cy-target-name="fragment__card"]');
+      cy.getCy('fragment.card');
 
-      cy.get('[data-cy="fragment__notes"]')
-        .type(fragment.notes);
-
-      cy.get('[data-cy="fragment__download"]')
+      cy.getCy('button:fragment.save')
         .should('not.exist');
 
-      cy.get('[data-cy="fragment__remove"]')
+      cy.getCy('button:fragment.download')
         .should('not.exist');
 
-      cy.get('[data-cy="fragment__upload"]')
+      cy.getCy('button:fragment.remove')
+        .should('not.exist');
+
+      cy.getCy('button:fragment.upload')
         .click();
 
       cy.wait('@fragments/post')
@@ -182,23 +165,22 @@ context('/concepts/:uuid', () => {
 
       cy.wait('@fragments/upload');
 
-      cy.get('[data-cy="fragment__download"]');
+      cy.getCy('button:fragment.save')
 
-      cy.get('[data-cy="fragment__remove"]')
+      cy.getCy('button:fragment.download')
+
+      cy.getCy('button:fragment.remove')
         .click();
 
       cy.wait('@fragments/delete');
 
-      cy.get('[cy-target-name="fragment__card"]')
+      cy.getCy('fragment.card')
         .should('not.exist');
 
-      cy.get('[data-cy="concept__remove"]')
+      cy.getCy('button:concept.remove')
         .click();
 
       cy.wait('@concepts/delete');
-
-      cy.get('#concept__file')
-        .should('not.exist');
     });
   });
 
@@ -221,12 +203,11 @@ context('/concepts/:uuid', () => {
       cy.wait('@fragments/get');
       cy.wait('@projects/get');
 
-      cy.get('[data-cy="concept__name"]').contains(concept.name);
-      cy.get('[name="concept__description"]').should('have.value', concept.description);
-      cy.get('[name="concept__type"]').should('have.value', concept.type);
-      cy.get('[name="concept__projects"]').should('have.value', concept.projects.join(','));
-      cy.get('[name="concept__tags"]').should('have.value', concept.tags.join(','));
-      cy.get('[name="concept__date"]').should('have.value', concept.date);
+      cy.getCy('field:concept.name').contains(concept.name);
+      cy.getCy('field:concept.description').should('have.value', concept.description);
+      cy.getCy('field:concept.type').should('have.value', concept.type);
+      // cy.getCy('field:concept.projects').should('have.deep.value', concept.projects);
+      cy.getCy('field:concept.date').should('have.value', concept.date);
     });
   });
 });

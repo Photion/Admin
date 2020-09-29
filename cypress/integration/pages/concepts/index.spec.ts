@@ -33,7 +33,7 @@ context('/concepts', () => {
     });
 
     it('Displays a valid page', () => {
-      cy.get(`[data-cy="concepts__table__${concept.uuid}"]`).within(() => {
+      cy.getCy(`row:${concept.uuid}`).within(() => {
         cy.contains(concept.name);
         cy.contains("Delete");
 

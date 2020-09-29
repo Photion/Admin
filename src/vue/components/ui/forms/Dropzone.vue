@@ -1,13 +1,10 @@
 <template>
-  <div>
-    <!-- TODO: Reimplement with Tailwind-->
+  <div v-on="events" class="dropzone" :class="{ dragging }">
+    <slot>
+      <div @click="click" class="dropzone-slot">{{ label }}</div>
+    </slot>
+    <input ref="fileInput" type="file" class="dropzone-file" @input="onInput" />
   </div>
-<!--  <div v-on="events" class="dropzone" :class="{ dragging }">-->
-<!--    <slot>-->
-<!--      <div @click="click" style="width: 100%; height: 100%">{{ label }}</div>-->
-<!--    </slot>-->
-<!--    <input ref="fileInput" type="file" style="display:none" @input="onInput" />-->
-<!--  </div>-->
 </template>
 
 <script lang="ts">
@@ -92,8 +89,18 @@ export default defineComponent({
   transition: all 1s;
 }
 
+.dropzone-slot {
+  width: 100%;
+  height: 100%
+}
+
+.dropzone-file {
+  display: none;
+}
+
 .dragging {
   background-color: #f1f1f1;
   border-color: black;
 }
+
 </style>

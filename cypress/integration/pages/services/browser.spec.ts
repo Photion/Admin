@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context.only('/services/browser', () => {
+context('/services/browser', () => {
   const user = {
     name: 'cypress.user',
     password: 'cypress.password',

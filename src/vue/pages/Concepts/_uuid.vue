@@ -1,87 +1,44 @@
 <template>
   <div>
-    <!-- TODO: Reimplement with Tailwind-->
+    <h2 class="mt-5 mb-10 text-3xl" contenteditable @input="updateName" cy="field:concept.name">{{ concept.name }}</h2>
+    <Dropzone @drop="onDrop" style="min-height: 500px">
+      <div v-if="preview" class="grid grid-cols-1 sm:grid-cols-2 gap-2" cy="concept.preview">
+        <div>
+          <img v-if="preview" :src="preview" />
+          <div>
+            <FragmentCard
+              v-for="fragment in fragments"
+              :key="fragment.uuid"
+              :concept="concept"
+              :fragment="fragment"
+              @remove="removeFragment(fragment)" />
+          </div>
+        </div>
+        <div>
+          <PhoInputText v-model="concept.description" name="concept.description" label="Description" />
+          <PhoSelect v-model="concept.type" label="Type" name="concept.type" :options="types" />
+          <PhoSelect
+            multiple
+            v-model="concept.projects"
+            name="concept.projects"
+            label="Projects"
+            :options="projects" />
+          <PhoInputText type="date" v-model="concept.date" label="Date" name="concept.date" />
+          <div class="grid grid-cols-2 gap-2">
+            <PhoBoolean v-model="concept.public" name="concept.public" label="Public" />
+            <PhoBoolean v-model="concept.featured" name="concept.featured"  label="Featured" />
+          </div>
+          <div v-if="concept.created">
+            <PhoButton cy="button:concept.save" @click="concept.save()">Save</PhoButton>
+            <PhoButton cy="button:concept.remove" @click="concept.remove()">Delete</PhoButton>
+          </div>
+          <div v-else>
+            <PhoButton cy="button:concept.create" @click="concept.save()">Create</PhoButton>
+          </div>
+        </div>
+      </div>
+    </Dropzone>
   </div>
-<!--  <div class="text-left">-->
-<!--    <div class="text-h5 pa-1" contenteditable @input="updateName" data-cy="concept__name">{{ concept.name }}</div>-->
-<!--    <target-->
-<!--      :id="concept.uuid"-->
-<!--      name="fragment__detail">-->
-<!--      <Dropzone @drop="onDrop" style="min-height: 500px">-->
-<!--        <v-row v-if="preview">-->
-<!--          <v-col cols="12" sm="6">-->
-<!--            <v-img :src="preview" />-->
-<!--            <fragment-card-->
-<!--              v-for="fragment in fragments"-->
-<!--              :key="fragment.uuid"-->
-<!--              :concept="concept"-->
-<!--              :fragment="fragment"-->
-<!--              @remove="removeFragment(fragment)" />-->
-<!--          </v-col>-->
-<!--          <v-col cols="12" sm="6">-->
-
-<!--            <v-text-field v-model="concept.description" type="text" name="concept__description" label="Description" />-->
-<!--            <v-select v-model="concept.type" label="Type" :items="types" name="concept__type" />-->
-<!--            <v-select-->
-<!--              v-model="concept.projects"-->
-<!--              label="Projects"-->
-<!--              :items="projects"-->
-<!--              name="concept__projects"-->
-<!--              data-cy="concept__projects"-->
-<!--              :menu-props="{ closeOnContentClick: true }"-->
-<!--              multiple-->
-<!--              small-chips-->
-<!--            />-->
-<!--            <v-combobox-->
-<!--              id="concept__tags"-->
-<!--              v-model="concept.tags"-->
-<!--              label="Tags"-->
-<!--              name="concept__tags"-->
-<!--              multiple-->
-<!--              small-chips-->
-<!--            />-->
-<!--            <date-picker v-model="concept.date" label="Date" name="concept__date" />-->
-<!--            <v-row>-->
-<!--              <v-col cols="6">-->
-<!--                <v-switch v-model="concept.public" class="mx-2" label="Public" name="concept__public" />-->
-<!--              </v-col>-->
-<!--              <v-col cols="6">-->
-<!--                <v-switch v-model="concept.featured" class="mx-2" label="Featured" name="concept__featured" />-->
-<!--              </v-col>-->
-<!--            </v-row>-->
-<!--            <div v-if="concept.created">-->
-<!--              <v-btn-->
-<!--                small-->
-<!--                text-->
-<!--                color="primary"-->
-<!--                data-cy="concept__save"-->
-<!--                @click="concept.save()">-->
-<!--                Save Concept-->
-<!--              </v-btn>-->
-<!--              <v-btn-->
-<!--                small-->
-<!--                text-->
-<!--                color="error"-->
-<!--                data-cy="concept__remove"-->
-<!--                @click="concept.remove()">-->
-<!--                Delete Concept-->
-<!--              </v-btn>-->
-<!--            </div>-->
-<!--            <div v-else>-->
-<!--              <v-btn-->
-<!--                small-->
-<!--                text-->
-<!--                color="primary"-->
-<!--                data-cy="concept__create"-->
-<!--                @click="concept.save()">-->
-<!--                Create Concept-->
-<!--              </v-btn>-->
-<!--            </div>-->
-<!--          </v-col>-->
-<!--        </v-row>-->
-<!--      </Dropzone>-->
-<!--    </target>-->
-<!--  </div>-->
 </template>
 
 
@@ -94,20 +51,24 @@ import { Fragment } from '~/src/models/Fragment';
 import { Project } from '~/src/models/Project';
 
 import { router } from '~/src/vue/router';
-import Target from '~/src/vue/components/atoms/Target.vue';
-import DatePicker from '~/src/vue/components/atoms/DatePicker.vue';
-import Dropzone from '~/src/vue/components/atoms/Dropzone.vue';
+import Dropzone from '~/src/vue/components/ui/forms/Dropzone.vue';
 import FragmentCard from '~/src/vue/components/organisms/fragments/FragmentCard.vue';
+import PhoBoolean from '~/src/vue/components/ui/forms/PhoBoolean.vue';
+import PhoInputText from '~/src/vue/components/ui/forms/PhoInputText.vue';
+import PhoSelect from '~/src/vue/components/ui/forms/PhoSelect.vue';
+import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
 import { SelectOption, toOption } from '~/src/utils';
 
 
 export default defineComponent({
 
   components: {
-    DatePicker,
     Dropzone,
     FragmentCard,
-    Target,
+    PhoBoolean,
+    PhoInputText,
+    PhoSelect,
+    PhoButton,
   },
 
   setup() {

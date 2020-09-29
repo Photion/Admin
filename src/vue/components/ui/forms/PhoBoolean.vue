@@ -1,12 +1,12 @@
 <template>
   <div>
-    <label v-if="label">{{ label }}</label>
     <input
-      :type="type"
+      type="checkbox"
       :value="value"
       @input="onInput"
       :name="name"
       :cy="reference" />
+    <label v-if="label">{{ label }}</label>
   </div>
 </template>
 
@@ -29,12 +29,8 @@ export default defineComponent({
       default: () => '',
     },
     value: {
-      type: String,
+      type: Boolean,
       required: true,
-    },
-    type: {
-      type: String,
-      default: 'text',
     },
   },
 
@@ -42,7 +38,7 @@ export default defineComponent({
     const onInput = ($event: InputEvent) => {
       const target = $event.target as HTMLInputElement;
 
-      return context.emit('input', target.value);
+      return context.emit('input', target.checked);
     };
 
     const reference = props.cy || (props.name ? `field:${props.name}` : '');
