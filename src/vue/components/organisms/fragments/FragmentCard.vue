@@ -1,51 +1,15 @@
 <template>
-  <div>
-    <!-- TODO: Reimplement with Tailwind-->
+  <div cy="fragment.card">
+    <div>{{ fragment.uuid }}</div>
+    <div v-if="fragment.created">
+      <PhoButton cy="button:fragment.save" @click="fragment.save()">Save</PhoButton>
+      <PhoButton cy="button:fragment.download" @click="fragment.save()">Download</PhoButton>
+      <PhoButton cy="button:fragment.remove" @click="removeFragment">Delete</PhoButton>
+    </div>
+    <div v-else>
+      <PhoButton cy="button:fragment.upload" @click="fragment.upload()">Upload</PhoButton>
+    </div>
   </div>
-<!--  <target id="fragment.uuid" name="fragment__card">-->
-<!--    <v-row>-->
-<!--      <v-col cols="8">-->
-<!--        -->
-<!--          <v-text-field disabled :value="fragment.meta.filename" label="Original Filename" />-->
-<!--          <v-select v-model="fragment.meta.storage" label="Storage" :items="storages" :disabled="fragment.created" />-->
-<!--          <v-text-field v-model="fragment.notes" label="Notes (Optional)" data-cy="fragment__notes" />-->
-<!--        </div>-->
-<!--      </v-col>-->
-<!--      <v-col cols="4" class="text-center">-->
-<!--        <div v-if="fragment.created">-->
-<!--          <v-btn-->
-<!--            text-->
-<!--            small-->
-<!--            color="primary"-->
-<!--            data-cy="fragment__download"-->
-<!--            @click="fragment.save()">-->
-<!--            Save-->
-<!--          </v-btn>-->
-<!--          <v-btn text small color="success" data-cy="fragment__download">-->
-<!--            Download-->
-<!--          </v-btn>-->
-<!--          <v-btn-->
-<!--            text-->
-<!--            small-->
-<!--            color="error"-->
-<!--            data-cy="fragment__remove"-->
-<!--            @click="removeFragment">-->
-<!--            Delete-->
-<!--          </v-btn>-->
-<!--        </div>-->
-<!--        <div v-else>-->
-<!--          <v-btn-->
-<!--            text-->
-<!--            small-->
-<!--            color="error"-->
-<!--            data-cy="fragment__upload"-->
-<!--            @click="fragment.upload()">-->
-<!--            Upload-->
-<!--          </v-btn>-->
-<!--        </div>-->
-<!--      </v-col>-->
-<!--    </v-row>-->
-<!--  </target>-->
 </template>
 
 <script lang="ts">
@@ -55,7 +19,7 @@ import { Concept } from '~/src/models/Concept';
 import { Fragment } from '~/src/models/Fragment';
 import { FileStorage } from '~/src/files/metadata';
 import { toOption } from '~/src/utils';
-import Target from '~/src/vue/components/atoms/Target.vue';
+import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
 import ImagePreview from '~/src/vue/components/organisms/fragments/ImagePreview.vue';
 import SoundPreview from '~/src/vue/components/organisms/fragments/SoundPreview.vue';
 import VideoPreview from '~/src/vue/components/organisms/fragments/VideoPreview.vue';
@@ -69,7 +33,7 @@ enum Component {
 export default defineComponent({
 
   components: {
-    Target,
+    PhoButton,
     ImagePreview,
     SoundPreview,
     VideoPreview,

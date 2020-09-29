@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context.only('/services/aws', () => {
+context('/services/aws', () => {
   const user = {
     name: 'cypress.user',
     password: 'cypress.password',

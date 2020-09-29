@@ -1,12 +1,21 @@
 <template>
   <div>
     <label v-if="label">{{ label }}</label>
-    <input
-      :type="type"
-      :value="value"
+    <select
       @input="onInput"
+      @change="onInput"
+      :multiple="multiple"
+      :options="options"
       :name="name"
-      :cy="reference" />
+      :cy="reference">
+      <option
+        v-for="option in options"
+        :key="option.value"
+        :selected="value.includes(option.value)"
+        :value="option.value">
+        {{ option.text }}
+      </option>
+    </select>
   </div>
 </template>
 
@@ -24,25 +33,32 @@ export default defineComponent({
       type: String,
       default: () => '',
     },
+    multiple: {
+      type: Boolean,
+      default: () => false,
+    },
+    options: {
+      type: Array,
+      default: () => [],
+    },
     name: {
       type: String,
       default: () => '',
     },
     value: {
-      type: String,
+      type: [String, Array],
       required: true,
-    },
-    type: {
-      type: String,
-      default: 'text',
     },
   },
 
   setup(props, context) {
     const onInput = ($event: InputEvent) => {
       const target = $event.target as HTMLInputElement;
+      const selected = [...target.querySelectorAll('option')]
+        .filter((option) => option.selected)
+        .map((option) => option.value);
 
-      return context.emit('input', target.value);
+      return context.emit('input', selected);
     };
 
     const reference = props.cy || (props.name ? `field:${props.name}` : '');

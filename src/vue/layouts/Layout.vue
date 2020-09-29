@@ -1,7 +1,9 @@
 <template>
   <div class="root">
     <header>
-      <h1 class="mt-5 mb-10 text-5xl">Photion</h1>
+      <h1 class="mt-5 mb-10 text-5xl">
+        <router-link to="/">Photion</router-link>
+      </h1>
     </header>
     <main class="container">
       <router-view />

@@ -1,6 +1,6 @@
 /// <reference types="cypress" />
 
-context.only('/services/googleDrive', () => {
+context('/services/googleDrive', () => {
   describe('Without a client in localStorage', () => {
     beforeEach(() => {
       window.localStorage.removeItem('PHOTION_INTEGRATION');
