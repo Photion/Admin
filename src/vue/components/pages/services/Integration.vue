@@ -1,8 +1,7 @@
 <template>
   <div>
-    <PhoCard :cy="`integration:${service.slug}`">
+    <PhoCard :cy="`integration:${service.slug}`" clickable logo="service.logo">
       <router-link :to="data.target">
-        <!-- TODO: reimplement the logo -->
         <div><strong>{{ service.name }}</strong></div>
         <div><small>{{ service.description }}</small></div>
         <div v-if="selected">Back to all services</div>
