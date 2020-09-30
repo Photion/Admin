@@ -43,12 +43,4 @@ Once they are "soft logged in" and Photion has read and write access to their fi
 
 ## Contributing
 
-- Join Photion's slack: [https://photion.slack.com](https://photion.slack.com) or contact wdp@dipasqualew.com for an invite.
-- Clone this repository and install its dependencies with yarn: `yarn install`
-- Set your environment variables (`.envrc` with `direnv` is recommended, see `.envrc.example.sh` file)
-- Use vue-cli-service's hot reload server: `yarn serve`
-- Build a preview website: `yarn build`
-- Build a production website: `yarn build --modern`
-- Run unit tests: `yarn test:unit`
-- Run feature tests (they require credentials): `yarn test:feat`
-- Run E2E tests (they require the development server): `yarn cypress open`
+Please refer to our [Contributing Guidelines](CONTRIBUTING.md)
