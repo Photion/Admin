@@ -1,12 +1,15 @@
 <template>
   <div>
-    <label v-if="label">{{ label }}</label>
-    <input
-      :type="type"
-      :value="value"
-      @input="onInput"
-      :name="name"
-      :cy="reference" />
+    <label v-if="label">
+      {{ label }}
+      <input
+        :cy="reference"
+        :name="name"
+        :type="type"
+        :value="value"
+        class="block border-2 border-gray-500 w-full rounded-lg px-3 py-1 outline-none focus:border-gray-800"
+        @input="onInput" />
+    </label>
   </div>
 </template>
 
