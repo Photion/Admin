@@ -27,7 +27,7 @@
     "uuid": "^8.3.0",
     "vue": "^2.6.11",
     "vue-router": "^3.4.5",
-    "vuetify": "^2.2.11"
+    "vuetify": "^2.3.12"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.10.4",
