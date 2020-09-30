@@ -1,5 +1,5 @@
 <template>
-  <div :class="{'hover:shadow-xl': isClickable}" class="rounded-lg p-5 shadow-lg transition-shadow duration-100">
+  <div :class="clickableClass" class="rounded-lg p-5 shadow-lg transition-shadow duration-100">
     <div v-if="logo" class="w-2/12 rounded-lg mb-2">
       <img :src="logo" alt="logo" class="w-full">
     </div>
@@ -8,11 +8,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { computed, defineComponent } from '@vue/composition-api';
 
 export default defineComponent({
   props: {
-    isClickable: {
+    clickable: {
       type: Boolean,
       default: false,
     },
@@ -20,6 +20,13 @@ export default defineComponent({
       type: String,
       required: false,
     },
+  },
+  setup(props ) {
+    const clickableClass = computed(() => ({
+      ['hover:shadow-xl']: props.clickable,
+    }));
+
+    return {  clickableClass };
   },
 });
 </script>
