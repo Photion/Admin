@@ -34,7 +34,7 @@
     "@sentry/webpack-plugin": "^1.13.0",
     "@types/jest": "^26.0.14",
     "@types/jsdom": "^16.2.4",
-    "@types/sinon": "^9.0.6",
+    "@types/sinon": "^9.0.7",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
