@@ -15,7 +15,7 @@
           <slot />
         </div>
         <div v-if="preview">
-          <PhoButton :disabled="true" cy="button:service.soon">Coming Soon</PhoButton>
+          <PhoButton color="disabled" cy="button:service.soon">Coming Soon</PhoButton>
         </div>
         <div v-else>
           <PhoButton cy="button:service.continue" @click="onContinue">Continue</PhoButton>

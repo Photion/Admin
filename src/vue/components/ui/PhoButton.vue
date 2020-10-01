@@ -1,9 +1,8 @@
 <template>
   <button
-    :class="{'bg-gray-300 text-gray-900': disabled,
-             'bg-gray-800 text-white hover:shadow-lg hover hover:bg-gray-700': !disabled}"
-    :disabled="disabled"
-    class="rounded-lg font-bold px-6 py-2"
+    :class="cssButton"
+    :disabled="color === 'disabled'"
+    class="rounded-lg px-5 py-2 tracking-wider transition-all duration-100"
     type="button"
     @click="onClick">
     <slot/>
@@ -11,22 +10,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { computed, defineComponent } from '@vue/composition-api';
+
+type buttonColor = 'primary' | 'secondary' | 'warning' | 'error' | 'disabled';
 
 export default defineComponent({
   props: {
-    disabled: {
-      type: Boolean,
-      default: false,
+    color: {
+      type: String,
+      default: 'primary',
     },
   },
-  setup(_props, context) {
+  setup(props, context) {
     const onClick = ($event: MouseEvent) => {
       return context.emit('click', $event);
     };
 
+    const cssButton = computed(() => ({
+      'bg-gray-800 text-white hover:shadow-lg hover:bg-gray-700': props.color === 'primary',
+      'bg-teal-500 text-white hover:shadow-lg hover:bg-teal-400': props.color === 'secondary',
+      'bg-yellow-400 text-gray-900 hover:shadow-lg hover:bg-yellow-300': props.color === 'warning',
+      'bg-red-600 text-white hover:shadow-lg hover:bg-red-500': props.color === 'error',
+      'bg-gray-300 text-gray-900': props.color === 'disabled',
+    }));
+
     return {
       onClick,
+      cssButton,
     };
   },
 });
