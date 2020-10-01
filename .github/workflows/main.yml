@@ -96,6 +96,7 @@ jobs:
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
           SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
           SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+          SENTRY_UPLOAD_SOURCE_MAPS: true
           VUE_APP_SENTRY_DSN: ${{ secrets.VUE_APP_SENTRY_DSN }}
 
       - name: Upload dist folder
@@ -119,9 +120,10 @@ jobs:
           path: dist
 
       - name: Publish on Netlify (preview)
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --dir=dist --alias ${{ github.sha }} --message='${{ github.sha }}::${{ github.actor }}::${{ github.ref }}'
+        run: |
+          yarn global add netlify-cli
+          netlify --telemetry-disable
+          netlify deploy --dir=dist --alias ${{ github.sha }} --message='${{ github.sha }}::${{ github.actor }}::${{ github.ref }}'
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
@@ -164,10 +166,10 @@ jobs:
           path: dist
 
       - name: Publish on Netlify (production)
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --dir=dist --prod --message='${{ github.sha }}::${{ github.actor }}'
+        run: |
+          yarn global add netlify-cli
+          netlify --telemetry-disable
+          netlify deploy --dir=dist --prod --message='${{ github.sha }}::${{ github.actor }}'
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          SENTRY_UPLOAD_SOURCE_MAPS: true
