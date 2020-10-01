@@ -73,7 +73,6 @@ export default defineComponent({
       try {
         return await load();
       } catch (error) {
-        console.log({ error });
         return error;
       }
     });
