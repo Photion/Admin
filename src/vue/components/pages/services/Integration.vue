@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PhoCard :cy="`integration:${service.slug}`" clickable logo="service.logo">
+    <PhoCard :cy="`integration:${service.slug}`" clickable :logo="service.logo">
       <router-link :to="data.target">
         <div><strong>{{ service.name }}</strong></div>
         <div><small>{{ service.description }}</small></div>
