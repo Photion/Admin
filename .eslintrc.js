@@ -19,6 +19,7 @@ module.exports = {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-multiple-empty-lines': ['error', { 'max': 2 }],
+    'no-unused-vars': [2, {'args': 'after-used', 'argsIgnorePattern': '^_'}],
     'no-useless-constructor': 'off',
     'quotes': ['error', 'single'],
     'semi': ['error', 'always'],
