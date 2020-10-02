@@ -102,52 +102,52 @@ jobs:
       - name: Upload dist folder
         uses: actions/upload-artifact@v2
         with:
-          name: dist
+          name: dist-${{ github.sha }}
           path: dist
+
+      - name: Publish on Netlify (preview)
+        run: |
+          yarn netlify --telemetry-disable
+          yarn netlify deploy --dir=dist --alias ${{ github.sha }} --message='${{ github.sha }}::${{ github.actor }}::${{ github.ref }}'
+        env:
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
   e2e-tests:
     name: Run E2E Tests
     needs: [build]
     runs-on: ubuntu-16.04
+    container:
+      image: cypress/browsers:node12.14.1-chrome85-ff81
+      options: "--shm-size=2GB"
+      env:
+        CYPRESS_BASE_URL: 'https://${{ github.sha }}--photion.netlify.app'
+
     steps:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Download dist folder
-        uses: actions/download-artifact@v2
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
         with:
-          name: dist
-          path: dist
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
 
-      - name: Publish on Netlify (preview)
-        run: |
-          yarn global add netlify-cli
-          netlify --telemetry-disable
-          netlify deploy --dir=dist --alias ${{ github.sha }} --message='${{ github.sha }}::${{ github.actor }}::${{ github.ref }}'
-        env:
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Install Cypress
+        run: yarn cypress install
 
       - name: Run E2E Tests
-        uses: cypress-io/github-action@v2
-        with:
-          browser: chrome
-        env:
-          CYPRESS_BASE_URL: 'https://${{ github.sha }}--photion.netlify.app'
+        run: yarn cypress run --browser chrome --config videoUploadOnPasses=false
 
       - name: Upload cypress videos folder
-        if: ${{ always() }}
+        if: ${{ failure() }}
         uses: actions/upload-artifact@v2
         with:
-          name: cypress-videos
+          name: cypress-videos-${{ github.sha }}
           path: cypress/videos
-
-      - name: Upload cypress screenshots folder
-        if: ${{ always() }}
-        uses: actions/upload-artifact@v2
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
 
 
   publish-netlify:
@@ -159,17 +159,30 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v1
 
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Restore node_modules cache
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install
+
       - name: Download dist folder
         uses: actions/download-artifact@v2
         with:
-          name: dist
+          name: dist-${{ github.sha }}
           path: dist
 
       - name: Publish on Netlify (production)
         run: |
-          yarn global add netlify-cli
-          netlify --telemetry-disable
-          netlify deploy --dir=dist --prod --message='${{ github.sha }}::${{ github.actor }}'
+          yarn netlify --telemetry-disable
+          yarn netlify deploy --dir=dist --prod --message='${{ github.sha }}::${{ github.actor }}'
         env:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}

@@ -1,1 +1,4 @@
-{}
+{
+  "defaultCommandTimeout": 1500,
+  "videoUploadOnPasses": false
+}
