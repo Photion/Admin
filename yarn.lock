@@ -3306,6 +3306,21 @@ autoprefixer@^9.4.5, autoprefixer@^9.8.6:
     postcss "^7.0.32"
     postcss-value-parser "^4.1.0"
 
+aws-sdk@^2.689.0:
+  version "2.766.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.766.0.tgz#f0b05d827c79c78d16efab0520f4ed0c21573665"
+  integrity sha512-msEEF7veBrxU1TlhLL33du4oJdwJ6uAWogf9+S0v437AX2z6K5IFr5J78JBysBudRHO0L6aC8bat6OS3oPEQvQ==
+  dependencies:
+    buffer "4.9.2"
+    events "1.1.1"
+    ieee754 "1.1.13"
+    jmespath "0.15.0"
+    querystring "0.2.0"
+    sax "1.2.1"
+    url "0.10.3"
+    uuid "3.3.2"
+    xml2js "0.4.19"
+
 aws-sdk@^2.765.0:
   version "2.765.0"
   resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.765.0.tgz#34e71dc7336b4593d2f521cdcbbf7542a0d1f8cb"
@@ -6018,14 +6033,15 @@ eslint-loader@^2.2.1:
     object-hash "^1.1.4"
     rimraf "^2.6.1"
 
-eslint-plugin-vue@^6.2.2:
-  version "6.2.2"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-6.2.2.tgz#27fecd9a3a24789b0f111ecdd540a9e56198e0fe"
-  integrity sha512-Nhc+oVAHm0uz/PkJAWscwIT4ijTrK5fqNqz9QB1D35SbbuMG1uB6Yr5AJpvPSWg+WOw7nYNswerYh0kOk64gqQ==
+eslint-plugin-vue@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.0.0.tgz#abaf59dec3aa50228b37a89ca1239893c96c981f"
+  integrity sha512-SFcM8ZMdVRUQKrAryl6Q5razrJtloATUOKTZoK/8yvQig1c1L3VRoMLL9AXiV3VNsKXolkk6yeMIiqGf33/Iew==
   dependencies:
+    eslint-utils "^2.1.0"
     natural-compare "^1.4.0"
-    semver "^5.6.0"
-    vue-eslint-parser "^7.0.0"
+    semver "^7.3.2"
+    vue-eslint-parser "^7.1.0"
 
 eslint-scope@^4.0.3:
   version "4.0.3"
@@ -6050,7 +6066,7 @@ eslint-utils@^1.4.3:
   dependencies:
     eslint-visitor-keys "^1.1.0"
 
-eslint-utils@^2.0.0:
+eslint-utils@^2.0.0, eslint-utils@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/eslint-utils/-/eslint-utils-2.1.0.tgz#d2de5e03424e707dc10c74068ddedae708741b27"
   integrity sha512-w94dQYoauyvlDc43XnGB8lU3Zt713vNChgt4EWwhXAP2XkBvndfxF0AgIqKOOasjPIPzj9JqgwkwbCYD0/V3Zg==
@@ -14211,7 +14227,7 @@ vm-browserify@^1.0.1:
   resolved "https://registry.yarnpkg.com/vm-browserify/-/vm-browserify-1.1.2.tgz#78641c488b8e6ca91a75f511e7a3b32a86e5dda0"
   integrity sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==
 
-vue-eslint-parser@^7.0.0:
+vue-eslint-parser@^7.0.0, vue-eslint-parser@^7.1.0:
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-7.1.0.tgz#9cdbcc823e656b087507a1911732b867ac101e83"
   integrity sha512-Kr21uPfthDc63nDl27AGQEhtt9VrZ9nkYk/NTftJ2ws9XiJwzJJCnCr3AITQ2jpRMA0XPGDECxYH8E027qMK9Q==
