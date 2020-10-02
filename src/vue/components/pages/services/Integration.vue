@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 import { Service } from '~/src/models/services';
 import PhoCard from '~/src/vue/components/ui/PhoCard.vue';

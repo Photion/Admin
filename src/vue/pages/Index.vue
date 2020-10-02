@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 import { ready } from '~/src/state/service';
 

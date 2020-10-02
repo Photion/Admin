@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, ref } from '@vue/composition-api';
+import { computed, defineComponent, ref } from 'vue';
 
 export default defineComponent({
 
@@ -55,14 +55,19 @@ export default defineComponent({
     const drop = async ($event: DragEvent) => {
       $event.preventDefault();
       count.value = 0;
-      const files = $event.dataTransfer?.files ?? [];
-      emit('drop', files);
+
+      if ($event.dataTransfer?.files) {
+        const files = Array.from($event.dataTransfer.files);
+        emit('files', files);
+      } else {
+        emit('files', []);
+      }
     };
 
     const onInput = async ($event: InputEvent) => {
       $event.preventDefault();
       const files = ($event.target as HTMLInputElement).files ?? [];
-      emit('drop', files);
+      emit('files', Array.from(files));
 
     };
 

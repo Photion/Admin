@@ -13,16 +13,13 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from '@vue/composition-api';
+import { computed, defineComponent } from 'vue';
 
 import { Concept } from '~/src/models/Concept';
 import { Fragment } from '~/src/models/Fragment';
 import { FileStorage } from '~/src/files/metadata';
 import { toOption } from '~/src/utils';
 import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
-import ImagePreview from '~/src/vue/components/organisms/fragments/ImagePreview.vue';
-import SoundPreview from '~/src/vue/components/organisms/fragments/SoundPreview.vue';
-import VideoPreview from '~/src/vue/components/organisms/fragments/VideoPreview.vue';
 
 enum Component {
   IMAGE = 'image-preview',
@@ -34,9 +31,6 @@ export default defineComponent({
 
   components: {
     PhoButton,
-    ImagePreview,
-    SoundPreview,
-    VideoPreview,
   },
 
   props: {

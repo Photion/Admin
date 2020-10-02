@@ -23,6 +23,8 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+        env:
+          CYPRESS_INSTALL_BINARY: 0
 
       - name: Run Unit Tests
         run: yarn test:unit
@@ -55,6 +57,8 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+        env:
+          CYPRESS_INSTALL_BINARY: 0
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -89,6 +93,8 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+        env:
+          CYPRESS_INSTALL_BINARY: 0
 
       - name: Build
         run: yarn build --modern
@@ -135,6 +141,8 @@ jobs:
 
       - name: Install dependencies
         run: yarn install
+        env:
+          CYPRESS_INSTALL_BINARY: 0
 
       - name: Install Cypress
         run: yarn cypress install

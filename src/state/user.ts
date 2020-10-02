@@ -1,5 +1,5 @@
 
-import { reactive } from '@vue/composition-api';
+import { reactive } from 'vue';
 
 
 export const user = reactive({

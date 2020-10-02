@@ -1,5 +1,5 @@
 
-import { ref, computed, ComputedRef } from '@vue/composition-api';
+import { ref, computed, ComputedRef } from 'vue';
 
 import { AbstractClient } from '~/src/api/AbstractClient';
 import { BrowserClient } from '~/src/api/BrowserClient';

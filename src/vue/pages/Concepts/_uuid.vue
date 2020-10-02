@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2 class="mt-5 mb-10 text-3xl" contenteditable @input="updateName" cy="field:concept.name">{{ concept.name }}</h2>
-    <Dropzone @drop="onDrop" style="min-height: 500px">
+    <Dropzone @files="onDrop" style="min-height: 500px">
       <div v-if="preview" class="grid grid-cols-1 sm:grid-cols-2 gap-2" cy="concept.preview">
         <div>
           <img v-if="preview" :src="preview" />
@@ -44,7 +44,7 @@
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import { defineComponent, onBeforeMount, ref, watch } from '@vue/composition-api';
+import { defineComponent, onBeforeMount, ref, watch } from 'vue';
 
 import { Concept } from '~/src/models/Concept';
 import { Fragment } from '~/src/models/Fragment';
@@ -104,8 +104,8 @@ export default defineComponent({
     };
 
     onBeforeMount(async () => {
-      if (router.currentRoute.params.uuid !== 'new') {
-        concept.value = await Concept.retrieve(router.currentRoute.params.uuid as string);
+      if (router.currentRoute.value.params.uuid !== 'new') {
+        concept.value = await Concept.retrieve(router.currentRoute.value.params.uuid as string);
 
         (await Fragment.list())
           .forEach(fragment => {
@@ -131,9 +131,9 @@ export default defineComponent({
 
 
     const onDrop = async (files: File[]) => {
-      for await (const file of files) {
+      await files.forEach(async (file) => {
         await addFile(file);
-      }
+      });
     };
 
     const updateName = ($event: InputEvent) => {

@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 import { Concept } from '~/src/models/Concept';
 import { Fragment } from '~/src/models/Fragment';

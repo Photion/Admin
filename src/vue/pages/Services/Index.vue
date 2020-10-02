@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 import { aws, gcp, googleDrive, browser, isDev } from '~/src/state/service';
 import Integration from '~/src/vue/components/pages/services/Integration.vue';

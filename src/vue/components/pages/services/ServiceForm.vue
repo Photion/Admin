@@ -27,7 +27,7 @@
 
 
 <script lang="ts">
-import { defineComponent, toRef, watch } from '@vue/composition-api';
+import { defineComponent, toRef, watch } from 'vue';
 
 import { router } from '~/src/vue/router';
 import { user } from '~/src/state/user';

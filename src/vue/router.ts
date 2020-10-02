@@ -1,9 +1,6 @@
-import Vue from 'vue';
-import Router, { RouteConfig } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 import { ready } from '~/src/state/service';
-
-Vue.use(Router);
 
 interface RouteOptions {
   alias?: string;
@@ -20,7 +17,7 @@ export const createRoute = (name: string, options: RouteOptions = {}) => {
   };
 };
 
-export const routes: Array<RouteConfig> = [
+export const routes: Array<RouteRecordRaw> = [
   // Index
   createRoute('Index'),
 
@@ -36,8 +33,8 @@ export const routes: Array<RouteConfig> = [
   createRoute('Concepts/_uuid'),
 ];
 
-export const router = new Router({
-  mode: 'history',
+export const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 

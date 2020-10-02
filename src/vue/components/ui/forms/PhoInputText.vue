@@ -6,7 +6,7 @@
         :cy="reference"
         :name="name"
         :type="type"
-        :value="value"
+        :value="modelValue"
         class="block border-2 border-gray-500 w-full rounded-lg px-3 py-1 outline-none focus:border-gray-800"
         @input="onInput" />
     </label>
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
 
@@ -31,7 +31,7 @@ export default defineComponent({
       type: String,
       default: () => '',
     },
-    value: {
+    modelValue: {
       type: String,
       required: true,
     },
@@ -45,7 +45,7 @@ export default defineComponent({
     const onInput = ($event: InputEvent) => {
       const target = $event.target as HTMLInputElement;
 
-      return context.emit('input', target.value);
+      return context.emit('update:modelValue', target.value);
     };
 
     const reference = props.cy || (props.name ? `field:${props.name}` : '');

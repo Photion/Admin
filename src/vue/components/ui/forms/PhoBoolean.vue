@@ -2,7 +2,7 @@
   <div>
     <input
       type="checkbox"
-      :value="value"
+      :value="modelValue"
       @input="onInput"
       :name="name"
       :cy="reference" />
@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
 
@@ -28,7 +28,7 @@ export default defineComponent({
       type: String,
       default: () => '',
     },
-    value: {
+    modelValue: {
       type: Boolean,
       required: true,
     },
@@ -38,7 +38,7 @@ export default defineComponent({
     const onInput = ($event: InputEvent) => {
       const target = $event.target as HTMLInputElement;
 
-      return context.emit('input', target.checked);
+      return context.emit('update:modelValue', target.checked);
     };
 
     const reference = props.cy || (props.name ? `field:${props.name}` : '');

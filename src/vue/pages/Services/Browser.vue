@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 import { browser } from '~/src/state/service';
 import ServiceForm from '~/src/vue/components/pages/services/ServiceForm.vue';

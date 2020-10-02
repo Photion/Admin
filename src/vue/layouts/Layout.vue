@@ -12,7 +12,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
+import { defineComponent, onBeforeMount, ref } from 'vue';
 import { init } from '~/src/state/secrets';
 import { service } from '~/src/state/service';
 

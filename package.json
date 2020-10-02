@@ -3,20 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "test:unit": "yarn test --selectProjects UNIT",
     "lint": "vue-cli-service lint",
     "publish:netlify": "yarn build --modern",
-    "serve": "vue-cli-service serve",
     "serve:dist": "yarn serve --mode production",
     "test": "NODE_ENV=test jest --colors",
-    "test:feat": "yarn test --selectProjects FEAT",
-    "test:unit": "yarn test --selectProjects UNIT"
+    "test:feat": "yarn test --selectProjects FEAT"
   },
   "dependencies": {
     "@sentry/browser": "^5.24.2",
     "@sentry/integrations": "^5.24.2",
     "@sentry/tracing": "^5.24.2",
-    "@vue/composition-api": "^1.0.0-beta.14",
     "aws-sdk": "^2.765.0",
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
@@ -26,8 +25,8 @@
     "tailwindcss": "^1.8.10",
     "typeface-roboto": "^0.0.75",
     "uuid": "^8.3.0",
-    "vue": "^2.6.11",
-    "vue-router": "^3.4.5"
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0-beta.13"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.10.4",
@@ -38,17 +37,19 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
-    "@vue/cli-plugin-babel": "~4.5.6",
-    "@vue/cli-plugin-eslint": "~4.5.6",
-    "@vue/cli-plugin-router": "~4.5.6",
-    "@vue/cli-plugin-typescript": "~4.5.6",
-    "@vue/cli-service": "~4.5.6",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-e2e-cypress": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0-0",
     "@vue/eslint-config-typescript": "^5.0.2",
     "@vue/test-utils": "^1.1.0",
     "cypress": "^5.3.0",
     "cz-conventional-changelog": "^3.3.0",
     "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-vue": "^7.0.0-0",
     "jest": "^26.4.2",
     "netlify-cli": "^2.64.1",
     "sass": "^1.26.11",
@@ -57,9 +58,11 @@
     "typescript": "~4.0.3",
     "vue-template-compiler": "^2.6.11"
   },
+  "_id": "webapp-admin@0.1.0",
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
-  }
+  },
+  "readme": "README.md"
 }

@@ -1,4 +1,4 @@
-import { computed, reactive } from '@vue/composition-api';
+import { computed, reactive } from 'vue';
 import { LocalStorageHandler } from 'lucertula/storage/localStorage';
 import { WebCryptoAesGcpHandler } from 'lucertula/strategy/web/aes-gcp';
 

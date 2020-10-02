@@ -5,13 +5,12 @@
       @input="onInput"
       @change="onInput"
       :multiple="multiple"
-      :options="options"
       :name="name"
       :cy="reference">
       <option
         v-for="option in options"
         :key="option.value"
-        :selected="value.includes(option.value)"
+        :selected="modelValue.includes(option.value)"
         :value="option.value">
         {{ option.text }}
       </option>
@@ -20,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 export default defineComponent({
 
@@ -45,7 +44,7 @@ export default defineComponent({
       type: String,
       default: () => '',
     },
-    value: {
+    modelValue: {
       type: [String, Array],
       required: true,
     },
@@ -58,7 +57,7 @@ export default defineComponent({
         .filter((option) => option.selected)
         .map((option) => option.value);
 
-      return context.emit('input', selected);
+      return context.emit('update:modelValue', selected);
     };
 
     const reference = props.cy || (props.name ? `field:${props.name}` : '');

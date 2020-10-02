@@ -2,13 +2,13 @@
   <div>
     <PhoButton @click="methods.open()">Create New</PhoButton>
     <PhoTable v-if="concepts.length">
-      <template slot="thead">
+      <template v-slot:thead>
         <tr>
           <th>Concept</th>
           <th>Actions</th>
         </tr>
       </template>
-      <template slot="tbody">
+      <template v-slot:tbody>
         <tr v-for="concept in concepts" :key="concept.uuid" :cy="`row:${concept.uuid}`">
           <td>{{ concept.name }}</td>
           <td>
@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount, ref } from '@vue/composition-api';
+import { defineComponent, onBeforeMount, ref } from 'vue';
 
 import { router } from '~/src/vue/router';
 import { Concept } from '~/src/models/Concept';

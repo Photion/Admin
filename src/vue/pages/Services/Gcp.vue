@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from '@vue/composition-api';
+import { defineComponent } from 'vue';
 
 import { secrets } from '~/src/state/secrets';
 import { gcp } from '~/src/state/service';
