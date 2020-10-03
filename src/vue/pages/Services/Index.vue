@@ -7,7 +7,7 @@
     </div>
     <div>
       <div>
-        <h2 class="text-h4 my-5">
+        <h2 class="text-3xl my-5">
           Easy
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -16,7 +16,7 @@
         </div>
       </div>
       <div>
-        <h2 class="text-h4 my-5">
+        <h2 class="text-3xl my-5">
           Nerdy
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">

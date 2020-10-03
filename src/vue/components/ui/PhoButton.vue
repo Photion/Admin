@@ -1,25 +1,31 @@
 <template>
   <button
-    :class="cssButton"
-    :disabled="color === 'disabled'"
-    class="rounded-lg px-5 py-2 tracking-wider transition-all duration-100"
     type="button"
+    class="pho-btn"
+    :class="color"
+    :disabled="disabled"
     @click="onClick">
-    <slot/>
+    <slot>
+      <span v-if="label">{{ label }}</span>
+    </slot>
   </button>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import {  defineComponent } from 'vue';
 
 export default defineComponent({
   props: {
     color: {
       type: String,
-      default: 'primary',
+      default: () => 'primary',
       validator: (color: string) => {
-        return ['primary', 'secondary', 'warning', 'danger', 'disabled'].indexOf(color) !== -1;
+        return ['primary', 'secondary', 'success', 'danger', 'disabled'].indexOf(color) !== -1;
       },
+    },
+    label: {
+      type: String,
+      default: () => '',
     },
   },
   setup(props, context) {
@@ -27,17 +33,11 @@ export default defineComponent({
       return context.emit('click', $event);
     };
 
-    const cssButton = computed(() => ({
-      'bg-gray-800 text-white hover:shadow-lg hover:bg-gray-700': props.color === 'primary',
-      'bg-teal-500 text-white hover:shadow-lg hover:bg-teal-400': props.color === 'secondary',
-      'bg-yellow-400 text-gray-900 hover:shadow-lg hover:bg-yellow-300': props.color === 'warning',
-      'bg-red-600 text-white hover:shadow-lg hover:bg-red-500': props.color === 'danger',
-      'bg-gray-300 text-gray-900': props.color === 'disabled',
-    }));
+    const disabled = props.color === 'disabled';
 
     return {
       onClick,
-      cssButton,
+      disabled,
     };
   },
 });

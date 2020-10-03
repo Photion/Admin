@@ -1,10 +1,12 @@
 <template>
-  <div>
-    <label v-if="label">{{ label }}</label>
+  <div class="pho-field-wrapper">
+    <label v-if="label" :for="identifier" class="pho-label">{{ label }}</label>
     <select
+      :id="identifier"
       @input="onInput"
       @change="onInput"
       :multiple="multiple"
+      class="pho-field"
       :name="name"
       :cy="reference">
       <option
@@ -20,6 +22,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+
+import { createIdentifier } from '~/src/vue/components/shared';
 
 export default defineComponent({
 
@@ -56,13 +60,14 @@ export default defineComponent({
       const selected = [...target.querySelectorAll('option')]
         .filter((option) => option.selected)
         .map((option) => option.value);
-
       return context.emit('update:modelValue', selected);
     };
 
-    const reference = props.cy || (props.name ? `field:${props.name}` : '');
+    const identifier = createIdentifier('field', props.name);
+    const reference = props.cy || identifier;
 
     return {
+      identifier,
       reference,
       onInput,
     };

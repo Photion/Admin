@@ -18,6 +18,7 @@
           <PhoInputText v-model="concept.description" name="concept.description" label="Description" />
           <PhoSelect v-model="concept.type" label="Type" name="concept.type" :options="types" />
           <PhoSelect
+            v-if="projects.length"
             multiple
             v-model="concept.projects"
             name="concept.projects"
@@ -28,12 +29,12 @@
             <PhoBoolean v-model="concept.public" name="concept.public" label="Public" />
             <PhoBoolean v-model="concept.featured" name="concept.featured"  label="Featured" />
           </div>
-          <div v-if="concept.created">
-            <PhoButton cy="button:concept.save" @click="concept.save()">Save</PhoButton>
-            <PhoButton cy="button:concept.remove" @click="concept.remove()">Delete</PhoButton>
+          <div v-if="concept.created" class="text-right space-x-1">
+            <PhoButton cy="button:concept.save" color="success" @click="concept.save()">Save</PhoButton>
+            <PhoButton cy="button:concept.remove" color="danger" @click="concept.remove()">Delete</PhoButton>
           </div>
           <div v-else>
-            <PhoButton cy="button:concept.create" @click="concept.save()">Create</PhoButton>
+            <PhoButton cy="button:concept.create" color="success" @click="concept.save()">Create</PhoButton>
           </div>
         </div>
       </div>

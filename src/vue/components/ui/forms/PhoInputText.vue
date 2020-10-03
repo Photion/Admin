@@ -1,13 +1,14 @@
 <template>
-  <div>
-    <label v-if="label">
+  <div class="pho-field-wrapper">
+    <label v-if="label" :for="identifier" class="pho-label">
       {{ label }}
       <input
+        class="pho-field"
+        :id="identifier"
         :cy="reference"
         :name="name"
         :type="type"
         :value="modelValue"
-        class="block border-2 border-gray-500 w-full rounded-lg px-3 py-1 outline-none focus:border-gray-800"
         @input="onInput" />
     </label>
   </div>
@@ -15,6 +16,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+
+import { createIdentifier } from '~/src/vue/components/shared';
 
 export default defineComponent({
 
@@ -48,9 +51,11 @@ export default defineComponent({
       return context.emit('update:modelValue', target.value);
     };
 
-    const reference = props.cy || (props.name ? `field:${props.name}` : '');
+    const identifier = createIdentifier('field', props.name);
+    const reference = props.cy || identifier;
 
     return {
+      identifier,
       reference,
       onInput,
     };
