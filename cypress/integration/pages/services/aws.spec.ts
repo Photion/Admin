@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference path="../../../support/index.d.ts" />
 
 context('/services/aws', () => {
   const user = {
@@ -14,7 +15,7 @@ context('/services/aws', () => {
     },
   };
 
-  const encrypted = `{"meta":{"key":"PHOTION_ENCRYPTION_STORAGE_KEY","serializer":"LocalStorageHandler","version":1,"datetime":1601216799928},"payload":"46dc8fd5e8a7c1741f720752MlATAP4Zj1SRVKGO6U1KHqwgnRCMaSnM+s3l4YgjFaaJjx0+hKGLsSsH1iT0VKAYhXrZsFzCusd4gGLs3x23xxVU9II1kykIbvMDhCln3SgX454Wd/ZxTzDfjDTL/3HqaNtOfrLjmZYs75g+7GlxBWVHmMWDCZhVn0XcDgFzb9GDIQjwasoGKSroRTzOUS6yw52OmH4ojL2QIekSH0Y41pMG1M9hQKRNfQ=="}`
+  const encrypted = '{"meta":{"key":"PHOTION_ENCRYPTION_STORAGE_KEY","serializer":"LocalStorageHandler","version":1,"datetime":1601216799928},"payload":"46dc8fd5e8a7c1741f720752MlATAP4Zj1SRVKGO6U1KHqwgnRCMaSnM+s3l4YgjFaaJjx0+hKGLsSsH1iT0VKAYhXrZsFzCusd4gGLs3x23xxVU9II1kykIbvMDhCln3SgX454Wd/ZxTzDfjDTL/3HqaNtOfrLjmZYs75g+7GlxBWVHmMWDCZhVn0XcDgFzb9GDIQjwasoGKSroRTzOUS6yw52OmH4ojL2QIekSH0Y41pMG1M9hQKRNfQ=="}';
 
   describe('Without sessionStorage data', () => {
     beforeEach(() => {
@@ -63,9 +64,9 @@ context('/services/aws', () => {
           const credentials = JSON.parse(window.sessionStorage.getItem('PHOTION_SESSION_CREDENTIALS'));
 
           expect(Boolean(credentials && credentials.aws)).to.be.true;
-          expect(credentials.aws.region).to.be.equal(secrets.aws.region)
-          expect(credentials.aws.accessKeyId).to.be.equal(secrets.aws.accessKeyId)
-          expect(credentials.aws.secretAccessKey).to.be.equal(secrets.aws.secretAccessKey)
+          expect(credentials.aws.region).to.be.equal(secrets.aws.region);
+          expect(credentials.aws.accessKeyId).to.be.equal(secrets.aws.accessKeyId);
+          expect(credentials.aws.secretAccessKey).to.be.equal(secrets.aws.secretAccessKey);
         });
     });
 
@@ -92,7 +93,7 @@ context('/services/aws', () => {
       });
 
     });
-  })
+  });
 
   describe('With encrypted localStorage data', () => {
     beforeEach(() => {

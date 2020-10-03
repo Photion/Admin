@@ -2,5 +2,8 @@
   "extends": [
     "../.eslintrc",
     "plugin:cypress/recommended"
-  ]
+  ],
+  "rules": {
+    "@typescript-eslint/triple-slash-reference": "off"
+  }
 }

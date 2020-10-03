@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference path="../../../support/index.d.ts" />
 
 context('/services', () => {
   describe('Without a client in localStorage', () => {
@@ -16,8 +17,8 @@ context('/services', () => {
       .forEach((testCase) => {
         it(`Displays the ${testCase.label} integration`, () => {
           cy.getCy(`integration:${testCase.slug}`)
-          .contains("Select")
-          .click();
+            .contains('Select')
+            .click();
 
           cy.location('pathname', { log: true })
             .should('eq', `/services/${testCase.slug}`);

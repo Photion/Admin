@@ -3,76 +3,6 @@ name: test-and-build
 on: [push]
 
 jobs:
-  unit-tests:
-    name: Run Unit Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-
-      - name: Restore cache
-        uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install dependencies
-        run: yarn install
-        env:
-          CYPRESS_INSTALL_BINARY: 0
-
-      - name: Run Unit Tests
-        run: yarn test:unit
-        env:
-          COVERAGE: true
-          CI: true
-
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-
-  feat-tests:
-    name: Run Feature Tests
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Use Node.js 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12.x
-
-      - name: Restore cache
-        uses: actions/cache@v2
-        with:
-          path: '**/node_modules'
-          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
-
-      - name: Install dependencies
-        run: yarn install
-        env:
-          CYPRESS_INSTALL_BINARY: 0
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ secrets.AWS_REGION }}
-
-
-      - name: Run Feature Tests
-        run: yarn test:feat
-        env:
-          CI: true
-
   build:
     name: Build
     runs-on: ubuntu-16.04
@@ -119,8 +49,81 @@ jobs:
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
+  unit-tests:
+    name: Unit Tests and ESLint
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+
+      - name: Run Eslint
+        run: yarn lint
+
+      - name: Run Unit Tests
+        run: yarn test:unit
+        env:
+          COVERAGE: true
+          CI: true
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+
+  feat-tests:
+    name: Feature Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Restore cache
+        uses: actions/cache@v2
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-modules-${{ hashFiles('**/yarn.lock') }}
+
+      - name: Install dependencies
+        run: yarn install
+        env:
+          CYPRESS_INSTALL_BINARY: 0
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+
+      - name: Run Feature Tests
+        run: yarn test:feat
+        env:
+          CI: true
+
   e2e-tests:
-    name: Run E2E Tests
+    name: E2E Tests
     needs: [build]
     runs-on: ubuntu-16.04
     container:
@@ -159,7 +162,7 @@ jobs:
 
 
   publish-netlify:
-    name: Publish on Netlify (production)
+    name: Deploy to Production
     if: github.ref == 'refs/heads/master'
     needs: [build, unit-tests, feat-tests, e2e-tests]
     runs-on: ubuntu-16.04

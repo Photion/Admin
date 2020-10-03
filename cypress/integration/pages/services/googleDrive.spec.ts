@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference path="../../../support/index.d.ts" />
 
 context('/services/googleDrive', () => {
   describe('Without a client in localStorage', () => {

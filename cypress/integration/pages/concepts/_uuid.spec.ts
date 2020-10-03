@@ -1,19 +1,21 @@
 /// <reference types="cypress" />
+/// <reference path="../../../support/index.d.ts" />
 
 import dayjs from 'dayjs';
 import { concepts, fragments, projects } from '../../../../tests/mocks/models';
 
 context('/concepts/:uuid', () => {
   const today = dayjs().format('YYYY-MM-DD');
-  const [year, month, day] = today.split('-').map(Number);
+  // const [year, month, day] = today.split('-').map(Number);
 
   // Ensure another day has 2 digits
-  const anotherDay = day >= 28 ? (day - 1) : (day + 1);
+  // const anotherDay = day >= 28 ? (day - 1) : (day + 1);
   // const targetDate = dayjs(new Date([year, month, anotherDay].map(String).join('-'))).format('YYYY-MM-DD');
   const targetDate = today;
 
   describe('Creating a new concept', () => {
-    const concept: any = {
+    const concept = {
+      uuid: null,
       name: 'assets/alinatrifan.sheffield',
       description: 'My Description',
       projects: [projects.valid[0].uuid],
@@ -24,56 +26,56 @@ context('/concepts/:uuid', () => {
       featured: false,
     };
 
-    const fragment: any = {
-      uuid: "8de15315-0719-4ae4-96b9-40cdfd1145fc",
-      concept: "1f95737a-0344-4791-8680-02de5af82a7d",
+    const fragment = {
+      uuid: '8de15315-0719-4ae4-96b9-40cdfd1145fc',
+      concept: '1f95737a-0344-4791-8680-02de5af82a7d',
       meta: {
-          filename: "assets/alinatrifan.sheffield.jpg",
-          mime: "image/jpeg",
-          size: 201256,
-          storage: "PREVIEW",
-          tags: {
-              "Bits Per Sample": {
-                  "value": 8,
-                  "description": "8"
-              },
-              "Image Height": {
-                  "value": 853,
-                  "description": "853px"
-              },
-              "Image Width": {
-                  "value": 1280,
-                  "description": "1280px"
-              },
-              "Color Components": {
-                  "value": 3,
-                  "description": "3"
-              },
-              "Subsampling": {
-                  "value": [
-                      [
-                          1,
-                          17,
-                          0
-                      ],
-                      [
-                          2,
-                          17,
-                          1
-                      ],
-                      [
-                          3,
-                          17,
-                          1
-                      ]
-                  ],
-                  "description": "YCbCr4:4:4 (1 1)"
-              }
+        filename: 'assets/alinatrifan.sheffield.jpg',
+        mime: 'image/jpeg',
+        size: 201256,
+        storage: 'PREVIEW',
+        tags: {
+          'Bits Per Sample': {
+            'value': 8,
+            'description': '8',
           },
-          date: null
+          'Image Height': {
+            'value': 853,
+            'description': '853px',
+          },
+          'Image Width': {
+            'value': 1280,
+            'description': '1280px',
+          },
+          'Color Components': {
+            'value': 3,
+            'description': '3',
+          },
+          'Subsampling': {
+            'value': [
+              [
+                1,
+                17,
+                0,
+              ],
+              [
+                2,
+                17,
+                1,
+              ],
+              [
+                3,
+                17,
+                1,
+              ],
+            ],
+            'description': 'YCbCr4:4:4 (1 1)',
+          },
+        },
+        date: null,
       },
-      notes: ""
-  }
+      notes: '',
+    };
 
     beforeEach(() => {
       cy.useHttp();
@@ -100,8 +102,8 @@ context('/concepts/:uuid', () => {
       cy.getFile('assets/alinatrifan.sheffield.jpg', 'image/jpeg')
         .then((value) => {
           cy.get('.dropzone')
-          .trigger('dagover')
-          .trigger('drop', { dataTransfer: value.dataTransfer });
+            .trigger('dagover')
+            .trigger('drop', { dataTransfer: value.dataTransfer });
         });
 
       cy.getCy('concept.preview')
@@ -137,7 +139,11 @@ context('/concepts/:uuid', () => {
         .click();
 
       cy.wait('@concepts/post')
-        .then((xhr: any) => {
+        .then((xhr) => {
+          if (typeof xhr.request.body === 'string') {
+            throw new Error('Invalid body');
+          }
+
           concept.uuid = xhr.request.body.uuid;
           fragment.concept = concept.uuid;
           expect(xhr.request.body).to.deep.equal(concept);
@@ -158,16 +164,20 @@ context('/concepts/:uuid', () => {
         .click();
 
       cy.wait('@fragments/post')
-        .then((xhr: any) => {
+        .then((xhr) => {
+          if (typeof xhr.request.body === 'string') {
+            throw new Error('Invalid body');
+          }
+
           fragment.uuid = xhr.request.body.uuid;
           expect(xhr.request.body).to.be.deep.equal(fragment);
         });
 
       cy.wait('@fragments/upload');
 
-      cy.getCy('button:fragment.save')
+      cy.getCy('button:fragment.save');
 
-      cy.getCy('button:fragment.download')
+      cy.getCy('button:fragment.download');
 
       cy.getCy('button:fragment.remove')
         .click();

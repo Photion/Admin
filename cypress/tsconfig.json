@@ -3,7 +3,10 @@
   "compilerOptions": {
     "sourceMap": false,
     "lib": ["es2015", "dom"],
-    "types": ["cypress", "node"]
+    "types": [
+      "cypress",
+      "node"
+    ]
   },
   "include": [
     "../src/**/*.ts",

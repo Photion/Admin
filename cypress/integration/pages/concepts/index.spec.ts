@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference path="../../../support/index.d.ts" />
 
 import { concepts } from '../../../../tests/mocks/models';
 
@@ -35,9 +36,9 @@ context('/concepts', () => {
     it('Displays a valid page', () => {
       cy.getCy(`row:${concept.uuid}`).within(() => {
         cy.contains(concept.name);
-        cy.contains("Delete");
+        cy.contains('Delete');
 
-        cy.contains("Open").click();
+        cy.contains('Open').click();
 
         cy.url()
           .should('include', `/concepts/${concept.uuid}`);
