@@ -219,5 +219,31 @@ context('/concepts/:uuid', () => {
       // cy.getCy('field:concept.projects').should('have.deep.value', concept.projects);
       cy.getCy('field:concept.date').should('have.value', concept.date);
     });
+
+  });
+
+  describe('Without projects', () => {
+    const concept = concepts.valid[0];
+
+    beforeEach(() => {
+      cy.useHttp();
+      cy.server();
+
+      cy.route('GET', `/api/concepts/${concept.uuid}`, concept).as('concepts/get');
+      cy.route('GET', '/api/fragments', fragments.valid).as('fragments/get');
+      cy.route('GET', '/api/projects', []).as('projects/get');
+
+      cy.visit(`/concepts/${concept.uuid}`);
+    });
+
+    it('Doesn\'t display \'Projects\' if thet are not defined', () => {
+      cy.wait('@concepts/get');
+      cy.wait('@fragments/get');
+      cy.wait('@projects/get');
+
+      cy.getCy('field:concept.projects')
+        .should('not.exist');
+
+    });
   });
 });

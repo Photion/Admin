@@ -1,13 +1,15 @@
 <template>
   <div>
-    <PhoCard :cy="`integration:${service.slug}`" clickable :logo="service.logo">
+    <PhoXCard :cy="`integration:${service.slug}`" clickable :logo="service.logo">
       <router-link :to="data.target">
         <div><strong>{{ service.name }}</strong></div>
         <div><small>{{ service.description }}</small></div>
-        <div v-if="selected">Back to all services</div>
-        <div v-else>Select</div>
+        <div class="text-right mt-3">
+          <PhoButton v-if="selected" color="danger" label="Back to all services" />
+          <PhoButton v-else label="Select" />
+        </div>
       </router-link>
-    </PhoCard>
+    </PhoXCard>
   </div>
 </template>
 
@@ -15,12 +17,14 @@
 import { defineComponent } from 'vue';
 
 import { Service } from '~/src/models/services';
-import PhoCard from '~/src/vue/components/ui/PhoCard.vue';
+import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
+import PhoXCard from '~/src/vue/components/ui/PhoXCard.vue';
 
 export default defineComponent({
 
   components: {
-    PhoCard,
+    PhoButton,
+    PhoXCard,
   },
 
   props: {

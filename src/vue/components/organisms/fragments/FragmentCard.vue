@@ -1,12 +1,12 @@
 <template>
   <div cy="fragment.card">
     <div>{{ fragment.uuid }}</div>
-    <div v-if="fragment.created">
-      <PhoButton cy="button:fragment.save" @click="fragment.save()">Save</PhoButton>
-      <PhoButton cy="button:fragment.download" @click="fragment.save()">Download</PhoButton>
-      <PhoButton cy="button:fragment.remove" @click="removeFragment">Delete</PhoButton>
+    <div v-if="fragment.created" class="space-x-1">
+      <PhoButton cy="button:fragment.save" color="success" @click="fragment.save()">Save</PhoButton>
+      <PhoButton cy="button:fragment.download" color="success" @click="fragment.save()">Download</PhoButton>
+      <PhoButton cy="button:fragment.remove" color="danger" @click="removeFragment">Delete</PhoButton>
     </div>
-    <div v-else>
+    <div v-else class="space-x-1">
       <PhoButton cy="button:fragment.upload" @click="fragment.upload()">Upload</PhoButton>
     </div>
   </div>

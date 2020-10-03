@@ -17,7 +17,7 @@
         <div v-if="preview">
           <PhoButton color="disabled" cy="button:service.soon">Coming Soon</PhoButton>
         </div>
-        <div v-else>
+        <div v-else class="text-right">
           <PhoButton cy="button:service.continue" @click="onContinue">Continue</PhoButton>
         </div>
       </div>
