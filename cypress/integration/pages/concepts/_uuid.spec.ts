@@ -121,8 +121,10 @@ context('/concepts/:uuid', () => {
       cy.getCy('field:concept.type')
         .should('have.value', concept.type);
 
-      cy.getCy('field:concept.projects')
-        .select(projects.valid[0].uuid);
+      cy.phoSelect('field:concept.type', ['VIDEO']);
+      cy.phoSelect('field:concept.type', [concept.type]);
+
+      cy.phoSelect('field:concept.projects', [projects.valid[0].uuid], true);
 
       cy.getCy('field:concept.date')
         .should('have.value', dayjs().format('YYYY-MM-DD'))
@@ -216,7 +218,7 @@ context('/concepts/:uuid', () => {
       cy.getCy('field:concept.name').contains(concept.name);
       cy.getCy('field:concept.description').should('have.value', concept.description);
       cy.getCy('field:concept.type').should('have.value', concept.type);
-      // cy.getCy('field:concept.projects').should('have.deep.value', concept.projects);
+      cy.getCy('field:concept.projects').should('have.deep.value', concept.projects.join(','));
       cy.getCy('field:concept.date').should('have.value', concept.date);
     });
 

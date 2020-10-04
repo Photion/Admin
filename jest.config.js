@@ -1,6 +1,7 @@
 /* eslint-disable */
 const getConfig = (type, color = 'blue', coverage = false) => {
   const config = {
+    testEnvironment: 'jsdom',
     displayName: {
       name: type.toUpperCase(),
       color,
@@ -14,6 +15,10 @@ const getConfig = (type, color = 'blue', coverage = false) => {
     testMatch: [
       `<rootDir>/tests/${type}/**/*.test.ts`,
     ],
+    transform: {
+      "^.+\\.vue$": "vue-jest",
+      "^.+\\.ts$": "babel-jest"
+    },
   };
 
   return config;
