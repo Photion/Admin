@@ -13,7 +13,7 @@
         aria-expanded="true">
         <div class="flex">
           <div class="flex-grow text-left">{{ displayValue }}</div>
-          <div style="margin-right: 5px">
+          <div class="flex" style="margin-right: 5px">
             <FontAwesomeIcon v-if="showOptions" icon="times"  @click="fn.toggleMenu(false, $event)" :cy="`${reference}:trigger:close`"  />
             <FontAwesomeIcon v-else icon="chevron-down" :cy="`${reference}:trigger:open`" />
           </div>
@@ -44,11 +44,11 @@
 
 <script lang="ts">
 import { defineComponent, ref, computed, PropType } from 'vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { createIdentifier } from '~/src/vue/components/shared';
 import PhoSelectOption from '~/src/vue/components/ui/forms/PhoSelectOption.vue';
 import { SelectOption, SelectOptionValue } from '~/src/utils';
+import FontAwesomeIcon from '~/src/vue/components/ui/forms/FontAwesomeIcon.vue';
 
 export default defineComponent({
 

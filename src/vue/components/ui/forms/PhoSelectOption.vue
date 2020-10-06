@@ -13,11 +13,12 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { SelectOption } from '~/src/utils';
+import FontAwesomeIcon from '~/src/vue/components/ui/forms/FontAwesomeIcon.vue';
 
 export default defineComponent({
+
   components: {
     FontAwesomeIcon,
   },
