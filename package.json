@@ -13,7 +13,7 @@
     "test:feat": "yarn test --selectProjects FEAT"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-svg-core": "^1.2.31",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.0",
     "@fortawesome/vue-fontawesome": "^3.0.0-1",
     "@sentry/browser": "^5.24.2",
