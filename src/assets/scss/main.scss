@@ -11,16 +11,13 @@
 
 .pho-label {
   @apply font-bold;
+  @apply text-sm;
 }
 
 .pho-field {
   @apply block;
-  @apply border-2;
   @apply border-gray-500;
   @apply w-full;
-  @apply rounded-md;
-  @apply mt-1;
-  @apply px-3;
   @apply py-1;
   @apply text-sm;
   @apply outline-none;
@@ -28,6 +25,9 @@
   @apply transition;
   @apply duration-200;
   @apply ease-in;
+
+  border-width: 0;
+  border-bottom-width: 2px;
 
   &:focus {
     @apply border-gray-800;

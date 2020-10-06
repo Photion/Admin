@@ -4,7 +4,7 @@ import { Integrations } from '@sentry/tracing';
 const sentryDsn = process.env.VUE_APP_SENTRY_DSN;
 const releaseId = process.env.PHOTION_RELEASE_ID || process.env.GITHUB_SHA || 'dev';
 
-if (sentryDsn) {
+if (!sentryDsn) {
   Sentry.init({
     dsn: sentryDsn,
     integrations: [

@@ -2,7 +2,7 @@
   <div>
     <h2 class="mt-5 mb-10 text-3xl" contenteditable @input="updateName" cy="field:concept.name">{{ concept.name }}</h2>
     <Dropzone @files="onDrop" style="min-height: 500px">
-      <div v-if="preview" class="grid grid-cols-1 sm:grid-cols-2 gap-2" cy="concept.preview">
+      <div v-if="preview" class="grid grid-cols-1 sm:grid-cols-2 gap-6" cy="concept.preview">
         <div>
           <img v-if="preview" :src="preview" />
           <div>
@@ -33,7 +33,7 @@
             <PhoButton cy="button:concept.save" color="success" @click="concept.save()">Save</PhoButton>
             <PhoButton cy="button:concept.remove" color="danger" @click="concept.remove()">Delete</PhoButton>
           </div>
-          <div v-else>
+          <div v-else class="text-right space-x-1">
             <PhoButton cy="button:concept.create" color="success" @click="concept.save()">Create</PhoButton>
           </div>
         </div>

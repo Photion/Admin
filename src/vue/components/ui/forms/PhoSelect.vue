@@ -8,7 +8,7 @@
         @click="fn.toggleMenu(!showOptions)"
         @focusend="fn.toggleMenu(false)"
         type="button"
-        class="pho-field"
+        class="pho-field focus:outline-none"
         aria-haspopup="true"
         aria-expanded="true">
         <div class="flex">
