@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit.vue.components.ui.forms.PhoSelect Displays the options menu 1`] = `
+<div
+  class="pho-field-wrapper relative"
+>
+  <!--v-if-->
+  <div
+    class="relative"
+  >
+    <button
+      aria-expanded="true"
+      aria-haspopup="true"
+      class="pho-field"
+      cy="field:pho-select-comp:trigger"
+      id="field:pho-select-comp:trigger"
+      type="button"
+    >
+      <div
+        class="flex"
+      >
+        <div
+          class="flex-grow text-left"
+        >
+          Second
+        </div>
+        <div
+          style="margin-right: 5px;"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-times fa-w-11"
+            cy="field:pho-select-comp:trigger:close"
+            data-icon="times"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            viewBox="0 0 352 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class=""
+              d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </div>
+      <div
+        class="absolute left-0 w-full mt-2 w-56 rounded-md shadow-lg cursor-pointer"
+        style="z-index: 10;"
+      >
+        <div
+          aria-labelledby="options-menu"
+          aria-orientation="vertical"
+          class="rounded-md bg-white shadow-xs py"
+          role="menu"
+        >
+          
+          <div
+            class=""
+            cy="field:pho-select-comp:option:1"
+            id="field:pho-select-comp:option:1"
+            role="menuitem"
+            value="1"
+          >
+            <span>
+              First
+            </span>
+            <!--v-if-->
+          </div>
+          <div
+            class=""
+            cy="field:pho-select-comp:option:2"
+            id="field:pho-select-comp:option:2"
+            role="menuitem"
+            value="2"
+          >
+            <span>
+              Second
+            </span>
+            <svg
+              aria-hidden="true"
+              class="svg-inline--fa fa-check-square fa-w-14 text-primary-600"
+              data-icon="check-square"
+              data-prefix="fas"
+              focusable="false"
+              role="img"
+              viewBox="0 0 448 512"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                class=""
+                d="M400 480H48c-26.51 0-48-21.49-48-48V80c0-26.51 21.49-48 48-48h352c26.51 0 48 21.49 48 48v352c0 26.51-21.49 48-48 48zm-204.686-98.059l184-184c6.248-6.248 6.248-16.379 0-22.627l-22.627-22.627c-6.248-6.248-16.379-6.249-22.628 0L184 302.745l-70.059-70.059c-6.248-6.248-16.379-6.248-22.628 0l-22.627 22.627c-6.248 6.248-6.248 16.379 0 22.627l104 104c6.249 6.25 16.379 6.25 22.628.001z"
+                fill="currentColor"
+              />
+            </svg>
+          </div>
+          <div
+            class=""
+            cy="field:pho-select-comp:option:44"
+            id="field:pho-select-comp:option:44"
+            role="menuitem"
+            value="44"
+          >
+            <span>
+              Fortyforth
+            </span>
+            <!--v-if-->
+          </div>
+          
+        </div>
+      </div>
+    </button>
+  </div>
+  <input
+    class="hidden"
+    cy="field:pho-select-comp"
+    id="field:pho-select-comp"
+    name="pho-select-comp"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoSelect Mounts 1`] = `
+<div
+  class="pho-field-wrapper relative"
+>
+  <!--v-if-->
+  <div
+    class="relative"
+  >
+    <button
+      aria-expanded="true"
+      aria-haspopup="true"
+      class="pho-field"
+      cy="field:pho-select-comp:trigger"
+      id="field:pho-select-comp:trigger"
+      type="button"
+    >
+      <div
+        class="flex"
+      >
+        <div
+          class="flex-grow text-left"
+        >
+          Second
+        </div>
+        <div
+          style="margin-right: 5px;"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-chevron-down fa-w-14"
+            cy="field:pho-select-comp:trigger:open"
+            data-icon="chevron-down"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            viewBox="0 0 448 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class=""
+              d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </div>
+      <!--v-if-->
+    </button>
+  </div>
+  <input
+    class="hidden"
+    cy="field:pho-select-comp"
+    id="field:pho-select-comp"
+    name="pho-select-comp"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoSelect Selects a new option, changes its value 1`] = `
+Object {
+  "update:modelValue": Array [
+    Array [
+      44,
+    ],
+  ],
+}
+`;
+
+exports[`unit.vue.components.ui.forms.PhoSelect Selects multiple 1`] = `
+Object {
+  "update:modelValue": Array [
+    Array [
+      Array [
+        44,
+      ],
+    ],
+  ],
+}
+`;
+
+exports[`unit.vue.components.ui.forms.PhoSelect Selects multiple 2`] = `
+Object {
+  "update:modelValue": Array [
+    Array [
+      Array [
+        44,
+      ],
+    ],
+    Array [
+      Array [
+        44,
+        1,
+      ],
+    ],
+  ],
+}
+`;
+
+exports[`unit.vue.components.ui.forms.PhoSelect Stores the current value in a hidden input Multiple 1`] = `"2"`;
+
+exports[`unit.vue.components.ui.forms.PhoSelect Stores the current value in a hidden input Multiple 2`] = `"2,44"`;
+
+exports[`unit.vue.components.ui.forms.PhoSelect Stores the current value in a hidden input Single 1`] = `"2"`;
+
+exports[`unit.vue.components.ui.forms.PhoSelect Stores the current value in a hidden input Single 2`] = `"44"`;

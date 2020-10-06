@@ -1,33 +1,26 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add("login", (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add("drag", { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add("dismiss", { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
-
+/**
+ * Shorthand returning the element marked with
+ * the data attribute `cy="${selector}"`.
+ * All important elements should be marked
+ * using a `cy` data attribute.
+ *
+ * @example
+ * cy.getCy('my-cy-tag')
+ */
 Cypress.Commands.add('getCy', (selector) => {
   cy.get(`[cy="${selector}"]`);
 });
 
+/**
+ * Loads a fixture file into memory
+ * so that it can be passed to inputs.
+ *
+ * @example
+ * cy.getFile('path/to/fixture', 'image/png')
+ *  .then(({ file, dataTransfer}) => {
+ *    ...
+ *  });
+ */
 Cypress.Commands.add('getFile', (path, mime) => {
   cy.fixture(path, 'base64')
     .then(content => Cypress.Blob.base64StringToBlob(content, mime))
@@ -41,6 +34,13 @@ Cypress.Commands.add('getFile', (path, mime) => {
     });
 });
 
+/**
+ * Attaches a file to a chained input element
+ *
+ * @example
+ * cy.get('#my-file-input')
+ *  .attachFile(path, mime)
+ */
 Cypress.Commands.add('attachFile', { prevSubject: 'element' }, (el, path, mime) => {
   cy.getFile(path, mime)
     .then(({ dataTransfer }) => {
@@ -49,28 +49,74 @@ Cypress.Commands.add('attachFile', { prevSubject: 'element' }, (el, path, mime) 
     });
 });
 
+/**
+ * Interacts with a PhoSelect, given a cy-based selector
+ * and the array of values to set. Allows to specify
+ * whether the select is multiple and therefore
+ * explicit option men dismissal is required
+ *
+ * @example
+ * cy.phoSelect('field:concept.type', ['VIDEO']);
+ * cy.phoSelect('field:concept.type', [concept.type]);
+ * cy.phoSelect('field:concept.projects', [projects.valid[0].uuid], true);
+ */
+Cypress.Commands.add('phoSelect', (selector, values, multiple = false) => {
+  cy.getCy(`${selector}:trigger`)
+    .click();
 
-Cypress.Commands.add('waitJson', (alias) => {
-  cy.wait(alias).then((xhr) => {
-    return xhr.request.body;
+  values.forEach((value) => {
+    cy.getCy(`${selector}:option:${value}`)
+      .click();
   });
+
+  cy.getCy(selector)
+    .should('have.value', values.join(','));
+
+  if (multiple) {
+    cy.getCy(`${selector}:trigger:close`)
+      .click();
+  }
 });
 
+/**
+ * Clears all Photion integration info
+ * stored in the session storage.
+ *
+ * Helpful in `before` hooks to setup an integration.
+ */
 Cypress.Commands.add('clearIntegrations', () => {
   window.sessionStorage.removeItem('PHOTION_USERNAME');
   window.sessionStorage.removeItem('PHOTION_SESSION_CREDENTIALS');
 });
 
+/**
+ * Sets the `browser` integration type
+ * in the session storage.
+ *
+ * Helpful in `before` hooks to setup an integration.
+ */
 Cypress.Commands.add('useBrowser', () => {
   window.sessionStorage.setItem('PHOTION_USERNAME', Cypress.env('USERNAME'));
   window.localStorage.setItem('PHOTION_INTEGRATION', 'browser');
 });
 
+/**
+ * Sets the `http` integration type
+ * in the session storage.
+ *
+ * Helpful in `before` hooks to setup an integration.
+ */
 Cypress.Commands.add('useHttp', () => {
   window.sessionStorage.setItem('PHOTION_USERNAME', Cypress.env('USERNAME'));
   window.localStorage.setItem('PHOTION_INTEGRATION', 'http');
 });
 
+/**
+ * Sets the `aws` integration type
+ * in the session storage.
+ *
+ * Helpful in `before` hooks to setup an integration.
+ */
 Cypress.Commands.add('useAws', () => {
   window.localStorage.setItem('PHOTION_INTEGRATION', 'aws');
   window.sessionStorage.setItem('PHOTION_USERNAME', Cypress.env('USERNAME'));

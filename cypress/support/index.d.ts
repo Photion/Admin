@@ -12,11 +12,12 @@ declare namespace Cypress {
 
    getFile(path: string, mime: string): Chainable<{ file: File, dataTransfer: DataTransfer }>
    attachFile(path: string, mime: string): Chainable<Element>
-   waitJson(alias: string): Chainable<Element>
+   phoSelect(selector: string, values: string[], multiple?: boolean): Chainable<Element>
 
    clearIntegrations(): Chainable<Element>
    useBrowser(): Chainable<Element>
    useHttp(): Chainable<Element>
    useAws(): Chainable<Element>
+
   }
 }
