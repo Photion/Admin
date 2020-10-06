@@ -9,6 +9,7 @@
         :name="name"
         :type="type"
         :value="modelValue"
+        :disabled="disabled"
         @input="onInput" />
     </label>
   </div>
@@ -37,6 +38,10 @@ export default defineComponent({
     modelValue: {
       type: String,
       required: true,
+    },
+    disabled: {
+      type: Boolean,
+      default: () => false,
     },
     type: {
       type: String,
