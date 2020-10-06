@@ -55,7 +55,7 @@
     "eslint-plugin-vue": "^7.0.1",
     "jest": "^26.5.2",
     "netlify-cli": "^2.65.0",
-    "sass": "^1.26.11",
+    "sass": "^1.26.12",
     "sass-loader": "^10.0.2",
     "sinon": "^9.1.0",
     "typescript": "~4.0.3",
