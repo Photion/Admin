@@ -153,9 +153,6 @@ context('/concepts/:uuid', () => {
 
       cy.getCy('fragment.card');
 
-      cy.getCy('button:fragment.save')
-        .should('not.exist');
-
       cy.getCy('button:fragment.download')
         .should('not.exist');
 
@@ -176,8 +173,6 @@ context('/concepts/:uuid', () => {
         });
 
       cy.wait('@fragments/upload');
-
-      cy.getCy('button:fragment.save');
 
       cy.getCy('button:fragment.download');
 
