@@ -1,5 +1,5 @@
 <template>
-  <table class="table-auto">
+  <table class="table-auto min-w-full">
     <thead>
       <slot name="thead" />
     </thead>
