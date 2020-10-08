@@ -33,12 +33,22 @@ context('/concepts', () => {
       cy.visit('/concepts');
     });
 
-    it('Displays a valid page', () => {
+    it('Has valid name column', () => {
       cy.getCy(`row:${concept.uuid}`).within(() => {
-        cy.contains(concept.name);
-        cy.contains('Delete');
+        cy.contains(concept.name)
+          .click();
 
-        cy.contains('Open').click();
+        cy.url()
+          .should('include', `/concepts/${concept.uuid}`);
+      });
+    });
+
+    it('Has valid actions column', () => {
+      cy.getCy(`row:${concept.uuid}`).within(() => {
+
+        cy.getCy('button:concept.delete');
+        cy.getCy('button:concept.open')
+          .click();
 
         cy.url()
           .should('include', `/concepts/${concept.uuid}`);

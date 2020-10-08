@@ -5,6 +5,10 @@
 //noinspection ALL
 @tailwind utilities;
 
+.text-2xs {
+  font-size: 11px;
+}
+
 .pho-field-wrapper {
   @apply mb-4;
 }
@@ -27,7 +31,7 @@
   @apply ease-in;
 
   border-width: 0;
-  border-bottom-width: 2px;
+  border-bottom-width: 1px;
 
   &:focus {
     @apply border-gray-800;
@@ -107,14 +111,16 @@
 
 .pho-btn {
   @apply text-white;
-  @apply text-xs;
+  @apply text-2xs;
   @apply uppercase;
   @apply rounded-md;
-  @apply px-5;
+  @apply px-4;
   @apply py-1;
   @apply tracking-wider;
   @apply transition-all;
   @apply duration-500;
+
+  min-height: 22px;
 
   &:hover {
     @apply shadow-lg;

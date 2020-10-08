@@ -17,3 +17,17 @@ export const createIdentifier = (type: string, name?: string) => {
 
   return `${type}:${internalName}`;
 };
+
+/**
+ * Shared component props.
+ */
+export const componentProps = {
+  name: {
+    type: String,
+    default: () => '',
+  },
+  uuid: {
+    type: String,
+    default: () => uuid4(),
+  },
+};
