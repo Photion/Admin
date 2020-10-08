@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit.vue.components.ui.PhoButton Mounts 1`] = `
+<button
+  class="pho-btn primary"
+  cy="button:pho-button-comp"
+  id="button:pho-button-comp:my-uuid"
+  type="button"
+>
+  
+  <!--v-if-->
+  <!--v-if-->
+  
+</button>
+`;
+
+exports[`unit.vue.components.ui.PhoButton Renders the icon 1`] = `
+<button
+  class="pho-btn primary"
+  cy="button:pho-button-comp"
+  id="button:pho-button-comp:my-uuid"
+  type="button"
+>
+  
+  <svg
+    class=""
+    style="width: 12px;"
+    viewBox="0 0 352 512"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+      fill="currentColor"
+    />
+  </svg>
+  <!--v-if-->
+  
+</button>
+`;
+
+exports[`unit.vue.components.ui.PhoButton Renders the label 1`] = `
+<button
+  class="pho-btn primary"
+  cy="button:pho-button-comp"
+  id="button:pho-button-comp:my-uuid"
+  type="button"
+>
+  
+  <!--v-if-->
+  <span>
+    Magic Button
+  </span>
+  
+</button>
+`;
+
+exports[`unit.vue.components.ui.PhoButton Sets the attributes 1`] = `
+Object {
+  "class": "pho-btn primary",
+  "cy": "button:pho-button-comp",
+  "id": "button:pho-button-comp:my-uuid",
+  "type": "button",
+}
+`;

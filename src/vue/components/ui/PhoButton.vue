@@ -5,8 +5,7 @@
     :class="color"
     :id="`${identifier}:${uuid}`"
     :disabled="disabled"
-    :cy="identifier"
-    @click="onClick">
+    :cy="identifier">
     <slot>
       <FontAwesomeIcon v-if="icon" :icon="icon" />
       <span v-if="label">{{ label }}</span>
@@ -42,16 +41,11 @@ export default defineComponent({
       default: () => '',
     },
   },
-  setup(props, context) {
-    const onClick = ($event: MouseEvent) => {
-      return context.emit('click', $event);
-    };
-
+  setup(props) {
     const disabled = props.color === 'disabled';
     const identifier = createIdentifier('button', props.name);
 
     return {
-      onClick,
       disabled,
       identifier,
     };
