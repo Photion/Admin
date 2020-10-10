@@ -20,19 +20,13 @@
 import { defineComponent } from 'vue';
 
 import { useId, componentProps } from '~/src/vue/components/shared';
+import { getFormProps } from '~/src/vue/components/ui/forms/forms';
 
 export default defineComponent({
 
   props: {
     ...componentProps,
-    label: {
-      type: String,
-      default: () => '',
-    },
-    modelValue: {
-      type: Boolean,
-      required: true,
-    },
+    ...getFormProps(Boolean),
   },
 
   setup(props, context) {

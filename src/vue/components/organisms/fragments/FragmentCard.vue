@@ -1,7 +1,7 @@
 <template>
   <div cy="fragment.card" class="py-3">
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <PhoInputText v-model="fragment.meta.filename" label="Filename" name="fragment.meta.filename" disabled />
+      <PhoTextField v-model="fragment.meta.filename" label="Filename" name="fragment.meta.filename" disabled />
       <PhoSelect v-model="fragment.meta.storage" :options="storages" label="Role" name="fragment.meta.storage" />
     </div>
     <div class="w-full text-right">
@@ -32,7 +32,7 @@ import { Fragment } from '~/src/models/Fragment';
 import { FileStorage } from '~/src/files/metadata';
 import { toOption } from '~/src/utils';
 import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
-import PhoInputText from '~/src/vue/components/ui/forms/PhoInputText.vue';
+import PhoTextField from '~/src/vue/components/ui/forms/PhoTextField.vue';
 import PhoSelect from '~/src/vue/components/ui/forms/PhoSelect.vue';
 
 enum Component {
@@ -46,7 +46,7 @@ export default defineComponent({
   components: {
     FontAwesomeIcon,
     PhoButton,
-    PhoInputText,
+    PhoTextField,
     PhoSelect,
   },
 

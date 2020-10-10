@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit.vue.components.ui.forms.PhoTextField Mounts 1`] = `
+<div
+  class="pho-field-wrapper"
+>
+  <!--v-if-->
+  <input
+    class="pho-field"
+    cy="field:pho-text-field-comp"
+    id="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    name="pho-text-field-comp"
+    type="text"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'date' field 1`] = `
+<div
+  class="pho-field-wrapper"
+>
+  <!--v-if-->
+  <input
+    class="pho-field"
+    cy="field:pho-text-field-comp"
+    id="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    name="pho-text-field-comp"
+    type="date"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'number' field 1`] = `
+<div
+  class="pho-field-wrapper"
+>
+  <!--v-if-->
+  <input
+    class="pho-field"
+    cy="field:pho-text-field-comp"
+    id="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    name="pho-text-field-comp"
+    type="number"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'password' field 1`] = `
+<div
+  class="pho-field-wrapper"
+>
+  <!--v-if-->
+  <input
+    class="pho-field"
+    cy="field:pho-text-field-comp"
+    id="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    name="pho-text-field-comp"
+    type="password"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'text' field 1`] = `
+<div
+  class="pho-field-wrapper"
+>
+  <!--v-if-->
+  <input
+    class="pho-field"
+    cy="field:pho-text-field-comp"
+    id="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    name="pho-text-field-comp"
+    type="text"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Renders a disabled field 1`] = `
+<div
+  class="pho-field-wrapper"
+>
+  <!--v-if-->
+  <input
+    class="pho-field disabled"
+    cy="field:pho-text-field-comp"
+    disabled=""
+    id="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    name="pho-text-field-comp"
+    type="text"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Renders the label 1`] = `
+<div
+  class="pho-field-wrapper"
+>
+  <label
+    class="pho-label"
+    for="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+  >
+    The Best Fruit is...
+  </label>
+  <input
+    class="pho-field"
+    cy="field:pho-text-field-comp"
+    id="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    name="pho-text-field-comp"
+    type="text"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Sets the attributes 1`] = `
+Object {
+  "class": "pho-field",
+  "cy": "field:pho-text-field-comp",
+  "id": "field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634",
+  "name": "pho-text-field-comp",
+  "type": "text",
+}
+`;

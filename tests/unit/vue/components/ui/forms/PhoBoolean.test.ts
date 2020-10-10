@@ -7,6 +7,7 @@ const getComponent = <T>(props: T) => {
     props: {
       name: 'pho-boolean-comp',
       uuid: '65441ec3-a9fa-4e8c-b1e5-79d7d001e634',
+      modelValue: false,
       ...props,
     },
   });

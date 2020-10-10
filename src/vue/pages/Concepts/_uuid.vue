@@ -15,7 +15,7 @@
           </div>
         </div>
         <div>
-          <PhoInputText v-model="concept.description" name="concept.description" label="Description" />
+          <PhoTextField v-model="concept.description" name="concept.description" label="Description" />
           <PhoSelect v-model="concept.type" label="Type" name="concept.type" :options="types" />
           <PhoSelect
             v-if="projects.length"
@@ -24,7 +24,7 @@
             name="concept.projects"
             label="Projects"
             :options="projects" />
-          <PhoInputText type="date" v-model="concept.date" label="Date" name="concept.date" />
+          <PhoTextField type="date" v-model="concept.date" label="Date" name="concept.date" />
           <div class="grid grid-cols-2 gap-2">
             <PhoBoolean v-model="concept.public" name="concept.public" label="Public" />
             <PhoBoolean v-model="concept.featured" name="concept.featured"  label="Featured" />
@@ -55,7 +55,7 @@ import { router } from '~/src/vue/router';
 import Dropzone from '~/src/vue/components/ui/forms/Dropzone.vue';
 import FragmentCard from '~/src/vue/components/organisms/fragments/FragmentCard.vue';
 import PhoBoolean from '~/src/vue/components/ui/forms/PhoBoolean.vue';
-import PhoInputText from '~/src/vue/components/ui/forms/PhoInputText.vue';
+import PhoTextField from '~/src/vue/components/ui/forms/PhoTextField.vue';
 import PhoSelect from '~/src/vue/components/ui/forms/PhoSelect.vue';
 import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
 import { SelectOption, toOption } from '~/src/utils';
@@ -67,7 +67,7 @@ export default defineComponent({
     Dropzone,
     FragmentCard,
     PhoBoolean,
-    PhoInputText,
+    PhoTextField,
     PhoSelect,
     PhoButton,
   },

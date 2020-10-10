@@ -2,16 +2,17 @@
   <div class="pho-field-wrapper">
     <label v-if="label" :for="id.unique" class="pho-label">
       {{ label }}
-      <input
-        class="pho-field"
-        :id="id.unique"
-        :cy="id.family"
-        :name="name"
-        :type="type"
-        :value="modelValue"
-        :disabled="disabled"
-        @input="onInput" />
     </label>
+    <input
+      class="pho-field"
+      :class="styles"
+      :id="id.unique"
+      :cy="id.family"
+      :name="name"
+      :type="type"
+      :value="modelValue"
+      :disabled="disabled"
+      @input="onInput" />
   </div>
 </template>
 
@@ -19,23 +20,13 @@
 import { defineComponent } from 'vue';
 
 import { useId, componentProps } from '~/src/vue/components/shared';
+import { getFormProps } from '~/src/vue/components/ui/forms/forms';
 
 export default defineComponent({
 
   props: {
     ...componentProps,
-    label: {
-      type: String,
-      default: () => '',
-    },
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    disabled: {
-      type: Boolean,
-      default: () => false,
-    },
+    ...getFormProps(String),
     type: {
       type: String,
       default: 'text',
@@ -49,11 +40,22 @@ export default defineComponent({
       return context.emit('update:modelValue', target.value);
     };
 
+    const styles = {
+      disabled: props.disabled,
+    };
+
     return {
       id: useId('field', props),
+      styles,
       onInput,
     };
   },
 
 });
 </script>
+
+<style scoped>
+.disabled {
+  color: gray;
+}
+</style>

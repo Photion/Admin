@@ -8,8 +8,8 @@
       <Integration :service="service" selected />
       <div class="space-y-4">
         <div class="space-y-4">
-          <PhoInputText v-model="user.name" name="user.name" label="Photion Username" />
-          <PhoInputText v-model="user.password" name="user.password" label="Encryption Password" type="password" />
+          <PhoTextField v-model="user.name" name="user.name" label="Photion Username" />
+          <PhoTextField v-model="user.password" name="user.password" label="Encryption Password" type="password" />
         </div>
         <div>
           <slot />
@@ -35,14 +35,14 @@ import { load, save } from '~/src/state/secrets';
 import { clientName, Service } from '~/src/state/service';
 import Integration from '~/src/vue/components/pages/services/Integration.vue';
 import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
-import PhoInputText from '~/src/vue/components/ui/forms/PhoInputText.vue';
+import PhoTextField from '~/src/vue/components/ui/forms/PhoTextField.vue';
 
 export default defineComponent({
 
   components: {
     Integration,
     PhoButton,
-    PhoInputText,
+    PhoTextField,
   },
 
   props: {

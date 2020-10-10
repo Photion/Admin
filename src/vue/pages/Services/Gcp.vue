@@ -1,8 +1,8 @@
 <template>
   <ServiceForm :service="gcp" preview>
     <div>
-      <PhoInputText v-model="secrets.gcp.apiKey" label="Google Cloud Platform API Key" />
-      <PhoInputText v-model="secrets.gcp.apiSecret" label="Google Cloud Platform API Secret" />
+      <PhoTextField v-model="secrets.gcp.apiKey" label="Google Cloud Platform API Key" />
+      <PhoTextField v-model="secrets.gcp.apiSecret" label="Google Cloud Platform API Secret" />
     </div>
   </ServiceForm>
 </template>
@@ -13,12 +13,12 @@ import { defineComponent } from 'vue';
 import { secrets } from '~/src/state/secrets';
 import { gcp } from '~/src/state/service';
 import ServiceForm from '~/src/vue/components/pages/services/ServiceForm.vue';
-import PhoInputText from '~/src/vue/components/ui/forms/PhoInputText.vue';
+import PhoTextField from '~/src/vue/components/ui/forms/PhoTextField.vue';
 
 export default defineComponent({
 
   components: {
-    PhoInputText,
+    PhoTextField,
     ServiceForm,
   },
 

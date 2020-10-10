@@ -46,6 +46,7 @@
 import { defineComponent, ref, computed, PropType } from 'vue';
 
 import { componentProps, useId } from '~/src/vue/components/shared';
+import { getFormProps } from '~/src/vue/components/ui/forms/forms';
 import PhoSelectOption from '~/src/vue/components/ui/forms/PhoSelectOption.vue';
 import { SelectOption, SelectOptionValue } from '~/src/utils';
 import FontAwesomeIcon from '~/src/vue/components/ui/forms/FontAwesomeIcon.vue';
@@ -59,17 +60,10 @@ export default defineComponent({
 
   props: {
     ...componentProps,
-    label: {
-      type: String,
-      default: () => '',
-    },
+    ...getFormProps([Number, String, Object, Array] as PropType<SelectOptionValue | SelectOptionValue[]>),
     options: {
       type: Object as PropType<SelectOption[]>,
       default: () => [],
-    },
-    modelValue: {
-      type: [Number, String, Object, Array] as PropType<SelectOptionValue | SelectOptionValue[]>,
-      required: true,
     },
     multiple: {
       type: Boolean,
