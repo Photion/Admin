@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit.vue.components.ui.forms.PhoBoolean Mounts 1`] = `
+<div
+  class="pho-switch-wrapper"
+>
+  <div
+    class="pho-switch-container"
+  >
+    <div
+      class="pho-switch"
+    >
+      <input
+        cy="field:pho-boolean-comp"
+        id="field:pho-boolean-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+        name="pho-boolean-comp"
+        type="checkbox"
+        value="false"
+      />
+      <label
+        class="pho-switch-circle"
+        for="field:pho-boolean-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+      />
+    </div>
+    <label
+      class="pho-switch-text"
+      for="field:pho-boolean-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    />
+  </div>
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoBoolean Renders the label 1`] = `
+<div
+  class="pho-switch-wrapper"
+>
+  <div
+    class="pho-switch-container"
+  >
+    <div
+      class="pho-switch"
+    >
+      <input
+        cy="field:pho-boolean-comp"
+        id="field:pho-boolean-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+        name="pho-boolean-comp"
+        type="checkbox"
+        value="false"
+      />
+      <label
+        class="pho-switch-circle"
+        for="field:pho-boolean-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+      />
+    </div>
+    <label
+      class="pho-switch-text"
+      for="field:pho-boolean-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    >
+      Magic Switch
+    </label>
+  </div>
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoBoolean Sets the attributes 1`] = `
+Object {
+  "cy": "field:pho-boolean-comp",
+  "id": "field:pho-boolean-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634",
+  "name": "pho-boolean-comp",
+  "type": "checkbox",
+  "value": "false",
+}
+`;

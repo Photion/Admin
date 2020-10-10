@@ -30,11 +30,11 @@
             <PhoBoolean v-model="concept.featured" name="concept.featured"  label="Featured" />
           </div>
           <div v-if="concept.created" class="text-right space-x-1">
-            <PhoButton cy="button:concept.save" color="success" @click="concept.save()">Save</PhoButton>
-            <PhoButton cy="button:concept.remove" color="danger" @click="concept.remove()">Delete</PhoButton>
+            <PhoButton name="concept.save" color="success" @click="concept.save()">Save</PhoButton>
+            <PhoButton name="concept.remove" color="danger" @click="concept.remove()">Delete</PhoButton>
           </div>
           <div v-else class="text-right space-x-1">
-            <PhoButton cy="button:concept.create" color="success" @click="concept.save()">Create</PhoButton>
+            <PhoButton name="concept.create" color="success" @click="concept.save()">Create</PhoButton>
           </div>
         </div>
       </div>

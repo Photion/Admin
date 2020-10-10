@@ -30,12 +30,18 @@ const jestConfig = {
     getConfig('unit', 'cyan', Boolean(process.env.COVERAGE)),
     getConfig('feat', 'magentaBright', Boolean(process.env.COVERAGE)),
   ],
+  globals: {
+    'ts-jest': {
+      diagnostics: false,
+    }
+  }
 }
 
 if (process.env.COVERAGE) {
   jestConfig.collectCoverage = true;
   jestConfig.collectCoverageFrom = [
-    '<rootDir>/src/**/*.ts'
+    '<rootDir>/src/**/*.ts',
+    '<rootDir>/src/**/*.vue',
   ];
 }
 

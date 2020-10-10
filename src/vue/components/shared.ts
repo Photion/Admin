@@ -7,15 +7,30 @@ import { v4 as uuid4 } from 'uuid';
  *
  * @param type
  * @param name
+ * @param uuid
  */
-export const createIdentifier = (type: string, name?: string) => {
-  let internalName = name;
+export const generateId = (type: string, name?: string, uuid?: string) => {
+  const elements = [type];
 
-  if (!internalName) {
-    internalName = uuid4();
+  if (name) {
+    elements.push(name);
   }
 
-  return `${type}:${internalName}`;
+  const family = elements.join(':');
+
+  if (uuid) {
+    elements.push(uuid);
+  } else {
+    elements.push(uuid4());
+  }
+
+  const unique = elements.join(':');
+
+  return { family, unique };
+};
+
+export const useId = (type: string, props: { name: string; uuid: string }) => {
+  return generateId(type, props.name, props.uuid);
 };
 
 /**

@@ -3,9 +3,9 @@
     type="button"
     class="pho-btn"
     :class="color"
-    :id="`${identifier}:${uuid}`"
+    :id="id.unique"
     :disabled="disabled"
-    :cy="identifier">
+    :cy="id.family">
     <slot>
       <FontAwesomeIcon v-if="icon" :icon="icon" />
       <span v-if="label">{{ label }}</span>
@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { createIdentifier, componentProps } from '~/src/vue/components/shared';
+import { useId, componentProps } from '~/src/vue/components/shared';
 import FontAwesomeIcon from '~/src/vue/components/ui/forms/FontAwesomeIcon.vue';
 
 export default defineComponent({
@@ -43,11 +43,10 @@ export default defineComponent({
   },
   setup(props) {
     const disabled = props.color === 'disabled';
-    const identifier = createIdentifier('button', props.name);
 
     return {
+      id: useId('button', props),
       disabled,
-      identifier,
     };
   },
 });

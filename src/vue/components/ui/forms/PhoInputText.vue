@@ -1,11 +1,11 @@
 <template>
   <div class="pho-field-wrapper">
-    <label v-if="label" :for="identifier" class="pho-label">
+    <label v-if="label" :for="id.unique" class="pho-label">
       {{ label }}
       <input
         class="pho-field"
-        :id="identifier"
-        :cy="reference"
+        :id="id.unique"
+        :cy="id.family"
         :name="name"
         :type="type"
         :value="modelValue"
@@ -18,20 +18,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { createIdentifier } from '~/src/vue/components/shared';
+import { useId, componentProps } from '~/src/vue/components/shared';
 
 export default defineComponent({
 
   props: {
-    cy: {
-      type: String,
-      default: () => '',
-    },
+    ...componentProps,
     label: {
-      type: String,
-      default: () => '',
-    },
-    name: {
       type: String,
       default: () => '',
     },
@@ -56,12 +49,8 @@ export default defineComponent({
       return context.emit('update:modelValue', target.value);
     };
 
-    const identifier = createIdentifier('field', props.name);
-    const reference = props.cy || identifier;
-
     return {
-      identifier,
-      reference,
+      id: useId('field', props),
       onInput,
     };
   },

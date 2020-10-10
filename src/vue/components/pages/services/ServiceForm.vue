@@ -8,17 +8,17 @@
       <Integration :service="service" selected />
       <div class="space-y-4">
         <div class="space-y-4">
-          <PhoInputText v-model="user.name" cy="field:user.name" label="Photion Username" />
-          <PhoInputText v-model="user.password" cy="field:user.password" label="Encryption Password" type="password" />
+          <PhoInputText v-model="user.name" name="user.name" label="Photion Username" />
+          <PhoInputText v-model="user.password" name="user.password" label="Encryption Password" type="password" />
         </div>
         <div>
           <slot />
         </div>
         <div v-if="preview">
-          <PhoButton color="disabled" cy="button:service.soon">Coming Soon</PhoButton>
+          <PhoButton color="disabled" name="service.soon">Coming Soon</PhoButton>
         </div>
         <div v-else class="text-right">
-          <PhoButton cy="button:service.continue" @click="onContinue">Continue</PhoButton>
+          <PhoButton name="service.continue" @click="onContinue">Continue</PhoButton>
         </div>
       </div>
     </div>

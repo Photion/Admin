@@ -1,9 +1,9 @@
 <template>
   <div>
     <ServiceForm :service="aws">
-      <PhoInputText v-model="secrets.aws.region" label="AWS Region" cy="field:secrets.aws.region" />
-      <PhoInputText v-model="secrets.aws.accessKeyId" label="AWS Access Key ID" cy="field:secrets.aws.accessKeyId" />
-      <PhoInputText v-model="secrets.aws.secretAccessKey" label="AWS Secret Access Key" cy="field:secrets.aws.secretAccessKey" />
+      <PhoInputText v-model="secrets.aws.region" name="secrets.aws.region" label="AWS Region" />
+      <PhoInputText v-model="secrets.aws.accessKeyId" name="secrets.aws.accessKeyId" label="AWS Access Key ID" />
+      <PhoInputText v-model="secrets.aws.secretAccessKey" name="secrets.aws.secretAccessKey" label="AWS Secret Access Key" />
     </ServiceForm>
   </div>
 </template>

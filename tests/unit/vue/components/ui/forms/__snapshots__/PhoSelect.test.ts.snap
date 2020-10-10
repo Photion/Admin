@@ -13,7 +13,7 @@ exports[`unit.vue.components.ui.forms.PhoSelect Displays the options menu 1`] = 
       aria-haspopup="true"
       class="pho-field focus:outline-none"
       cy="field:pho-select-comp:trigger"
-      id="field:pho-select-comp:trigger"
+      id="field:pho-select-comp:846f8317-7f43-4c0e-8dce-e499ffbab2fb:trigger"
       type="button"
     >
       <div
@@ -107,7 +107,7 @@ exports[`unit.vue.components.ui.forms.PhoSelect Displays the options menu 1`] = 
   <input
     class="hidden"
     cy="field:pho-select-comp"
-    id="field:pho-select-comp"
+    id="field:pho-select-comp:846f8317-7f43-4c0e-8dce-e499ffbab2fb"
     name="pho-select-comp"
   />
 </div>
@@ -126,7 +126,7 @@ exports[`unit.vue.components.ui.forms.PhoSelect Mounts 1`] = `
       aria-haspopup="true"
       class="pho-field focus:outline-none"
       cy="field:pho-select-comp:trigger"
-      id="field:pho-select-comp:trigger"
+      id="field:pho-select-comp:846f8317-7f43-4c0e-8dce-e499ffbab2fb:trigger"
       type="button"
     >
       <div
@@ -161,7 +161,7 @@ exports[`unit.vue.components.ui.forms.PhoSelect Mounts 1`] = `
   <input
     class="hidden"
     cy="field:pho-select-comp"
-    id="field:pho-select-comp"
+    id="field:pho-select-comp:846f8317-7f43-4c0e-8dce-e499ffbab2fb"
     name="pho-select-comp"
   />
 </div>

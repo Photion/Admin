@@ -1,4 +1,5 @@
 {
   "defaultCommandTimeout": 1500,
-  "videoUploadOnPasses": false
+  "videoUploadOnPasses": false,
+  "video": false
 }

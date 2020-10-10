@@ -14,6 +14,7 @@ interface ComponentProps {
 const getComponent = (props: ComponentProps = {}) => {
   return mount(PhoSelect, { props: {
     name: 'pho-select-comp',
+    uuid: '846f8317-7f43-4c0e-8dce-e499ffbab2fb',
     modelValue: 2,
     multiple: false,
     options: [

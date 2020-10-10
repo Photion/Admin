@@ -1,10 +1,10 @@
 <template>
   <div class="pho-field-wrapper relative">
-    <label v-if="label" :for="identifier" class="pho-label">{{ label }}</label>
+    <label v-if="label" :for="id.unique" class="pho-label">{{ label }}</label>
     <div class="relative">
       <button
-        :id="`${identifier}:trigger`"
-        :cy="`${reference}:trigger`"
+        :id="`${id.unique}:trigger`"
+        :cy="`${id.family}:trigger`"
         @click="fn.toggleMenu(!showOptions)"
         @focusend="fn.toggleMenu(false)"
         type="button"
@@ -14,8 +14,8 @@
         <div class="flex">
           <div class="flex-grow text-left">{{ displayValue }}</div>
           <div class="flex" style="margin-right: 5px">
-            <FontAwesomeIcon v-if="showOptions" icon="times"  @click="fn.toggleMenu(false, $event)" :cy="`${reference}:trigger:close`"  />
-            <FontAwesomeIcon v-else icon="chevron-down" :cy="`${reference}:trigger:open`" />
+            <FontAwesomeIcon v-if="showOptions" icon="times"  @click="fn.toggleMenu(false, $event)" :cy="`${id.family}:trigger:close`"  />
+            <FontAwesomeIcon v-else icon="chevron-down" :cy="`${id.family}:trigger:open`" />
           </div>
         </div>
         <div v-if="showOptions" class="absolute left-0 w-full mt-2 w-56 rounded-md shadow-lg cursor-pointer" style="z-index: 10">
@@ -23,7 +23,7 @@
             <PhoSelectOption
               v-for="option in options"
               :key="option.value"
-              :identifier="identifier"
+              :identifier="id.family"
               :option="option"
               :current="is.current(option)"
               :selected="is.selected(option)"
@@ -34,10 +34,10 @@
       </button>
     </div>
     <input
-      :id="identifier"
+      :id="id.unique"
       :value="modelValue"
       :name="name"
-      :cy="reference"
+      :cy="id.family"
       class="hidden" />
   </div>
 </template>
@@ -45,7 +45,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed, PropType } from 'vue';
 
-import { createIdentifier } from '~/src/vue/components/shared';
+import { componentProps, useId } from '~/src/vue/components/shared';
 import PhoSelectOption from '~/src/vue/components/ui/forms/PhoSelectOption.vue';
 import { SelectOption, SelectOptionValue } from '~/src/utils';
 import FontAwesomeIcon from '~/src/vue/components/ui/forms/FontAwesomeIcon.vue';
@@ -58,10 +58,7 @@ export default defineComponent({
   },
 
   props: {
-    cy: {
-      type: String,
-      default: () => '',
-    },
+    ...componentProps,
     label: {
       type: String,
       default: () => '',
@@ -69,10 +66,6 @@ export default defineComponent({
     options: {
       type: Object as PropType<SelectOption[]>,
       default: () => [],
-    },
-    name: {
-      type: String,
-      default: () => '',
     },
     modelValue: {
       type: [Number, String, Object, Array] as PropType<SelectOptionValue | SelectOptionValue[]>,
@@ -87,9 +80,6 @@ export default defineComponent({
   setup(props, context) {
     const current = ref<SelectOption | null>(null);
     const showOptions = ref(false);
-
-    const identifier = createIdentifier('field', props.name);
-    const reference = props.cy || identifier;
 
     const displayValue = computed(() => {
       let target: SelectOptionValue[];
@@ -170,10 +160,9 @@ export default defineComponent({
     };
 
     return {
+      id: useId('field', props),
       showOptions,
       displayValue,
-      identifier,
-      reference,
       fn: {
         toggleMenu,
       },
