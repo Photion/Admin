@@ -27,6 +27,10 @@ export abstract class AbstractClient {
     return key;
   }
 
+  getFileSignature(_namespace: string, _uuid: string, _meta: FileMetadata): string {
+    return '';
+  }
+
   /**
    * Returns file URL
    * @param namespace
@@ -35,7 +39,8 @@ export abstract class AbstractClient {
    */
   getFileUrl(namespace: string, uuid: string, meta: FileMetadata): string {
     const key = this.getFileKey(namespace, uuid, meta);
+    const signature = this.getFileSignature(namespace, uuid, meta);
 
-    return `${this.prefix}${key}`;
+    return `${this.prefix}${key}${signature}`;
   }
 }
