@@ -173,4 +173,25 @@ export class AwsClient extends HttpClient {
 
     return this.s3.headObject(params).promise();
   }
+
+  /**
+   * Returns file URL
+   * @param namespace
+   * @param uuid
+   * @param meta
+   */
+  getFileUrl(namespace: string, uuid: string, meta: FileMetadata): string {
+    if (meta.public) {
+      return super.getFileUrl(namespace, uuid, meta);
+    }
+
+    const params = {
+      Bucket: this.getBucket(),
+      Key: this.getFileKey(namespace, uuid, meta),
+      Expires: 24 * 60 * 60,
+    };
+
+    return this.s3.getSignedUrl('getObject', params);
+  }
+
 }
