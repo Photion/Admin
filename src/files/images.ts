@@ -28,7 +28,7 @@ export const readImage = async (file: File) => {
     preview = await getText(file);
   }
 
-  const date = (tags?.MetadataDate?.description || tags?.DateTimeOriginal?.description || null) as string | undefined;
+  const date = tags?.MetadataDate?.description || tags?.DateTimeOriginal?.description || null;
 
   return {
     date,

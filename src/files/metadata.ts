@@ -23,15 +23,15 @@ export interface FileMetadata {
   size: number;
   storage: FileStorage;
   public: boolean;
-  date?: string;
-  tags?: FileTags;
+  date: string | null;
+  tags: FileTags;
 }
 
-export type FileTags = ExifTags;
+export type FileTags = ExifTags | null;
 
 export interface FileInfo {
-  date: string;
-  content: string;
+  date: string | null;
+  preview: string;
   tags: FileTags;
 }
 
@@ -63,8 +63,17 @@ export const isSupportedMime = (mime: string): mime is keyof typeof MIME_OPTIONS
   return mime in MIME_OPTIONS;
 };
 
+export const readUnsupportedFile = async (file: File): Promise<FileInfo> => {
+  const lastModified = new Date(file.lastModified);
 
-export const readFile = (file: File) => {
+  return {
+    date: lastModified.toISOString(),
+    preview: '',
+    tags: null,
+  };
+};
+
+export const readFile = (file: File): Promise<FileInfo> => {
   const mime = file.type;
 
   if (isSupportedMime(mime)) {
@@ -73,5 +82,5 @@ export const readFile = (file: File) => {
     return options.reader(file);
   }
 
-  throw new Error(`Unrecognised file format: '${file.type}'`);
+  return Promise.resolve(readUnsupportedFile(file));
 };
