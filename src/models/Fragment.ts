@@ -1,5 +1,5 @@
 import { modelize, ModelProps } from '~/src/models/Model';
-import { FileMetadata, FileStorage, readFile } from '~/src/files/metadata';
+import { FileMetadata, FileStorage, readFile, isSupportedMime } from '~/src/files/metadata';
 
 
 export interface FragmentProps extends ModelProps {
@@ -20,7 +20,7 @@ export class Fragment extends modelize<FragmentProps>(namespace, fields) {
   constructor(props: FragmentProps) {
     super(props);
     this.concept = props.concept;
-    this.meta = props.meta ?? { filename: '', mime: '', size: 0, storage: FileStorage.PREVIEW, public: false };
+    this.meta = props.meta ?? { filename: '', mime: '', size: 0, storage: FileStorage.PREVIEW, public: false, date: null, tags: null };
     this.notes = props.notes ?? '';
   }
 
@@ -48,6 +48,10 @@ export class Fragment extends modelize<FragmentProps>(namespace, fields) {
     fragments.pop();
 
     return fragments.join('.');
+  }
+
+  get hasPreview() {
+    return isSupportedMime(this.meta.mime);
   }
 
   get url() {

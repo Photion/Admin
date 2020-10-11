@@ -100,7 +100,7 @@ export default defineComponent({
     });
 
     const preview = computed(() => {
-      return fragments.value.find((fragment) => fragment.meta.storage === FileStorage.PREVIEW);
+      return fragments.value.find((fragment) => fragment.hasPreview && fragment.meta.storage === FileStorage.PREVIEW);
     });
 
     const removeFragment = (fragment: Fragment) => {
@@ -141,7 +141,7 @@ export default defineComponent({
       await fragment.setFile(value);
 
 
-      fragments.value.unshift(fragment);
+      fragments.value.push(fragment);
       readMetadata(fragment);
     };
 
