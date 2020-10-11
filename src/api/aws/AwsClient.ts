@@ -28,7 +28,7 @@ export class AwsClient extends HttpClient {
   }
 
   getTable(namespace: string): string {
-    const table = `photion--${namespace}--${this.credentials.username}`;
+    const table = `photion--${this.credentials.username}--${namespace}`;
 
     return table;
   }
@@ -40,7 +40,7 @@ export class AwsClient extends HttpClient {
   }
 
   getBucket() {
-    const bucket = `photion--concepts--${this.credentials.username}`;
+    const bucket = `photion--${this.credentials.username}--concepts`;
 
     return bucket;
   }
