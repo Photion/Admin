@@ -27,8 +27,13 @@ describe('unit.vue.components.ui.forms.PhoBoolean', () => {
     expect(attributes).toMatchSnapshot();
   });
 
-  it('Renders the label', async () => {
-    const wrapper = getComponent({ label: 'Magic Switch' });
+  it('Renders the label (stacked)', async () => {
+    const wrapper = getComponent({ label: 'Magic Switch', inline: false });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  it('Renders the label (inline)', async () => {
+    const wrapper = getComponent({ label: 'Magic Switch', inline: true });
     expect(wrapper.element).toMatchSnapshot();
   });
 

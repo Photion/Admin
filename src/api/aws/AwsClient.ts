@@ -59,14 +59,10 @@ export class AwsClient extends HttpClient {
   }
 
   getAcl(meta: FileMetadata) {
-    switch (meta.storage) {
-    case FileStorage.PREVIEW:
+    if (meta.public) {
       return 'public-read';
-    case FileStorage.FULL_QUALITY:
-    case FileStorage.RAW:
+    } else {
       return 'private';
-    default:
-      throw new Error(`Unknown acl for: '${meta.storage}'`);
     }
   }
 

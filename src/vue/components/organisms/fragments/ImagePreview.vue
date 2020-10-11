@@ -1,6 +1,7 @@
 <template>
-  <div class="img-container">
-    <img :src="fragment.url" alt="url">
+  <img v-if="fragment" :src="fragment.url" alt="url" cy="fragment.preview">
+  <div v-else cy="fragment.preview.missing">
+    No preview available
   </div>
 </template>
 
@@ -20,21 +21,8 @@ export default defineComponent({
     },
     fragment: {
       type: Fragment,
-      required: true,
+      required: false,
     },
   },
 });
 </script>
-
-<style scoped>
-.img-container {
-  height: 150px;
-  text-align: center;
-}
-
-img {
-  max-width: 100%;
-  max-height: 100%;
-  padding: 0 10px;
-}
-</style>

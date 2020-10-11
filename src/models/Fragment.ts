@@ -20,7 +20,7 @@ export class Fragment extends modelize<FragmentProps>(namespace, fields) {
   constructor(props: FragmentProps) {
     super(props);
     this.concept = props.concept;
-    this.meta = props.meta ?? { filename: '', mime: '', size: 0, storage: FileStorage.PREVIEW };
+    this.meta = props.meta ?? { filename: '', mime: '', size: 0, storage: FileStorage.PREVIEW, public: false };
     this.notes = props.notes ?? '';
   }
 

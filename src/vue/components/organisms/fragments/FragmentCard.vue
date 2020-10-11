@@ -1,15 +1,32 @@
 <template>
   <div cy="fragment.card" class="py-3">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <PhoTextField v-model="fragment.meta.filename" label="Filename" name="fragment.meta.filename" disabled />
-      <PhoSelect v-model="fragment.meta.storage" :options="storages" label="Role" name="fragment.meta.storage" />
+    <div class="flex gap-4">
+      <PhoTextField
+        v-model="fragment.meta.filename"
+        label="Filename"
+        name="fragment.meta.filename"
+        class="w-full sm:w-6/12"
+        disabled />
+      <PhoSelect
+        v-model="fragment.meta.storage"
+        :options="storages"
+        label="Role"
+        name="fragment.meta.storage"
+        @update:modelValue="fn.save"
+        class="w-full sm:w-4/12" />
+      <PhoBoolean
+        v-model="fragment.meta.public"
+        label="Public"
+        name="fragment.meta.public"
+        @input="fn.save"
+        class="w-full sm:w-2/12" />
     </div>
     <div class="w-full text-right">
       <div v-if="fragment.created" class="space-x-1">
-        <PhoButton cy="button:fragment.download" color="success" @click="fragment.save()">
+        <PhoButton cy="button:fragment.download" color="success" disabled>
           <FontAwesomeIcon icon="cloud-download-alt" />
         </PhoButton>
-        <PhoButton cy="button:fragment.remove" color="danger" @click="removeFragment">
+        <PhoButton cy="button:fragment.remove" color="danger" @click="fn.remove">
           <FontAwesomeIcon icon="trash" />
         </PhoButton>
       </div>
@@ -32,6 +49,7 @@ import { Fragment } from '~/src/models/Fragment';
 import { FileStorage } from '~/src/files/metadata';
 import { toOption } from '~/src/utils';
 import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
+import PhoBoolean from '~/src/vue/components/ui/forms/PhoBoolean.vue';
 import PhoTextField from '~/src/vue/components/ui/forms/PhoTextField.vue';
 import PhoSelect from '~/src/vue/components/ui/forms/PhoSelect.vue';
 
@@ -46,6 +64,7 @@ export default defineComponent({
   components: {
     FontAwesomeIcon,
     PhoButton,
+    PhoBoolean,
     PhoTextField,
     PhoSelect,
   },
@@ -65,15 +84,22 @@ export default defineComponent({
     const storages = Object.values(FileStorage).map(toOption);
     const preview = computed(() => Component[props.concept.type]);
 
-    const removeFragment = async () => {
+    const remove = async () => {
       await props.fragment.remove();
       emit('remove');
+    };
+
+    const save = () => {
+      props.fragment.save();
     };
 
     return {
       storages,
       preview,
-      removeFragment,
+      fn: {
+        save,
+        remove,
+      },
     };
   },
 });

@@ -22,6 +22,7 @@ export interface FileMetadata {
   mime: string;
   size: number;
   storage: FileStorage;
+  public: boolean;
   date?: string;
   tags?: FileTags;
 }

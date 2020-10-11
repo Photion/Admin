@@ -33,6 +33,7 @@ context('/concepts/:uuid', () => {
         filename: 'assets/alinatrifan.sheffield.jpg',
         mime: 'image/jpeg',
         size: 201256,
+        public: false,
         storage: 'PREVIEW',
         tags: {
           'Bits Per Sample': {
@@ -105,9 +106,6 @@ context('/concepts/:uuid', () => {
             .trigger('dagover')
             .trigger('drop', { dataTransfer: value.dataTransfer });
         });
-
-      cy.getCy('concept.preview')
-        .should('not.exist');
 
       cy.getCy('field:concept.name')
         .contains('assets/alinatrifan.sheffield');

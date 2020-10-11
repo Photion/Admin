@@ -2,9 +2,9 @@
   <div>
     <h2 class="mt-5 mb-10 text-3xl" contenteditable @input="updateName" cy="field:concept.name">{{ concept.name }}</h2>
     <Dropzone @files="onDrop" style="min-height: 500px">
-      <div v-if="preview" class="grid grid-cols-1 sm:grid-cols-2 gap-6" cy="concept.preview">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" cy="concept.preview">
         <div>
-          <img v-if="preview" :src="preview" />
+          <component :is="previewer" :concept="concept" :fragment="preview" />
           <div>
             <FragmentCard
               v-for="fragment in fragments"
@@ -26,8 +26,8 @@
             :options="projects" />
           <PhoTextField type="date" v-model="concept.date" label="Date" name="concept.date" />
           <div class="grid grid-cols-2 gap-2">
-            <PhoBoolean v-model="concept.public" name="concept.public" label="Public" />
-            <PhoBoolean v-model="concept.featured" name="concept.featured"  label="Featured" />
+            <PhoBoolean v-model="concept.public" name="concept.public" inline label="Public" />
+            <PhoBoolean v-model="concept.featured" name="concept.featured"  inline label="Featured" />
           </div>
           <div v-if="concept.created" class="text-right space-x-1">
             <PhoButton name="concept.save" color="success" @click="concept.save()">Save</PhoButton>
@@ -45,14 +45,18 @@
 
 <script lang="ts">
 import dayjs from 'dayjs';
-import { defineComponent, onBeforeMount, ref, watch } from 'vue';
+import { defineComponent, onBeforeMount, ref, watch, computed } from 'vue';
 
 import { Concept } from '~/src/models/Concept';
 import { Fragment } from '~/src/models/Fragment';
 import { Project } from '~/src/models/Project';
 
+import { FileStorage } from '~/src/files/metadata';
 import { router } from '~/src/vue/router';
 import Dropzone from '~/src/vue/components/ui/forms/Dropzone.vue';
+import ImagePreview from '~/src/vue/components/organisms/fragments/ImagePreview.vue';
+import SoundPreview from '~/src/vue/components/organisms/fragments/SoundPreview.vue';
+import VideoPreview from '~/src/vue/components/organisms/fragments/VideoPreview.vue';
 import FragmentCard from '~/src/vue/components/organisms/fragments/FragmentCard.vue';
 import PhoBoolean from '~/src/vue/components/ui/forms/PhoBoolean.vue';
 import PhoTextField from '~/src/vue/components/ui/forms/PhoTextField.vue';
@@ -65,6 +69,9 @@ export default defineComponent({
 
   components: {
     Dropzone,
+    ImagePreview,
+    SoundPreview,
+    VideoPreview,
     FragmentCard,
     PhoBoolean,
     PhoTextField,
@@ -73,26 +80,34 @@ export default defineComponent({
   },
 
   setup() {
-    const preview = ref('');
 
     const file = ref<File | null>(null);
     const concept = ref(new Concept({ type: Concept.Type.IMAGE, name: 'New Media' }));
     const fragments = ref<Fragment[]>([]);
     const projects = ref<SelectOption[]>([]);
 
+    const previewer = computed(() => {
+      switch (concept.value.type) {
+      case Concept.Type.IMAGE:
+        return 'ImagePreview';
+      case Concept.Type.SOUND:
+        return 'SoundPreview';
+      case Concept.Type.VIDEO:
+        return 'VideoPreview';
+      default:
+        throw new Error(`Invalid Concept.Type: '${concept.value.type}`);
+      }
+    });
+
+    const preview = computed(() => {
+      return fragments.value.find((fragment) => fragment.meta.storage === FileStorage.PREVIEW);
+    });
+
     const removeFragment = (fragment: Fragment) => {
       const index = fragments.value.findIndex(el => el.uuid === fragment.uuid);
 
       if (index > -1) {
         fragments.value.splice(index, 1);
-      }
-    };
-
-    const updatePreview = (fragment: Fragment) => {
-      if (!preview.value) {
-        if (fragment.url) {
-          preview.value = fragment.url;
-        }
       }
     };
 
@@ -111,7 +126,6 @@ export default defineComponent({
         (await Fragment.list())
           .forEach(fragment => {
             fragments.value.push(fragment);
-            updatePreview(fragment);
           });
       }
 
@@ -122,11 +136,11 @@ export default defineComponent({
 
     const addFile = async (value: File) => {
       const fragment = new Fragment({ concept: concept.value.uuid });
+      fragment.meta.public = concept.value.public;
       await fragment.setFile(value);
 
 
       fragments.value.unshift(fragment);
-      updatePreview(fragment);
       readMetadata(fragment);
     };
 
@@ -151,6 +165,7 @@ export default defineComponent({
 
     return {
       preview,
+      previewer,
       file,
       concept,
       fragments,
