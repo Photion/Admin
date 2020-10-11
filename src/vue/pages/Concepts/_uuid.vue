@@ -124,7 +124,8 @@ export default defineComponent({
         concept.value = await Concept.retrieve(router.currentRoute.value.params.uuid as string);
 
         (await Fragment.list())
-          .forEach(fragment => {
+          .filter((fragment) => fragment.concept === concept.value.uuid)
+          .forEach((fragment) => {
             fragments.value.push(fragment);
           });
       }
