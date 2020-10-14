@@ -30,11 +30,11 @@
             <PhoBoolean v-model="concept.featured" name="concept.featured"  inline label="Featured" />
           </div>
           <div v-if="concept.created" class="text-right space-x-1">
-            <PhoButton name="concept.save" color="success" @click="concept.save()">Save</PhoButton>
+            <PhoButton name="concept.save" color="success" @click="saveConcept(concept)">Save</PhoButton>
             <PhoButton name="concept.remove" color="danger" @click="concept.remove()">Delete</PhoButton>
           </div>
           <div v-else class="text-right space-x-1">
-            <PhoButton name="concept.create" color="success" @click="concept.save()">Create</PhoButton>
+            <PhoButton name="concept.create" color="success" @click="saveConcept(concept)">Create</PhoButton>
           </div>
         </div>
       </div>
@@ -164,6 +164,12 @@ export default defineComponent({
       }
     });
 
+    const saveConcept=async (concept:Concept)=>{
+      await concept.save();
+      const target = concept?.uuid ?? 'new';
+      router.push(`/concepts/${target}`);
+    }
+
     return {
       preview,
       previewer,
@@ -175,6 +181,7 @@ export default defineComponent({
       updateName,
       types: Object.values(Concept.Type).map(toOption),
       removeFragment,
+      saveConcept
     };
   },
 });
