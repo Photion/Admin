@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 
+
 declare namespace Cypress {
   interface Chainable {
     /**
@@ -8,7 +9,7 @@ declare namespace Cypress {
      *
      * @example cy.get('input').attachFile('path/to/fixture.jpg', 'image/jpg'))
     */
-   getCy(selector: string): Chainable<Element>
+   getCy(selector: string, options?: Partial<Cypress.Loggable & Cypress.Timeoutable & Cypress.Withinable & Cypress.Shadow>): Chainable<Element>
 
    getFile(path: string, mime: string): Chainable<{ file: File, dataTransfer: DataTransfer }>
    attachFile(path: string, mime: string): Chainable<Element>

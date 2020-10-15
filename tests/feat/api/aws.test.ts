@@ -1,10 +1,11 @@
 import * as fs from 'fs';
 
+import { Namespace } from '~/src/models/schema';
 import { FileStorage, FileMetadata } from '~/src/files/metadata';
 import { getAwsClient } from '~/tests/utils/aws';
 
 interface DataRef {
-  namespace: string;
+  namespace: Namespace;
   uuid: string;
 }
 
@@ -17,7 +18,7 @@ interface TestContext {
   files: FileRef[];
 }
 
-describe('tests.integration.app.api.aws.AwsClient', () => {
+describe('feat.api.aws', () => {
   const context: TestContext = {
     refs: [],
     files: [],
@@ -127,7 +128,15 @@ describe('tests.integration.app.api.aws.AwsClient', () => {
     it('Uploads the file', async () => {
       const namespace = 'fragments';
       const uuid = 'uuid1';
-      const metadata = { filename: 'filename', size: 1024, mime: 'application/javascript', storage: FileStorage.PREVIEW };
+      const metadata = {
+        filename: 'filename',
+        size: 1024,
+        mime: 'application/javascript',
+        storage: FileStorage.PREVIEW,
+        public: false,
+        date: '',
+        tags: {},
+      };
 
       const { client } = getAwsClient();
       context.files.push({ namespace, uuid, metadata });

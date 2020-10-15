@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit.app.api.googleDrive.api createFile Queries with axios 1`] = `
+Object {
+  "data": FormData {},
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "POST",
+  "url": "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api createFolder Queries with axios 1`] = `
+Object {
+  "data": FormData {},
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "POST",
+  "url": "https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api deleteFile Queries with axios 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "DELETE",
+  "url": "https://www.googleapis.com/drive/v2/files/my-folder",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api downloadFile Queries with axios asking for a blob 1`] = `
+Object {
+  "data": Object {},
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "GET",
+  "responseType": "blob",
+  "url": "https://www.googleapis.com/drive/v2/files/my-file?alt=media",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api downloadFile Queries with axios asking for a json 1`] = `
+Object {
+  "data": Object {},
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "GET",
+  "responseType": "json",
+  "url": "https://www.googleapis.com/drive/v2/files/my-file?alt=media",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api getOAuthUrl Generates an auth url with the given scope 1`] = `"https://accounts.google.com/o/oauth2/v2/auth?response_type=token&client_id=12345&redirect_uri=https%3A%2F%2Fadmin.photion.app&scope=&state="`;
+
+exports[`unit.app.api.googleDrive.api getOAuthUrl Generates an auth url with the given scope 2`] = `"https://accounts.google.com/o/oauth2/v2/auth?response_type=token&client_id=12345&redirect_uri=https%3A%2F%2Fadmin.photion.app&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.appdata&state="`;
+
+exports[`unit.app.api.googleDrive.api getOAuthUrl Generates an auth url with the given scope 3`] = `"https://accounts.google.com/o/oauth2/v2/auth?response_type=token&client_id=12345&redirect_uri=https%3A%2F%2Fadmin.photion.app&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.file&state="`;
+
+exports[`unit.app.api.googleDrive.api getOAuthUrl Generates an auth url with the given scope 4`] = `"https://accounts.google.com/o/oauth2/v2/auth?response_type=token&client_id=12345&redirect_uri=https%3A%2F%2Fadmin.photion.app&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.metadata&state="`;
+
+exports[`unit.app.api.googleDrive.api getOAuthUrl Generates an auth url with the given scope 5`] = `"https://accounts.google.com/o/oauth2/v2/auth?response_type=token&client_id=12345&redirect_uri=https%3A%2F%2Fadmin.photion.app&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.appdata%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.file%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fdrive.metadata&state="`;
+
+exports[`unit.app.api.googleDrive.api searchFiles Queries with axios for all files 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "GET",
+  "params": Object {
+    "q": "",
+  },
+  "url": "https://www.googleapis.com/drive/v3/files",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api searchFiles Queries with axios for all files and their fields 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "GET",
+  "params": Object {
+    "fields": "*",
+    "q": "",
+  },
+  "url": "https://www.googleapis.com/drive/v3/files",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api searchFiles Queries with axios for all files in a parent 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "GET",
+  "params": Object {
+    "q": "'my-parent' in parents",
+  },
+  "url": "https://www.googleapis.com/drive/v3/files",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api searchFiles Queries with axios for all files with a name 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "GET",
+  "params": Object {
+    "q": "name='my-file-name'",
+  },
+  "url": "https://www.googleapis.com/drive/v3/files",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api searchFiles Queries with axios for all files with a name in a parent 1`] = `
+Object {
+  "data": undefined,
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "GET",
+  "params": Object {
+    "q": "name='my-file-name' and 'my-parent' in parents",
+  },
+  "url": "https://www.googleapis.com/drive/v3/files",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api updateFile Queries with axios with a file 1`] = `
+Object {
+  "data": FormData {},
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "PUT",
+  "url": "https://www.googleapis.com/upload/drive/v2/files/my-file-id?uploadType=multipart",
+}
+`;
+
+exports[`unit.app.api.googleDrive.api updateFile Queries with axios without a file 1`] = `
+Object {
+  "data": FormData {},
+  "headers": Object {
+    "Authorization": "Bearer a",
+  },
+  "method": "PUT",
+  "url": "https://www.googleapis.com/drive/v2/files/my-file-id?uploadType=multipart",
+}
+`;

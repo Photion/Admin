@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
+const path = require('path');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
 
@@ -17,6 +18,7 @@ const vueConfig = {
   },
   chainWebpack: (config) => {
     config.resolve.alias.set('~', __dirname);
+    config.resolve.alias.set('%', path.resolve(__dirname, 'src/vue/components'));
     config.output.chunkFilename('js/[name].[id].[chunkhash:8].js');
   },
 };

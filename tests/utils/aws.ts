@@ -1,6 +1,6 @@
 import aws from 'aws-sdk';
 
-import { AwsClient } from '~/src/api/aws/AwsClient';
+import { AwsClient } from '~/src/api/aws/client';
 
 /**
  * Generates an AwsClient instance

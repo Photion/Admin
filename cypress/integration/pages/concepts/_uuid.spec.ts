@@ -29,6 +29,7 @@ describe('/concepts/:uuid', () => {
     const fragment = {
       uuid: '8de15315-0719-4ae4-96b9-40cdfd1145fc',
       concept: '1f95737a-0344-4791-8680-02de5af82a7d',
+      fileId: '',
       meta: {
         filename: 'assets/alinatrifan.sheffield.jpg',
         mime: 'image/jpeg',

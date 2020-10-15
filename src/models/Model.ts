@@ -2,7 +2,8 @@ import { v4 } from 'uuid';
 
 import { Http404 } from '~/src/errors/http/Http404';
 import { client } from '~/src/state/service';
-
+import { FileMetadata } from '~/src/files/metadata';
+import type { Namespace } from '~/src/models/schema';
 
 /**
  * Props for the Model
@@ -11,13 +12,38 @@ export interface ModelProps {
   uuid?: string;
 }
 
+export interface WithFileAttached {
+  fileId?: string;
+  data?: string;
+  meta: FileMetadata;
+}
+
+export const isWithFileAttached = (instance: unknown): instance is WithFileAttached => {
+  if (typeof instance !== 'object') {
+    return false;
+  }
+
+  if (!instance) {
+    return false;
+  }
+
+  if (!('meta' in instance)) {
+    return false;
+  }
+  if (!('fileId' in instance)) {
+    return false;
+  }
+
+  return true;
+};
+
 
 /**
  * Generates a model base class
  * @param namespace
  * @param fields
  */
-export const modelize = <T extends ModelProps>(namespace: string, fields: Array<keyof Required<T>>) => {
+export const modelize = <T extends ModelProps>(namespace: Namespace, fields: Array<keyof Required<T>>) => {
   class Model {
     public static namespace = 'models';
     public static fields = fields;
@@ -43,7 +69,7 @@ export const modelize = <T extends ModelProps>(namespace: string, fields: Array<
       return Object.fromEntries(entries);
     }
 
-    static async retrieve<Y>(this: new (props: T) => Y, uuid: string): Promise<Y> {
+    static async retrieve<Y extends Model>(this: new (props: T) => Y,uuid: string): Promise<Y> {
       const values = await client.value.retrieve<T>(namespace, uuid);
 
       if (!values) {
@@ -53,12 +79,28 @@ export const modelize = <T extends ModelProps>(namespace: string, fields: Array<
         throw new Http404(errorCode, message);
       }
 
-      return new this(values);
+      const instance = new this(values);
+
+      if (isWithFileAttached(instance) && instance.fileId) {
+        instance.data = await client.value.downloadFile(namespace, uuid, instance.meta);
+      }
+
+      return instance;
     }
 
     static async list<Y>(this: new (props: T) => Y): Promise<Y[]> {
       const list = await client.value.list<T>(namespace);
-      const instances = list.map(values => new this(values));
+      const instances = Promise.all(
+        list.map(async (values) => {
+          const instance = new this(values);
+
+          if (isWithFileAttached(instance) && instance.fileId) {
+            instance.data = await client.value.downloadFile(namespace, values.uuid as string, instance.meta);
+          }
+
+          return instance;
+        }),
+      );
 
       return instances;
     }

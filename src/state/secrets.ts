@@ -16,9 +16,16 @@ export interface GcpSecrets {
   apiSecret: string;
 }
 
+export interface GoogleDriveSecrets {
+  accessToken: string;
+  rootFolderId: string;
+  databaseId: string;
+}
+
 export interface Secrets {
   aws: AwsSecrets;
   gcp: GcpSecrets;
+  googleDrive: GoogleDriveSecrets;
 }
 
 export const PHOTION_ENCRYPTION_STORAGE_KEY = 'PHOTION_ENCRYPTION_STORAGE_KEY';
@@ -47,6 +54,11 @@ export const secrets = reactive<Secrets>({
     apiKey: '',
     apiSecret: '',
   },
+  googleDrive: {
+    accessToken: '',
+    rootFolderId: '',
+    databaseId: '',
+  },
 });
 
 export const deserialize = (payload: unknown) => {
@@ -58,6 +70,9 @@ export const deserialize = (payload: unknown) => {
     secrets.aws.secretAccessKey = data.aws?.secretAccessKey || '';
     secrets.gcp.apiKey = data?.gcp?.apiKey || '';
     secrets.gcp.apiSecret = data?.gcp?.apiSecret || '';
+    secrets.googleDrive.accessToken = data?.googleDrive?.accessToken || '';
+    secrets.googleDrive.rootFolderId = data?.googleDrive?.rootFolderId || '';
+    secrets.googleDrive.databaseId = data?.googleDrive?.databaseId || '';
   }
 };
 

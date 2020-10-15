@@ -7,8 +7,8 @@
  * @example
  * cy.getCy('my-cy-tag')
  */
-Cypress.Commands.add('getCy', (selector) => {
-  cy.get(`[cy="${selector}"]`);
+Cypress.Commands.add('getCy', (selector, options = {}) => {
+  cy.get(`[cy="${selector}"]`, options);
 });
 
 /**
@@ -85,6 +85,7 @@ Cypress.Commands.add('phoSelect', (selector, values, multiple = false) => {
  * Helpful in `before` hooks to setup an integration.
  */
 Cypress.Commands.add('clearIntegrations', () => {
+  window.localStorage.removeItem('PHOTION_INTEGRATION');
   window.sessionStorage.removeItem('PHOTION_USERNAME');
   window.sessionStorage.removeItem('PHOTION_SESSION_CREDENTIALS');
 });

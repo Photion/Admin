@@ -4,10 +4,11 @@ import { ref, computed, ComputedRef } from 'vue';
 import { AbstractClient } from '~/src/api/AbstractClient';
 import { BrowserClient } from '~/src/api/BrowserClient';
 import { HttpClient } from '~/src/api/HttpClient';
-import { AwsClient } from '~/src/api/aws/AwsClient';
-import { secrets } from '~/src/state/secrets';
+import { AwsClient } from '~/src/api/aws/client';
+import { GoogleDriveClient } from '~/src/api/googleDrive';
+import { secrets, save } from '~/src/state/secrets';
 import { user } from '~/src/state/user';
-
+import { router } from '~/src/vue/router';
 
 export class Service<T> {
   name: string;
@@ -53,7 +54,7 @@ export const googleDrive = new Service({
   logo: '/logos/googleDrive.svg',
   slug: 'googleDrive',
   description: 'Store your files on Google Drive. Google Sheet will be used as database for your metadata.',
-  values: {},
+  values: secrets.googleDrive,
 });
 
 export const browser = new Service({
@@ -78,6 +79,8 @@ export const service = computed(() => {
   switch (clientName.value) {
   case 'aws':
     return aws;
+  case 'googleDrive':
+    return googleDrive;
   case 'http':
   default:
     return null;
@@ -89,7 +92,7 @@ export const ready = computed(() => {
     return true;
   }
 
-  if (isDev.value && clientName.value === 'browser') {
+  if (isDev.value && clientName.value === browser.slug) {
     return true;
   }
 
@@ -100,18 +103,33 @@ export const ready = computed(() => {
  * Tracks the current client.
  */
 export const client = computed((): AbstractClient => {
-  if (clientName.value === 'aws') {
+  if (clientName.value === aws.slug) {
     return new AwsClient({
       username: user.name,
       ...secrets.aws,
     });
   }
 
-  if (clientName.value === 'browser') {
+  if (clientName.value === browser.slug) {
     return new BrowserClient();
+  }
+
+  if (clientName.value === googleDrive.slug) {
+    return new GoogleDriveClient();
   }
 
   return new HttpClient();
 });
+
+export const saveClient = async (slug: string, redirect = true) => {
+  window.localStorage.setItem('PHOTION_INTEGRATION', slug);
+  clientName.value = slug;
+  await save();
+
+  if (redirect) {
+    router.push('/');
+  }
+};
+
 
 export const appLoaded = ref(false);

@@ -36,4 +36,14 @@ describe('unit.vue.components.ui.PhoButton', () => {
     expect(wrapper.element).toMatchSnapshot();
   });
 
+  it('Renders an internal link', async () => {
+    const wrapper = getComponent({ href: '/abc' });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
+  it('Renders a remote link', async () => {
+    const wrapper = getComponent({ href: 'https://developer.mozilla.org/en-US/docs/Web/API/URL/URL' });
+    expect(wrapper.element).toMatchSnapshot();
+  });
+
 });

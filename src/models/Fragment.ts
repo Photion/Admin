@@ -6,12 +6,13 @@ export interface FragmentProps extends ModelProps {
   concept: string;
   meta?: FileMetadata;
   notes?: string;
+  fileId?: string;
 }
 
 export interface Fragment extends Required<FragmentProps> {}
 
 const namespace = 'fragments';
-const fields: Array<keyof FragmentProps> = ['uuid', 'concept', 'meta', 'notes'];
+const fields: Array<keyof FragmentProps> = ['uuid', 'concept', 'meta', 'notes', 'fileId'];
 
 export class Fragment extends modelize<FragmentProps>(namespace, fields) {
   data: string = '';
@@ -22,6 +23,7 @@ export class Fragment extends modelize<FragmentProps>(namespace, fields) {
     this.concept = props.concept;
     this.meta = props.meta ?? { filename: '', mime: '', size: 0, storage: FileStorage.PREVIEW, public: false, date: null, tags: null };
     this.notes = props.notes ?? '';
+    this.fileId = props.fileId ?? '';
   }
 
   getFileReader() {
