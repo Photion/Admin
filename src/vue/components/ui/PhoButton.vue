@@ -1,23 +1,17 @@
 <template>
-  <button
-    type="button"
-    class="pho-btn"
-    :class="color"
-    :id="id.unique"
-    :disabled="disabled"
-    :cy="id.family">
+  <component :is="attrs.is" v-bind="attrs">
     <slot>
       <FontAwesomeIcon v-if="icon" :icon="icon" />
       <span v-if="label">{{ label }}</span>
     </slot>
-  </button>
+  </component>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
 
-import { useId, componentProps } from '~/src/vue/components/shared';
-import FontAwesomeIcon from '~/src/vue/components/ui/forms/FontAwesomeIcon.vue';
+import { componentProps, useId } from '%/shared';
+import FontAwesomeIcon from '%/ui/forms/FontAwesomeIcon.vue';
 
 export default defineComponent({
   components: {
@@ -32,6 +26,10 @@ export default defineComponent({
         return ['primary', 'secondary', 'success', 'danger', 'disabled'].indexOf(color) !== -1;
       },
     },
+    href: {
+      type: String,
+      default: () => '',
+    },
     icon: {
       type: String,
       default: () => '',
@@ -42,11 +40,40 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const disabled = props.color === 'disabled';
+    const id = useId('button', props);
+
+    const attrs = computed(() => {
+      const values: Record<string, unknown> = {
+        is: computed(() => props.href ? 'a' : 'button'),
+        id: id.unique,
+        cy: id.family,
+        class: `pho-btn ${props.color}`,
+      };
+
+      if (props.color === 'disabled') {
+        values.disabled = 'disabled';
+      }
+
+      if (props.href) {
+        const url = new URL(props.href, window.location.origin);
+
+        if (url.origin === window.location.origin) {
+          values.is = 'router-link';
+          values.to = props.href;
+        } else {
+          values.is = 'a';
+          values.href = props.href;
+        }
+      } else {
+        values.is = 'button';
+        values.type = 'button';
+      }
+
+      return values;
+    });
 
     return {
-      id: useId('button', props),
-      disabled,
+      attrs,
     };
   },
 });

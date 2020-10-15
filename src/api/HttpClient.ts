@@ -2,6 +2,7 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 import { AbstractClient } from '~/src/api/AbstractClient';
 import { FileMetadata } from '~/src/files/metadata';
+import { Namespace } from '~/src/models/schema';
 
 
 export class HttpClient extends AbstractClient {
@@ -23,50 +24,54 @@ export class HttpClient extends AbstractClient {
   processResponse(response: AxiosResponse): AxiosResponse {
     const error = (details: string) => new Error(`${response.request.method} ${response.request.url} failed: ${details}`);
 
-    if (!response.data) {
+    if (!('data' in response)) {
       throw error('Incomplete `response`. No `data` found.');
-    }
-
-    if (typeof response.data === 'string') {
-      throw error('Invalid `response`. `data` is a string.');
     }
 
     return response;
   }
 
-  async retrieve<T>(namespace: string, uuid: string): Promise<Required<T> | null> {
+  async retrieve<T>(namespace: Namespace, uuid: string): Promise<Required<T> | null> {
     const response: { data: Required<T> } = this.processResponse(await this.client.get(`/api/${namespace}/${uuid}`));
 
     return response.data;
   }
 
-  async list<T>(namespace: string): Promise<Required<T>[]> {
+  async list<T>(namespace: Namespace): Promise<Required<T>[]> {
     const response: { data: Required<T>[]} = this.processResponse(await this.client.get(`/api/${namespace}`));
 
     return response.data;
   }
 
-  async create<T>(namespace: string, values: Required<T>): Promise<Required<T>> {
+  async create<T>(namespace: Namespace, values: Required<T>): Promise<Required<T>> {
     const response: { data: Required<T> } = this.processResponse(await this.client.post(`/api/${namespace}`, values));
 
     return response.data;
   }
 
-  async update<T>(namespace: string, uuid: string, values: Required<T>): Promise<Required<T>> {
+  async update<T>(namespace: Namespace, uuid: string, values: Required<T>): Promise<Required<T>> {
     const response: { data: Required<T> } = this.processResponse(await this.client.put(`/api/${namespace}/${uuid}`, values));
 
     return response.data;
   }
 
-  async remove<T>(namespace: string, uuid: string): Promise<void> {
+  async remove<T>(namespace: Namespace, uuid: string): Promise<void> {
     this.processResponse(await this.client.delete(`/api/${namespace}/${uuid}`));
   }
 
-  async uploadFile<T>(namespace: string, uuid: string, metadata: FileMetadata, file: File): Promise<void> {
+  async uploadFile<T>(namespace: Namespace, uuid: string, metadata: FileMetadata, file: File): Promise<string> {
     this.processResponse(await this.client.post(`/api/${namespace}/${uuid}/upload`, { metadata, file }));
+
+    return '';
   }
 
-  async deleteFile<T>(namespace: string, uuid: string, _metadata: FileMetadata): Promise<void> {
+  async downloadFile(namespace: Namespace, uuid: string, _metadata: FileMetadata): Promise<string> {
+    this.processResponse(await this.client.get(`/api/${namespace}/${uuid}/download`));
+
+    return '';
+  }
+
+  async deleteFile<T>(namespace: Namespace, uuid: string, _metadata: FileMetadata): Promise<void> {
     this.processResponse(await this.client.delete(`/api/${namespace}/${uuid}/upload`));
   }
 }

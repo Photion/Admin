@@ -19,6 +19,9 @@
       "jest"
     ],
     "paths": {
+      "%/*": [
+        "./src/vue/components/*",
+      ],
       "@/*": [
         "src/*"
       ],

@@ -16,7 +16,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-import { Service } from '~/src/models/services';
+import { Service } from '~/src/state/service';
 import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
 import PhoXCard from '~/src/vue/components/ui/PhoXCard.vue';
 
@@ -29,7 +29,7 @@ export default defineComponent({
 
   props: {
     service: {
-      type: Object as () => Service,
+      type: Object as <T>() => Service<T>,
       required: true,
     },
     selected: {

@@ -3,6 +3,7 @@ import DynamoDB from 'aws-sdk/clients/dynamodb';
 
 import { HttpClient } from '~/src/api/HttpClient';
 import { FileMetadata, FileStorage } from '~/src/files/metadata';
+import { Namespace } from '~/src/models/schema';
 
 
 export interface AwsCredentials {
@@ -27,7 +28,7 @@ export class AwsClient extends HttpClient {
     return `https://${bucket}.s3-${region}.amazonaws.com/`;
   }
 
-  getTable(namespace: string): string {
+  getTable(namespace: Namespace): string {
     const table = `photion--${this.credentials.username}--${namespace}`;
 
     return table;
@@ -83,7 +84,7 @@ export class AwsClient extends HttpClient {
     return new DynamoDB.DocumentClient(params);
   }
 
-  async list<T>(namespace: string): Promise<Required<T>[]> {
+  async list<T>(namespace: Namespace): Promise<Required<T>[]> {
     const params = {
       TableName: this.getTable(namespace),
     };
@@ -97,7 +98,7 @@ export class AwsClient extends HttpClient {
     return [];
   }
 
-  async retrieve<T>(namespace: string, uuid: string): Promise<Required<T> | null> {
+  async retrieve<T>(namespace: Namespace, uuid: string): Promise<Required<T> | null> {
     const params = {
       TableName: this.getTable(namespace),
       Key: this.getKey(uuid),
@@ -112,7 +113,7 @@ export class AwsClient extends HttpClient {
     return null;
   }
 
-  async create<T>(namespace: string, values: Required<T>): Promise<Required<T>> {
+  async create<T>(namespace: Namespace, values: Required<T>): Promise<Required<T>> {
     const params = {
       TableName: this.getTable(namespace),
       Item: values,
@@ -123,7 +124,7 @@ export class AwsClient extends HttpClient {
     return values;
   }
 
-  async update<T>(namespace: string, _uuid: string, values: Required<T>): Promise<Required<T>> {
+  async update<T>(namespace: Namespace, _uuid: string, values: Required<T>): Promise<Required<T>> {
     const params = {
       TableName: this.getTable(namespace),
       Item: values,
@@ -134,7 +135,7 @@ export class AwsClient extends HttpClient {
     return values;
   }
 
-  async remove<T>(namespace: string, uuid: string): Promise<void> {
+  async remove<T>(namespace: Namespace, uuid: string): Promise<void> {
     const params = {
       TableName: this.getTable(namespace),
       Key: this.getKey(uuid),
@@ -143,7 +144,7 @@ export class AwsClient extends HttpClient {
     await this.dynamo.delete(params).promise();
   }
 
-  async uploadFile<T>(namespace: string, uuid: string, meta: FileMetadata, file: File | Buffer): Promise<void> {
+  async uploadFile<T>(namespace: Namespace, uuid: string, meta: FileMetadata, file: File | Buffer): Promise<string> {
     const params = {
       Bucket: this.getBucket(),
       Key: this.getFileKey(namespace, uuid, meta),
@@ -154,9 +155,11 @@ export class AwsClient extends HttpClient {
     };
 
     await this.s3.putObject(params).promise();
+
+    return params.Key;
   }
 
-  async deleteFile<T>(namespace: string, uuid: string, meta: FileMetadata): Promise<void> {
+  async deleteFile<T>(namespace: Namespace, uuid: string, meta: FileMetadata): Promise<void> {
     const params = {
       Bucket: this.getBucket(),
       Key: this.getFileKey(namespace, uuid, meta),
@@ -165,7 +168,7 @@ export class AwsClient extends HttpClient {
     await this.s3.deleteObject(params).promise();
   }
 
-  headFile<T>(namespace: string, uuid: string, meta: FileMetadata) {
+  headFile<T>(namespace: Namespace, uuid: string, meta: FileMetadata) {
     const params = {
       Bucket: this.getBucket(),
       Key: this.getFileKey(namespace, uuid, meta),
@@ -180,7 +183,7 @@ export class AwsClient extends HttpClient {
    * @param uuid
    * @param meta
    */
-  getFileUrl(namespace: string, uuid: string, meta: FileMetadata): string {
+  getFileUrl(namespace: Namespace, uuid: string, meta: FileMetadata): string {
     if (meta.public) {
       return super.getFileUrl(namespace, uuid, meta);
     }

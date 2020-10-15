@@ -9,6 +9,8 @@
   @apply transition-all;
   @apply duration-500;
 
+  cursor: pointer;
+
   &[disabled] {
     cursor: default;
   }

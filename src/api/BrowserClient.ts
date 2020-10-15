@@ -1,5 +1,6 @@
 import { AbstractClient } from '~/src/api/AbstractClient';
 import { FileMetadata } from '~/src/files/metadata';
+import { Namespace } from '~/src/models/schema';
 
 interface InMemoryTable {
   [key: string]: {
@@ -24,7 +25,7 @@ export class BrowserClient extends AbstractClient {
     this.db = (window as unknown as { BROWSER_CLIENT_STARTING_STATE: InMemoryDB }).BROWSER_CLIENT_STARTING_STATE || {};
   }
 
-  getTable(namespace: string): InMemoryTable {
+  getTable(namespace: Namespace): InMemoryTable {
     if (!(namespace in this.db)) {
       this.db[namespace] = {};
     }
@@ -32,7 +33,7 @@ export class BrowserClient extends AbstractClient {
     return this.db[namespace];
   }
 
-  async retrieve<T>(namespace: string, uuid: string): Promise<Required<T> | null> {
+  async retrieve<T>(namespace: Namespace, uuid: string): Promise<Required<T> | null> {
     const table = this.getTable(namespace);
 
     const instance = (table[uuid]?.values || null) as Required<T> | null;
@@ -40,7 +41,7 @@ export class BrowserClient extends AbstractClient {
     return instance;
   }
 
-  async list<T>(namespace: string): Promise<Required<T>[]> {
+  async list<T>(namespace: Namespace): Promise<Required<T>[]> {
     const table = this.getTable(namespace);
 
     const instances = Object.values(table).map((row) => row.values) as Required<T>[];
@@ -48,7 +49,7 @@ export class BrowserClient extends AbstractClient {
     return instances;
   }
 
-  async create<T>(namespace: string, values: Required<T> & { uuid: string }): Promise<Required<T>> {
+  async create<T>(namespace: Namespace, values: Required<T> & { uuid: string }): Promise<Required<T>> {
     const table = this.getTable(namespace);
 
     table[values.uuid] =  { values, file: null };
@@ -56,7 +57,7 @@ export class BrowserClient extends AbstractClient {
     return values;
   }
 
-  async update<T>(namespace: string, uuid: string, values: Required<T>): Promise<Required<T>> {
+  async update<T>(namespace: Namespace, uuid: string, values: Required<T>): Promise<Required<T>> {
     const table = this.getTable(namespace);
 
     if (!(uuid in table)) {
@@ -66,13 +67,13 @@ export class BrowserClient extends AbstractClient {
     return values;
   }
 
-  async remove<T>(namespace: string, uuid: string): Promise<void> {
+  async remove<T>(namespace: Namespace, uuid: string): Promise<void> {
     const table = this.getTable(namespace);
 
     delete table[uuid];
   }
 
-  async uploadFile<T>(namespace: string, uuid: string, metadata: FileMetadata, file: File): Promise<void> {
+  async uploadFile<T>(namespace: Namespace, uuid: string, metadata: FileMetadata, file: File): Promise<string> {
     const table = this.getTable(namespace);
 
     if (!(uuid in table)) {
@@ -80,9 +81,11 @@ export class BrowserClient extends AbstractClient {
     }
 
     table[uuid].file = { file, metadata };
+
+    return uuid;
   }
 
-  async deleteFile<T>(namespace: string, uuid: string, _metadata: FileMetadata): Promise<void> {
+  async deleteFile<T>(namespace: Namespace, uuid: string, _metadata: FileMetadata): Promise<void> {
     const table = this.getTable(namespace);
 
     if (!(uuid in table)) {
@@ -90,5 +93,15 @@ export class BrowserClient extends AbstractClient {
     }
 
     table[uuid].file = null;
+  }
+
+  async downloadFile(namespace: Namespace, uuid: string, _metadata: FileMetadata): Promise<string> {
+    const table = this.getTable(namespace);
+
+    if (!(uuid in table)) {
+      throw new Error('Instance has not been created.');
+    }
+
+    return String(table[uuid].file);
   }
 }

@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 /// <reference path="../../../support/index.d.ts" />
 
-context('/services/aws', () => {
+describe('/services/aws', () => {
   const user = {
     name: 'cypress.user',
     password: 'cypress.password',

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`feat.api.googleDrive GoogleDriveClient Retrieves a saved entity Creates with one client, retrieves with another 1`] = `
+Object {
+  "data": "abc",
+  "uuid": "concept-1",
+}
+`;
+
+exports[`feat.api.googleDrive GoogleDriveClient Sustains two concurrent GoogleDriveClients Create doesn't overwrite 1`] = `
+Object {
+  "concepts": Object {
+    "concept-1": Object {
+      "data": "abc",
+      "uuid": "concept-1",
+    },
+    "concept-2": Object {
+      "data": "def",
+      "uuid": "concept-2",
+    },
+  },
+  "fragments": Object {},
+  "projects": Object {},
+}
+`;

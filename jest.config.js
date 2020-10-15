@@ -8,6 +8,7 @@ const getConfig = (type, color = 'blue', coverage = false) => {
     },
     moduleNameMapper: {
       '~/(.*)$': '<rootDir>/$1',
+      '%/(.*)$': '<rootDir>/src/vue/components/$1',
     },
     setupFiles: [
       '<rootDir>/tests/setup.ts',
