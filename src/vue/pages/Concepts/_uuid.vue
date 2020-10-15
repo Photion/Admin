@@ -31,7 +31,7 @@
           </div>
           <div v-if="concept.created" class="text-right space-x-1">
             <PhoButton name="concept.save" color="success" @click="concept.save()">Save</PhoButton>
-            <PhoButton name="concept.remove" color="danger" @click="concept.remove()">Delete</PhoButton>
+            <PhoButton name="concept.remove" color="danger" @click="deleteConcept(concept)">Delete</PhoButton>
           </div>
           <div v-else class="text-right space-x-1">
             <PhoButton name="concept.create" color="success" @click="concept.save()">Create</PhoButton>
@@ -145,7 +145,6 @@ export default defineComponent({
       readMetadata(fragment);
     };
 
-
     const onDrop = async (files: File[]) => {
       await files.forEach(async (file) => {
         await addFile(file);
@@ -156,6 +155,10 @@ export default defineComponent({
       concept.value.name = ($event.target as HTMLElement).innerText;
     };
 
+    const deleteConcept = async (concept: Concept) => {
+      await concept.remove();
+      router.push('/concepts/');
+    }
 
     watch(file, async () => {
       if (file.value) {
@@ -173,6 +176,7 @@ export default defineComponent({
       projects,
       onDrop,
       updateName,
+      deleteConcept,
       types: Object.values(Concept.Type).map(toOption),
       removeFragment,
     };
