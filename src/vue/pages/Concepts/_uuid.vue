@@ -164,7 +164,7 @@ export default defineComponent({
       }
     });
 
-    const saveConcept=async (concept: Concept)=>{
+    const saveConcept = async (concept: Concept)=>{
       await concept.save();
       router.push(`/concepts/${concept?.uuid}`); 
     };
