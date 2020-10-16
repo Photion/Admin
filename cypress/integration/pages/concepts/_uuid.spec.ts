@@ -214,7 +214,15 @@ context('/concepts/:uuid', () => {
       cy.getCy('field:concept.projects').should('have.deep.value', concept.projects.join(','));
       cy.getCy('field:concept.date').should('have.value', concept.date);
     });
+    it('Reroutes to concepts', () => {
+      cy.wait('@concepts/get');
+      cy.wait('@fragments/get');
+      cy.wait('@projects/get');
 
+      cy.getCy('button:fragment.remove').click();
+      cy.url()
+          .should('include', '/concepts');
+    });
   });
 
   describe('Without projects', () => {
