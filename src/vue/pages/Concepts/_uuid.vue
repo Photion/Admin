@@ -34,7 +34,7 @@
             <PhoButton name="concept.remove" color="danger" @click="deleteConcept(concept)">Delete</PhoButton>
           </div>
           <div v-else class="text-right space-x-1">
-            <PhoButton name="concept.create" color="success" @click="saveConcept(concept)">Create</PhoButton>
+            <PhoButton name="concept.create" color="success" @click="concept.save()">Create</PhoButton>
           </div>
         </div>
       </div>
@@ -167,11 +167,6 @@ export default defineComponent({
       }
     });
 
-    const saveConcept = async (concept: Concept)=>{
-      await concept.save();
-      router.push(`/concepts/${concept?.uuid}`); 
-    };
-
     return {
       preview,
       previewer,
@@ -184,7 +179,6 @@ export default defineComponent({
       deleteConcept,
       types: Object.values(Concept.Type).map(toOption),
       removeFragment,
-      saveConcept,
     };
   },
 });

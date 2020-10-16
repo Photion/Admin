@@ -120,10 +120,6 @@
   @apply transition-all;
   @apply duration-500;
 
-  &[disabled] {
-    cursor: default;
-  }
-
   min-height: 22px;
 
   &:hover {
