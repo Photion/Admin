@@ -164,10 +164,10 @@ export default defineComponent({
       }
     });
 
-    const saveConcept=async (concept:Concept)=>{
+    const saveConcept = async (concept: Concept)=>{
       await concept.save();
-      router.push(`/concepts/${concept?.uuid}`);
-    }
+      router.push(`/concepts/${concept?.uuid}`); 
+    };
 
     return {
       preview,
@@ -180,7 +180,7 @@ export default defineComponent({
       updateName,
       types: Object.values(Concept.Type).map(toOption),
       removeFragment,
-      saveConcept
+      saveConcept,
     };
   },
 });
