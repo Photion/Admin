@@ -147,6 +147,8 @@ context('/concepts/:uuid', () => {
           concept.uuid = xhr.request.body.uuid;
           fragment.concept = concept.uuid;
           expect(xhr.request.body).to.deep.equal(concept);
+          cy.url()
+            .should('include', `/concepts/${concept.uuid}`);
         });
 
       cy.getCy('fragment.card');

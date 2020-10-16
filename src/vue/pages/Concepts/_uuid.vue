@@ -166,8 +166,7 @@ export default defineComponent({
 
     const saveConcept=async (concept:Concept)=>{
       await concept.save();
-      const target = concept?.uuid ?? 'new';
-      router.push(`/concepts/${target}`);
+      router.push(`/concepts/${concept?.uuid}`);
     }
 
     return {
