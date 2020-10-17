@@ -91,6 +91,59 @@ exports[`unit.vue.components.ui.forms.PhoTextField Renders a disabled field 1`] 
 </div>
 `;
 
+exports[`unit.vue.components.ui.forms.PhoTextField Renders the extra attr over the input 1`] = `
+<div
+  class="pho-field-wrapper"
+  min="1900"
+>
+  <!--v-if-->
+  <input
+    class="pho-field"
+    cy="field:pho-text-field-comp"
+    id="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    min="1900"
+    name="pho-text-field-comp"
+    type="text"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Renders the extra attr over the input 2`] = `
+<div
+  class="pho-field-wrapper"
+  max="2100"
+>
+  <!--v-if-->
+  <input
+    class="pho-field"
+    cy="field:pho-text-field-comp"
+    id="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    max="2100"
+    name="pho-text-field-comp"
+    type="text"
+  />
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Renders the extra attr over the input 3`] = `
+<div
+  class="pho-field-wrapper"
+  max="2100"
+  min="1900"
+>
+  <!--v-if-->
+  <input
+    class="pho-field"
+    cy="field:pho-text-field-comp"
+    id="field:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+    max="2100"
+    min="1900"
+    name="pho-text-field-comp"
+    type="text"
+  />
+</div>
+`;
+
 exports[`unit.vue.components.ui.forms.PhoTextField Renders the label 1`] = `
 <div
   class="pho-field-wrapper"

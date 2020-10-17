@@ -12,6 +12,7 @@
       :type="type"
       :value="modelValue"
       :disabled="disabled"
+      v-bind="$attrs"
       @input="onInput" />
   </div>
 </template>
