@@ -4,7 +4,7 @@
 import dayjs from 'dayjs';
 import { concepts, fragments, projects } from '../../../../tests/mocks/models';
 
-context('/concepts/:uuid', () => {
+describe('/concepts/:uuid', () => {
   const today = dayjs().format('YYYY-MM-DD');
   // const [year, month, day] = today.split('-').map(Number);
 
@@ -189,6 +189,55 @@ context('/concepts/:uuid', () => {
 
       cy.wait('@concepts/delete');
     });
+
+    it('Enforces the 4 characters limits for dates, with min 1900 and max 2100', () => {
+
+      cy.wait('@projects/get');
+
+      // Check absurd dates are resetted
+      [
+        '9999999-12-31',
+        '-999999-01-01',
+      ]
+        .forEach((value) => {
+          cy.getCy('field:concept.date')
+            .invoke('val', value)
+            .should('have.value', '');
+        });
+
+      const currentYear = (new Date()).getFullYear();
+      const nextYear = currentYear + 1;
+
+      // Check out-of-bound dates
+      // are considered invalid
+      [
+        '1899-12-31',
+        `${nextYear}-01-01`,
+      ]
+        .forEach((value) => {
+          cy.getCy('field:concept.date')
+            .invoke('val', value)
+            .should((input) => {
+              expect(input.get(0).checkValidity()).to.be.equal(false);
+            });
+        });
+
+      // Check out-of-bound dates
+      // are considered invalid
+      [
+        '1900-01-01',
+        '1970-10-17',
+        `${currentYear}-12-31`,
+      ]
+        .forEach((value) => {
+          cy.getCy('field:concept.date')
+            .invoke('val', value)
+            .should((input) => {
+              expect(input.get(0).checkValidity()).to.be.equal(true);
+            });
+        });
+    });
+
   });
 
   describe('With one concept', () => {

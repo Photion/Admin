@@ -24,7 +24,13 @@
             name="concept.projects"
             label="Projects"
             :options="projects" />
-          <PhoTextField type="date" v-model="concept.date" label="Date" name="concept.date" />
+          <PhoTextField
+            type="date"
+            v-model="concept.date"
+            label="Date"
+            name="concept.date"
+            min="1900-01-01"
+            :max="dateMax" />
           <div class="grid grid-cols-2 gap-2">
             <PhoBoolean v-model="concept.public" name="concept.public" inline label="Public" />
             <PhoBoolean v-model="concept.featured" name="concept.featured"  inline label="Featured" />
@@ -172,6 +178,8 @@ export default defineComponent({
       router.push(`/concepts/${concept?.uuid}`);
     };
 
+    const dateMax =`${(new Date().getFullYear())}-12-31`;
+
     return {
       preview,
       previewer,
@@ -185,6 +193,7 @@ export default defineComponent({
       types: Object.values(Concept.Type).map(toOption),
       removeFragment,
       saveConcept,
+      dateMax,
     };
   },
 });

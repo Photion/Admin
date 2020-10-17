@@ -2,7 +2,7 @@ import { mount } from '@vue/test-utils';
 
 import PhoTextField from '~/src/vue/components/ui/forms/PhoTextField.vue';
 
-const getComponent = <T>(props: T) => {
+const getComponent = <T>(props: T, attrs: Record<string, string> | {} = {}) => {
   return mount(PhoTextField, {
     props: {
       name: 'pho-text-field-comp',
@@ -10,6 +10,7 @@ const getComponent = <T>(props: T) => {
       modelValue: 'abc',
       ...props,
     },
+    attrs,
   });
 };
 
@@ -44,5 +45,17 @@ describe('unit.vue.components.ui.forms.PhoTextField', () => {
     });
 
   });
+
+  [
+    { min: '1900' },
+    { max: '2100' },
+    { min: '1900', max: '2100' },
+  ]
+    .forEach((attrs) => {
+      it('Renders the extra attr over the input', () => {
+        const wrapper = getComponent({}, attrs);
+        expect(wrapper.element).toMatchSnapshot();
+      });
+    });
 
 });
