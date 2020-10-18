@@ -1,0 +1,58 @@
+.pho-btn {
+  @apply text-white;
+  @apply text-2xs;
+  @apply uppercase;
+  @apply rounded-md;
+  @apply px-4;
+  @apply py-1;
+  @apply tracking-wider;
+  @apply transition-all;
+  @apply duration-500;
+
+  &[disabled] {
+    cursor: default;
+  }
+
+  min-height: 22px;
+
+  &:hover {
+    @apply shadow-lg;
+  }
+
+  &.primary {
+    @apply bg-gray-800;
+
+    &:hover {
+      @apply bg-gray-700;
+    }
+  }
+
+  &.secondary {
+    @apply bg-teal-500;
+
+    &:hover {
+      @apply bg-teal-400;
+    }
+  }
+
+  &.success {
+    @apply bg-green-600;
+
+    &:hover {
+      @apply bg-green-500;
+    }
+  }
+
+  &.danger {
+    @apply bg-red-600;
+
+    &:hover {
+      @apply bg-red-500;
+    }
+  }
+
+  &.disabled {
+    @apply bg-gray-300;
+    @apply text-gray-900;
+  }
+}

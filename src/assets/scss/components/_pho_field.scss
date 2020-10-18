@@ -1,0 +1,23 @@
+.pho-field-wrapper {
+  @apply mb-4;
+}
+
+.pho-field {
+  @apply block;
+  @apply border-gray-500;
+  @apply w-full;
+  @apply py-1;
+  @apply text-sm;
+  @apply outline-none;
+  @apply bg-white;
+  @apply transition;
+  @apply duration-200;
+  @apply ease-in;
+
+  border-width: 0;
+  border-bottom-width: 1px;
+
+  &:focus {
+    @apply border-gray-800;
+  }
+}

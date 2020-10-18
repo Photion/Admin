@@ -1,0 +1,6 @@
+// components/common should contain classes that should be available in multiple components.
+
+.pho-label {
+  @apply font-bold;
+  @apply text-sm;
+}
