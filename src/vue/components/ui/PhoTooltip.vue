@@ -6,9 +6,9 @@
     <transition name="slide">
       <div
         v-if="show"
-        class="tooltip bg-gray-800 text-white rounded-sm text-center px-2 py-1"
-        :class="`tooltip-${position}`"
-        :style="styles.tooltip.value">
+        :style="styles.tooltip.value"
+        class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1"
+        :class="position">
         <slot name="content">
           <span v-if="text" class="text-xs tracking-wide">{{ text }}</span>
         </slot>
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, computed } from 'vue';
+import { computed, defineComponent, ref } from 'vue';
 
 export enum TooltipPositions {
   TOP = 'top',
@@ -74,17 +74,36 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+$position: bottom;
 $padding: 10px;
 $offset-base: 50%;
 $offset-active: 20%;
+
+@mixin base-translate($position) {
+  @if $position == top or $position == bottom{
+    transform: translate(-#{$offset-base}, 0);
+  } @else if $position == left or $position == right {
+    transform: translate(0, -#{$offset-base});
+  } @else {
+    @error "Unknown postion #{$position}"
+  }
+}
+
+@mixin active-translate($position) {
+  @if $position == top or $position == bottom{
+    transform: translate(-#{$offset-base}, -#{$offset-active});
+  } @else if $position == left or $position == right {
+    transform: translate(-#{$offset-active},-#{$offset-base});
+  } @else {
+    @error "Unknown postion #{$position}"
+  }
+}
 
 .wrapper {
   width: fit-content;
 }
 
 .tooltip {
-  position: absolute;
-  transform: translate(var(--translate-base-x), var(--translate-base-y));
   max-width: 12rem;
 
   &::after {
@@ -94,14 +113,12 @@ $offset-active: 20%;
     pointer-events: none;
   }
 
-  &-top {
+  &.top {
     left: 50%;
     bottom: calc(100% + #{$padding});
 
-    --translate-base-x: -#{$offset-base};
-    --translate-base-y: 0%;
-    --translate-active-x: -#{$offset-base};
-    --translate-active-y: -#{$offset-active};
+    $position: top !global;
+    @include base-translate($position);
 
     &::after {
       top: 100%;
@@ -112,32 +129,28 @@ $offset-active: 20%;
     }
   }
 
-  &-right {
+  &.right {
     top: 50%;
     left: calc(100% + #{$padding});
 
-    --translate-base-x: 0%;
-    --translate-base-y: -#{$offset-base};
-    --translate-active-x: -#{$offset-active};
-    --translate-active-y: -#{$offset-base};
+    $position: right !global;
+    @include base-translate($position);
 
     &::after {
       bottom: calc(50% - 5px);
-      left: 0%;
+      left: 0;
       margin-left: -10px;
       border-width: 5px;
       border-color: transparent theme('colors.gray.800') transparent transparent;
     }
   }
 
-  &-bottom {
+  &.bottom {
     left: 50%;
     top: calc(100% + #{$padding});
 
-    --translate-base-x: -#{$offset-base};
-    --translate-base-y: 0%;
-    --translate-active-x: -#{$offset-base};
-    --translate-active-y: -#{$offset-active};
+    $position: bottom !global;
+    @include base-translate($position);
 
     &::after {
       bottom: 100%;
@@ -148,24 +161,21 @@ $offset-active: 20%;
     }
   }
 
-  &-left {
+  &.left {
     top: 50%;
     right: calc(100% + #{$padding});
 
-    --translate-base-x: 0%;
-    --translate-base-y: -#{$offset-base};
-    --translate-active-x: -#{$offset-active};
-    --translate-active-y: -#{$offset-base};
+    $position: left !global;
+    @include base-translate($position);
 
     &::after {
       bottom: calc(50% - 5px);
-      right: 0%;
+      right: 0;
       margin-right: -10px;
       border-width: 5px;
       border-color: transparent transparent transparent theme('colors.gray.800');
     }
   }
-
 }
 
 .slide-enter-active {
@@ -180,16 +190,16 @@ $offset-active: 20%;
 
 .slide-enter-from {
   opacity: 0;
-  transform: translate(var(--translate-active-x), var(--translate-active-y));
+  @include active-translate($position);
 }
 
 .slide-enter-to , .slide-leave-from {
   opacity: 1;
-  transform: translate(var(--translate-base-x), var(--translate-base-y));
+  @include base-translate($position);
 }
 
 .slide-leave-to {
   opacity: 0;
-  transform: translate(var(--translate-active-x), var(--translate-active-y));
+  @include active-translate($position);
 }
 </style>
