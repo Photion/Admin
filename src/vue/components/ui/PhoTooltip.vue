@@ -3,7 +3,7 @@
     <div class="inline-block" @mouseout="show = false" @mouseover="show = true">
       <slot ></slot>
     </div>
-    <transition name="slide">
+    <transition name="slide" @enter="setEnterDelay" @leave="setLeaveDelay" >
       <div v-if="show" class="tooltip bg-gray-800 text-white rounded-sm text-center px-2 py-1">
         <span v-if="text" class="text-xs tracking-wide">{{text}}</span>
         <div v-else>
@@ -34,8 +34,8 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const transitionDelayIn = computed<{}>(() => ({ transitionDelay: `${props.delayIn}ms` }));
-    const transitionDelayOut = computed<{}>(() => ({ transitionDelay: `${props.delayOut}ms` }));
+    const transitionDelayIn = computed<string>(() => `${props.delayIn}ms`);
+    const transitionDelayOut = computed<string>(() => `${props.delayOut}ms`);
 
     return {
       transitionDelayIn,
@@ -46,6 +46,14 @@ export default defineComponent({
     return {
       show: false,
     };
+  },
+  methods: {
+    setEnterDelay(el: HTMLElement, _done: boolean) {
+      el.style.transitionDelay = this.transitionDelayIn ;
+    },
+    setLeaveDelay(el: HTMLElement, _done: boolean) {
+      el.style.transitionDelay = this.transitionDelayOut ;
+    },
   },
 });
 </script>
@@ -75,12 +83,10 @@ export default defineComponent({
 
 .slide-enter-active {
   transition-duration: 150ms;
-  transition-delay: 1000ms;
 }
 
 .slide-leave-active {
   transition-duration: 150ms;
-  transition-delay: 100ms;
 }
 
 .slide-enter-from {
