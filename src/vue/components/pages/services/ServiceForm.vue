@@ -8,8 +8,17 @@
       <Integration :service="service" selected />
       <div class="space-y-4">
         <div class="space-y-4">
-          <PhoTextField v-model="user.name" name="user.name" label="Photion Username" />
-          <PhoTextField v-model="user.password" name="user.password" label="Encryption Password" type="password" />
+          <PhoTextField
+            v-model="user.name"
+            name="user.name"
+            label="Photion Username"
+            help="Used by your integration" />
+          <PhoTextField
+            v-model="user.password"
+            name="user.password"
+            label="Encryption Password"
+            type="password"
+            help="Used to decrypt your local secrets from the browser" />
         </div>
         <div>
           <slot />

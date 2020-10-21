@@ -9,6 +9,7 @@ import {
   faChevronDown,
   faCloudDownloadAlt,
   faCloudUploadAlt,
+  faInfoCircle,
   faLink,
   faTimes,
   faTrash,
@@ -18,6 +19,7 @@ library.add(faCheckSquare);
 library.add(faChevronDown);
 library.add(faCloudDownloadAlt);
 library.add(faCloudUploadAlt);
+library.add(faInfoCircle);
 library.add(faLink);
 library.add(faTimes);
 library.add(faTrash);

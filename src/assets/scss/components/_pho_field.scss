@@ -1,5 +1,13 @@
 .pho-field-wrapper {
   @apply mb-4;
+
+  .help {
+    right: 1px;
+    top: 0px;
+    cursor: pointer;
+    user-select: none;
+  }
+
 }
 
 .pho-field {

@@ -2,7 +2,7 @@
 
 exports[`unit.vue.components.ui.forms.PhoTextField Mounts 1`] = `
 <div
-  class="pho-field-wrapper"
+  class="pho-field-wrapper w-full relative"
 >
   <!--v-if-->
   <input
@@ -12,12 +12,13 @@ exports[`unit.vue.components.ui.forms.PhoTextField Mounts 1`] = `
     name="pho-text-field-comp"
     type="text"
   />
+  <!--v-if-->
 </div>
 `;
 
 exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'date' field 1`] = `
 <div
-  class="pho-field-wrapper"
+  class="pho-field-wrapper w-full relative"
 >
   <!--v-if-->
   <input
@@ -27,12 +28,13 @@ exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'date' field 1`] = 
     name="pho-text-field-comp"
     type="date"
   />
+  <!--v-if-->
 </div>
 `;
 
 exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'number' field 1`] = `
 <div
-  class="pho-field-wrapper"
+  class="pho-field-wrapper w-full relative"
 >
   <!--v-if-->
   <input
@@ -42,12 +44,13 @@ exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'number' field 1`] 
     name="pho-text-field-comp"
     type="number"
   />
+  <!--v-if-->
 </div>
 `;
 
 exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'password' field 1`] = `
 <div
-  class="pho-field-wrapper"
+  class="pho-field-wrapper w-full relative"
 >
   <!--v-if-->
   <input
@@ -57,12 +60,13 @@ exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'password' field 1`
     name="pho-text-field-comp"
     type="password"
   />
+  <!--v-if-->
 </div>
 `;
 
 exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'text' field 1`] = `
 <div
-  class="pho-field-wrapper"
+  class="pho-field-wrapper w-full relative"
 >
   <!--v-if-->
   <input
@@ -72,12 +76,13 @@ exports[`unit.vue.components.ui.forms.PhoTextField Renders a 'text' field 1`] = 
     name="pho-text-field-comp"
     type="text"
   />
+  <!--v-if-->
 </div>
 `;
 
 exports[`unit.vue.components.ui.forms.PhoTextField Renders a disabled field 1`] = `
 <div
-  class="pho-field-wrapper"
+  class="pho-field-wrapper w-full relative"
 >
   <!--v-if-->
   <input
@@ -88,12 +93,13 @@ exports[`unit.vue.components.ui.forms.PhoTextField Renders a disabled field 1`] 
     name="pho-text-field-comp"
     type="text"
   />
+  <!--v-if-->
 </div>
 `;
 
 exports[`unit.vue.components.ui.forms.PhoTextField Renders the extra attr over the input 1`] = `
 <div
-  class="pho-field-wrapper"
+  class="pho-field-wrapper w-full relative"
   min="1900"
 >
   <!--v-if-->
@@ -105,12 +111,13 @@ exports[`unit.vue.components.ui.forms.PhoTextField Renders the extra attr over t
     name="pho-text-field-comp"
     type="text"
   />
+  <!--v-if-->
 </div>
 `;
 
 exports[`unit.vue.components.ui.forms.PhoTextField Renders the extra attr over the input 2`] = `
 <div
-  class="pho-field-wrapper"
+  class="pho-field-wrapper w-full relative"
   max="2100"
 >
   <!--v-if-->
@@ -122,12 +129,13 @@ exports[`unit.vue.components.ui.forms.PhoTextField Renders the extra attr over t
     name="pho-text-field-comp"
     type="text"
   />
+  <!--v-if-->
 </div>
 `;
 
 exports[`unit.vue.components.ui.forms.PhoTextField Renders the extra attr over the input 3`] = `
 <div
-  class="pho-field-wrapper"
+  class="pho-field-wrapper w-full relative"
   max="2100"
   min="1900"
 >
@@ -141,12 +149,94 @@ exports[`unit.vue.components.ui.forms.PhoTextField Renders the extra attr over t
     name="pho-text-field-comp"
     type="text"
   />
+  <!--v-if-->
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Renders the help Switched off 1`] = `
+<div
+  class="wrapper relative"
+  cy="tooltip:pho-text-field-comp"
+  id="tooltip:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+>
+  <div
+    class="inline-block w-full"
+  >
+    
+    <svg
+      aria-hidden="true"
+      class="svg-inline--fa fa-info-circle fa-w-16"
+      data-icon="info-circle"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        class=""
+        d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+        fill="currentColor"
+      />
+    </svg>
+    
+  </div>
+  <transition-stub>
+    <!--v-if-->
+  </transition-stub>
+</div>
+`;
+
+exports[`unit.vue.components.ui.forms.PhoTextField Renders the help Switched on 1`] = `
+<div
+  class="wrapper relative"
+  cy="tooltip:pho-text-field-comp"
+  id="tooltip:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634"
+>
+  <div
+    class="inline-block w-full"
+  >
+    
+    <svg
+      aria-hidden="true"
+      class="svg-inline--fa fa-info-circle fa-w-16"
+      data-icon="info-circle"
+      data-prefix="fas"
+      focusable="false"
+      role="img"
+      viewBox="0 0 512 512"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        class=""
+        d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"
+        fill="currentColor"
+      />
+    </svg>
+    
+  </div>
+  <transition-stub>
+    <div
+      ci="tooltip:pho-text-field-comp:tooltip"
+      class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1 top"
+      id="tooltip:pho-text-field-comp:65441ec3-a9fa-4e8c-b1e5-79d7d001e634:tooltip"
+      style="--transition-delay-in: 700ms; --transition-delay-out: 300ms;"
+    >
+      
+      <div
+        class="text-xs tracking-wide"
+      >
+        Some Help
+      </div>
+      
+    </div>
+  </transition-stub>
 </div>
 `;
 
 exports[`unit.vue.components.ui.forms.PhoTextField Renders the label 1`] = `
 <div
-  class="pho-field-wrapper"
+  class="pho-field-wrapper w-full relative"
 >
   <label
     class="pho-label"
@@ -161,6 +251,7 @@ exports[`unit.vue.components.ui.forms.PhoTextField Renders the label 1`] = `
     name="pho-text-field-comp"
     type="text"
   />
+  <!--v-if-->
 </div>
 `;
 

@@ -16,6 +16,8 @@ const getComponent = <T>(props: T, attrs: Record<string, string> | {} = {}) => {
 
 describe('unit.vue.components.ui.forms.PhoTextField', () => {
 
+  beforeEach(() => jest.useFakeTimers());
+
   it('Mounts', () => {
     const wrapper = getComponent({});
     expect(wrapper.element).toMatchSnapshot();
@@ -57,5 +59,22 @@ describe('unit.vue.components.ui.forms.PhoTextField', () => {
         expect(wrapper.element).toMatchSnapshot();
       });
     });
+
+  describe('Renders the help', () => {
+    it('Switched off', () => {
+      const wrapper = getComponent({ help: 'Some Help' });
+      const help = wrapper.get('[cy="tooltip:pho-text-field-comp"]');
+      expect(help.element).toMatchSnapshot();
+    });
+
+    it('Switched on', async () => {
+      const wrapper = getComponent({ help: 'Some Help' });
+      const help = wrapper.get('[cy="tooltip:pho-text-field-comp"]');
+      await help.trigger('mouseenter');
+      await jest.runAllTimers();
+      expect(help.element).toMatchSnapshot();
+    });
+
+  });
 
 });
