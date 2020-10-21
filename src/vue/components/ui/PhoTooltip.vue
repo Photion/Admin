@@ -6,6 +6,8 @@
     <transition name="slide">
       <div
         v-if="show"
+        :id="id.unique"
+        :cy="id.family"
         :style="styles.tooltip.value"
         class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1"
         :class="position">
@@ -19,6 +21,8 @@
 
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
+
+import { useId, componentProps } from '~/src/vue/components/shared';
 
 export enum TooltipPositions {
   TOP = 'top',
@@ -37,6 +41,7 @@ export const getTooltipStyles = (delayIn: number, delayOut: number) => {
 export default defineComponent({
   name: 'PhoTooltip',
   props: {
+    ...componentProps,
     text: {
       type: String,
       default: () => '',
@@ -62,6 +67,7 @@ export default defineComponent({
     };
 
     return {
+      id: useId('tooltip', props),
       styles,
       show,
       on: {

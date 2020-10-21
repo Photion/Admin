@@ -1,0 +1,320 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`unit.vue.components.ui.PhoTooltip Mounts 1`] = `
+<div
+  class="wrapper relative"
+>
+  <div
+    class="inline-block"
+  >
+    
+    
+    Tooltip Trigger
+    
+    
+  </div>
+  <transition-stub>
+    <!--v-if-->
+  </transition-stub>
+</div>
+`;
+
+exports[`unit.vue.components.ui.PhoTooltip On mouse enter Renders the content slot on 'bottom' 1`] = `
+<div
+  class="wrapper relative"
+>
+  <div
+    class="inline-block"
+  >
+    
+    
+    Tooltip Trigger
+    
+    
+  </div>
+  <transition-stub>
+    <div
+      class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1 bottom"
+      cy="tooltip:pho-button-comp"
+      id="tooltip:pho-button-comp:my-uuid"
+      style="--transition-delay-in: 700ms; --transition-delay-out: 300ms;"
+    >
+      
+      
+      <div>
+        Tooltip with 
+        <strong>
+          strong
+        </strong>
+         html content
+      </div>
+      
+      
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`unit.vue.components.ui.PhoTooltip On mouse enter Renders the content slot on 'left' 1`] = `
+<div
+  class="wrapper relative"
+>
+  <div
+    class="inline-block"
+  >
+    
+    
+    Tooltip Trigger
+    
+    
+  </div>
+  <transition-stub>
+    <div
+      class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1 bottom"
+      cy="tooltip:pho-button-comp"
+      id="tooltip:pho-button-comp:my-uuid"
+      style="--transition-delay-in: 700ms; --transition-delay-out: 300ms;"
+    >
+      
+      
+      <div>
+        Tooltip with 
+        <strong>
+          strong
+        </strong>
+         html content
+      </div>
+      
+      
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`unit.vue.components.ui.PhoTooltip On mouse enter Renders the content slot on 'right' 1`] = `
+<div
+  class="wrapper relative"
+>
+  <div
+    class="inline-block"
+  >
+    
+    
+    Tooltip Trigger
+    
+    
+  </div>
+  <transition-stub>
+    <div
+      class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1 bottom"
+      cy="tooltip:pho-button-comp"
+      id="tooltip:pho-button-comp:my-uuid"
+      style="--transition-delay-in: 700ms; --transition-delay-out: 300ms;"
+    >
+      
+      
+      <div>
+        Tooltip with 
+        <strong>
+          strong
+        </strong>
+         html content
+      </div>
+      
+      
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`unit.vue.components.ui.PhoTooltip On mouse enter Renders the content slot on 'top' 1`] = `
+<div
+  class="wrapper relative"
+>
+  <div
+    class="inline-block"
+  >
+    
+    
+    Tooltip Trigger
+    
+    
+  </div>
+  <transition-stub>
+    <div
+      class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1 bottom"
+      cy="tooltip:pho-button-comp"
+      id="tooltip:pho-button-comp:my-uuid"
+      style="--transition-delay-in: 700ms; --transition-delay-out: 300ms;"
+    >
+      
+      
+      <div>
+        Tooltip with 
+        <strong>
+          strong
+        </strong>
+         html content
+      </div>
+      
+      
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`unit.vue.components.ui.PhoTooltip On mouse enter Renders the text on 'bottom' 1`] = `
+<div
+  class="wrapper relative"
+>
+  <div
+    class="inline-block"
+  >
+    
+    
+    Tooltip Trigger
+    
+    
+  </div>
+  <transition-stub>
+    <div
+      class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1 bottom"
+      cy="tooltip:pho-button-comp"
+      id="tooltip:pho-button-comp:my-uuid"
+      style="--transition-delay-in: 700ms; --transition-delay-out: 300ms;"
+    >
+      
+      <span
+        class="text-xs tracking-wide"
+      >
+        Some Tooltip Text
+      </span>
+      
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`unit.vue.components.ui.PhoTooltip On mouse enter Renders the text on 'left' 1`] = `
+<div
+  class="wrapper relative"
+>
+  <div
+    class="inline-block"
+  >
+    
+    
+    Tooltip Trigger
+    
+    
+  </div>
+  <transition-stub>
+    <div
+      class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1 left"
+      cy="tooltip:pho-button-comp"
+      id="tooltip:pho-button-comp:my-uuid"
+      style="--transition-delay-in: 700ms; --transition-delay-out: 300ms;"
+    >
+      
+      <span
+        class="text-xs tracking-wide"
+      >
+        Some Tooltip Text
+      </span>
+      
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`unit.vue.components.ui.PhoTooltip On mouse enter Renders the text on 'right' 1`] = `
+<div
+  class="wrapper relative"
+>
+  <div
+    class="inline-block"
+  >
+    
+    
+    Tooltip Trigger
+    
+    
+  </div>
+  <transition-stub>
+    <div
+      class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1 right"
+      cy="tooltip:pho-button-comp"
+      id="tooltip:pho-button-comp:my-uuid"
+      style="--transition-delay-in: 700ms; --transition-delay-out: 300ms;"
+    >
+      
+      <span
+        class="text-xs tracking-wide"
+      >
+        Some Tooltip Text
+      </span>
+      
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`unit.vue.components.ui.PhoTooltip On mouse enter Renders the text on 'top' 1`] = `
+<div
+  class="wrapper relative"
+>
+  <div
+    class="inline-block"
+  >
+    
+    
+    Tooltip Trigger
+    
+    
+  </div>
+  <transition-stub>
+    <div
+      class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1 top"
+      cy="tooltip:pho-button-comp"
+      id="tooltip:pho-button-comp:my-uuid"
+      style="--transition-delay-in: 700ms; --transition-delay-out: 300ms;"
+    >
+      
+      <span
+        class="text-xs tracking-wide"
+      >
+        Some Tooltip Text
+      </span>
+      
+    </div>
+  </transition-stub>
+</div>
+`;
+
+exports[`unit.vue.components.ui.PhoTooltip On mouse enter Sets the attributes when it is shown 1`] = `
+Object {
+  "class": "tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1 bottom",
+  "cy": "tooltip:pho-button-comp",
+  "id": "tooltip:pho-button-comp:my-uuid",
+  "style": "--transition-delay-in: 700ms; --transition-delay-out: 300ms;",
+}
+`;
+
+exports[`unit.vue.components.ui.PhoTooltip On mouse leave Hides the tooltip 1`] = `
+<div
+  class="wrapper relative"
+>
+  <div
+    class="inline-block"
+  >
+    
+    
+    Tooltip Trigger
+    
+    
+  </div>
+  <transition-stub>
+    <!--v-if-->
+  </transition-stub>
+</div>
+`;
