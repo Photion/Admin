@@ -1,5 +1,5 @@
 <template>
-  <div class="pho-field-wrapper">
+  <div class="pho-field-wrapper w-full relative">
     <label v-if="label" :for="id.unique" class="pho-label">
       {{ label }}
     </label>
@@ -14,20 +14,35 @@
       :disabled="disabled"
       v-bind="$attrs"
       @input="onInput" />
+    <div v-if="help" class="help absolute">
+      <PhoTooltip :text="help" :name="name" :uuid="uuid" position="top"><FontAwesomeIcon icon="info-circle" /></PhoTooltip>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import { useId, componentProps } from '~/src/vue/components/shared';
 import { getFormProps } from '~/src/vue/components/ui/forms/forms';
 
+import PhoTooltip from '~/src/vue/components/ui/PhoTooltip.vue';
+
 export default defineComponent({
+
+  components: {
+    FontAwesomeIcon,
+    PhoTooltip,
+  },
 
   props: {
     ...componentProps,
     ...getFormProps(String),
+    help: {
+      type: String,
+      default: () => '',
+    },
     type: {
       type: String,
       default: 'text',

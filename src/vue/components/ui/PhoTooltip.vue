@@ -1,18 +1,24 @@
 <template>
-  <div class="wrapper relative" @mouseenter="on.enter" @mouseleave="on.leave">
-    <div class="inline-block">
-      <slot ></slot>
+  <div
+    class="wrapper relative"
+    @mouseenter="on.enter"
+    @mouseleave="on.leave"
+    @click="on.click"
+    :id="id.unique"
+    :cy="id.family">
+    <div class="inline-block w-full">
+      <slot></slot>
     </div>
     <transition name="slide">
       <div
         v-if="show"
-        :id="id.unique"
-        :cy="id.family"
+        :id="`${id.unique}:tooltip`"
+        :ci="`${id.family}:tooltip`"
         :style="styles.tooltip.value"
         class="tooltip absolute bg-gray-800 text-white rounded-sm text-center px-2 py-1"
         :class="position">
         <slot name="content">
-          <span v-if="text" class="text-xs tracking-wide">{{ text }}</span>
+          <div v-if="text" class="text-xs tracking-wide">{{ text }}</div>
         </slot>
       </div>
     </transition>
@@ -66,13 +72,23 @@ export default defineComponent({
       tooltip: computed(() => getTooltipStyles(props.delayIn, props.delayOut)),
     };
 
+    let timeout: NodeJS.Timeout;
+
+    const trigger = (state: boolean, delay = 0) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        show.value = state;
+      }, delay);
+    };
+
     return {
       id: useId('tooltip', props),
       styles,
       show,
       on: {
-        enter: () => (show.value = true),
-        leave: () => (show.value = false),
+        click: () => trigger(!show.value),
+        enter: () => trigger(true, props.delayIn),
+        leave: () => trigger(false, props.delayOut),
       },
     };
   },
@@ -105,12 +121,9 @@ $offset-active: 20%;
   }
 }
 
-.wrapper {
-  width: fit-content;
-}
-
 .tooltip {
   max-width: 12rem;
+  width: max-content;
 
   &::after {
     content: "";
@@ -186,12 +199,10 @@ $offset-active: 20%;
 
 .slide-enter-active {
   transition-duration: 150ms;
-  transition-delay: var(--transition-delay-in);
 }
 
 .slide-leave-active {
   transition-duration: 150ms;
-  transition-delay: var(--transition--delay-out);
 }
 
 .slide-enter-from {
