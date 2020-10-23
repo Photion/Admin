@@ -1,7 +1,7 @@
 
 # /services
 
-**Test Case**: TU01 
+**Test Case**: /services:01 
 
 **Test Scenario**: Check the `Services` page functionality
 

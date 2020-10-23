@@ -1,7 +1,7 @@
 
 # /services/aws
 
-**Test Case**: TU01 
+**Test Case**: services/aws:01
 
 **Test Scenario**: Check the `Amazon Web Services` page functionality
 
@@ -18,7 +18,7 @@
 
 ----
 
-**Test Case**: TU02
+**Test Case**: services/aws:02
 
 **Test Scenario**: Check the login functionality with valid credentials
 
@@ -38,7 +38,7 @@
 
 ---
 
-**Test Case**: TU03
+**Test Case**: services/aws:03
 
 **Test Scenario**: Check the login functionality with invalid credentials
 
@@ -58,7 +58,7 @@
 
 ---
 
-**Test Case**: TU04
+**Test Case**: services/aws:04
 
 **Test Scenario**: Check the login functionality with an empty form
 
