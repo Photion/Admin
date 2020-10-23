@@ -5,7 +5,7 @@
         <router-link to="/">Photion</router-link>
       </h1>
     </header>
-    <main class="container">
+    <main class="container main__container">
       <router-view />
     </main>
   </div>
