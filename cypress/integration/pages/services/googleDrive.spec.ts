@@ -54,15 +54,24 @@ describe('/services/googleDrive', () => {
       return url;
     };
 
-    before(() => {
-      cy.visit('/').then(async () => {
-        accessToken = await getOfflineAccessToken({
-          client_id: Cypress.env('VUE_APP_GOOGLE_DRIVE_CLIENT_ID'),
-          client_secret: Cypress.env('GOOGLE_DRIVE_CLIENT_SECRET'),
-          redirect_url: Cypress.env('GOOGLE_DRIVE_REDIRECT_URL'),
-          refresh_token: Cypress.env('GOOGLE_DRIVE_REFRESH_TOKEN'),
+    before(function() {
+      const client_id = Cypress.env('VUE_APP_GOOGLE_DRIVE_CLIENT_ID');
+      const client_secret = Cypress.env('GOOGLE_DRIVE_CLIENT_SECRET');
+      const redirect_url = Cypress.env('GOOGLE_DRIVE_REDIRECT_URL');
+      const refresh_token = Cypress.env('GOOGLE_DRIVE_REFRESH_TOKEN');
+
+      if (!(client_id && client_secret && redirect_url && refresh_token)) {
+        this.skip();
+      } else {
+        cy.visit('/').then(async () => {
+          accessToken = await getOfflineAccessToken({
+            client_id: Cypress.env('VUE_APP_GOOGLE_DRIVE_CLIENT_ID'),
+            client_secret: Cypress.env('GOOGLE_DRIVE_CLIENT_SECRET'),
+            redirect_url: Cypress.env('GOOGLE_DRIVE_REDIRECT_URL'),
+            refresh_token: Cypress.env('GOOGLE_DRIVE_REFRESH_TOKEN'),
+          });
         });
-      });
+      }
     });
 
     beforeEach(() => {

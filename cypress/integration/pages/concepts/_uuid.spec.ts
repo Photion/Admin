@@ -97,7 +97,7 @@ describe('/concepts/:uuid', () => {
     });
 
 
-    it('Displays a valid page', () => {
+    it('Happy path', () => {
 
       cy.wait('@projects/get');
 
@@ -136,7 +136,7 @@ describe('/concepts/:uuid', () => {
         .click()
         .click();
 
-      cy.getCy('button:concept.create')
+      cy.getCy('button:concept.save')
         .click();
 
       cy.wait('@concepts/post')
@@ -155,9 +155,6 @@ describe('/concepts/:uuid', () => {
       cy.getCy('fragment.card');
 
       cy.getCy('button:fragment.download')
-        .should('not.exist');
-
-      cy.getCy('button:fragment.remove')
         .should('not.exist');
 
       cy.getCy('button:fragment.upload')
@@ -189,6 +186,23 @@ describe('/concepts/:uuid', () => {
         .click();
 
       cy.wait('@concepts/delete');
+    });
+
+    it('Allows users to delete a fragment before it has been uploaded', () => {
+      cy.wait('@projects/get');
+
+      cy.getFile('assets/alinatrifan.sheffield.jpg', 'image/jpeg')
+        .then((value) => {
+          cy.get('.dropzone')
+            .trigger('dagover')
+            .trigger('drop', { dataTransfer: value.dataTransfer });
+        });
+
+      cy.getCy('button:fragment.remove')
+        .click();
+
+      cy.getCy('fragment.card')
+        .should('not.exist');
     });
 
     it('Enforces the 4 characters limits for dates, with min 1900 and max 2100', () => {
