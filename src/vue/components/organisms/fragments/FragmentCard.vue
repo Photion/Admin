@@ -22,17 +22,15 @@
         class="w-full sm:w-2/12" />
     </div>
     <div class="w-full text-right">
-      <div v-if="fragment.created" class="space-x-1">
-        <PhoButton cy="button:fragment.download" color="success" disabled>
+      <div class="space-x-1">
+        <PhoButton v-if="fragment.created" cy="button:fragment.download" color="success" disabled>
           <FontAwesomeIcon icon="cloud-download-alt" />
+        </PhoButton>
+        <PhoButton v-else cy="button:fragment.upload" @click="fn.upload">
+          <FontAwesomeIcon icon="cloud-upload-alt" />
         </PhoButton>
         <PhoButton cy="button:fragment.remove" color="danger" @click="fn.remove">
           <FontAwesomeIcon icon="trash" />
-        </PhoButton>
-      </div>
-      <div v-else class="space-x-1">
-        <PhoButton cy="button:fragment.upload" @click="fragment.upload()">
-          <FontAwesomeIcon icon="cloud-upload-alt" />
         </PhoButton>
       </div>
     </div>
@@ -84,21 +82,13 @@ export default defineComponent({
     const storages = Object.values(FileStorage).map(toOption);
     const preview = computed(() => Component[props.concept.type]);
 
-    const remove = async () => {
-      await props.fragment.remove();
-      emit('remove');
-    };
-
-    const save = () => {
-      props.fragment.save();
-    };
-
     return {
       storages,
       preview,
       fn: {
-        save,
-        remove,
+        upload: () => props.fragment.upload(),
+        save: () => props.fragment.save(),
+        remove: () => emit('remove'),
       },
     };
   },

@@ -35,12 +35,9 @@
             <PhoBoolean v-model="concept.public" name="concept.public" inline label="Public" />
             <PhoBoolean v-model="concept.featured" name="concept.featured"  inline label="Featured" />
           </div>
-          <div v-if="concept.created" class="text-right space-x-1">
+          <div class="text-right space-x-1">
             <PhoButton name="concept.save" color="success" @click="saveConcept(concept)">Save</PhoButton>
-            <PhoButton name="concept.remove" color="danger" @click="deleteConcept(concept)">Delete</PhoButton>
-          </div>
-          <div v-else class="text-right space-x-1">
-            <PhoButton name="concept.create" color="success" @click="saveConcept(concept)">Create</PhoButton>
+            <PhoButton v-if="concept.created" name="concept.remove" color="danger" @click="deleteConcept(concept)">Delete</PhoButton>
           </div>
         </div>
       </div>
@@ -109,7 +106,11 @@ export default defineComponent({
       return fragments.value.find((fragment) => fragment.hasPreview && fragment.meta.storage === FileStorage.PREVIEW);
     });
 
-    const removeFragment = (fragment: Fragment) => {
+    const removeFragment = async (fragment: Fragment) => {
+      if (fragment.created) {
+        await fragment.remove();
+      }
+
       const index = fragments.value.findIndex(el => el.uuid === fragment.uuid);
 
       if (index > -1) {
