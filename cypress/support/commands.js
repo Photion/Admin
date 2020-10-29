@@ -56,9 +56,9 @@ Cypress.Commands.add('attachFile', { prevSubject: 'element' }, (el, path, mime) 
  * explicit option men dismissal is required
  *
  * @example
- * cy.phoSelect('field:concept.type', ['VIDEO']);
- * cy.phoSelect('field:concept.type', [concept.type]);
- * cy.phoSelect('field:concept.projects', [projects.valid[0].uuid], true);
+ * cy.phoSelect('field:folder.type', ['VIDEO']);
+ * cy.phoSelect('field:folder.type', [folder.type]);
+ * cy.phoSelect('field:folder.projects', [projects.valid[0].uuid], true);
  */
 Cypress.Commands.add('phoSelect', (selector, values, multiple = false) => {
   cy.getCy(`${selector}:trigger`)

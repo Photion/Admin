@@ -2,7 +2,8 @@ import axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 import { AbstractClient } from '~/src/api/AbstractClient';
 import { FileMetadata } from '~/src/files/metadata';
-import { Namespace } from '~/src/models/schema';
+import { Namespace } from '~/src/models/Model';
+import { ModelSchema } from '~/src/models/schema';
 
 
 export class HttpClient extends AbstractClient {
@@ -31,47 +32,48 @@ export class HttpClient extends AbstractClient {
     return response;
   }
 
-  async retrieve<T>(namespace: Namespace, uuid: string): Promise<Required<T> | null> {
-    const response: { data: Required<T> } = this.processResponse(await this.client.get(`/api/${namespace}/${uuid}`));
+  async retrieve<N extends Namespace>(namespace: N, uuid: string): Promise<ModelSchema[N] | null> {
+    const response: { data: ModelSchema[N] | null } = this.processResponse(await this.client.get(`/api/${namespace}/${uuid}`));
 
     return response.data;
   }
 
-  async list<T>(namespace: Namespace): Promise<Required<T>[]> {
-    const response: { data: Required<T>[]} = this.processResponse(await this.client.get(`/api/${namespace}`));
+  async list<N extends Namespace>(namespace: N): Promise<ModelSchema[N][]> {
+    const response: { data: ModelSchema[N][] } = this.processResponse(await this.client.get(`/api/${namespace}`));
 
     return response.data;
   }
 
-  async create<T>(namespace: Namespace, values: Required<T>): Promise<Required<T>> {
-    const response: { data: Required<T> } = this.processResponse(await this.client.post(`/api/${namespace}`, values));
+  async create<N extends Namespace>(namespace: N, values: ModelSchema[N]): Promise<ModelSchema[N]> {
+    const response: { data: ModelSchema[N] } = this.processResponse(await this.client.post(`/api/${namespace}`, values));
 
     return response.data;
   }
 
-  async update<T>(namespace: Namespace, uuid: string, values: Required<T>): Promise<Required<T>> {
-    const response: { data: Required<T> } = this.processResponse(await this.client.put(`/api/${namespace}/${uuid}`, values));
+  async update<N extends Namespace>(namespace: N, uuid: string, values: ModelSchema[N]): Promise<ModelSchema[N]> {
+    const response: { data: ModelSchema[N] } = this.processResponse(await this.client.put(`/api/${namespace}/${uuid}`, values));
 
     return response.data;
   }
 
-  async remove<T>(namespace: Namespace, uuid: string): Promise<void> {
+  async remove<N extends Namespace>(namespace: N, uuid: string): Promise<void> {
     this.processResponse(await this.client.delete(`/api/${namespace}/${uuid}`));
   }
 
-  async uploadFile<T>(namespace: Namespace, uuid: string, metadata: FileMetadata, file: File): Promise<string> {
+  async uploadFile<N extends Namespace>(namespace: N, uuid: string, metadata: FileMetadata, file: File | Buffer): Promise<string> {
     this.processResponse(await this.client.post(`/api/${namespace}/${uuid}/upload`, { metadata, file }));
 
     return '';
   }
 
-  async downloadFile(namespace: Namespace, uuid: string, _metadata: FileMetadata): Promise<string> {
+  async deleteFile<N extends Namespace>(namespace: N, uuid: string, _metadata: FileMetadata): Promise<void> {
+    this.processResponse(await this.client.delete(`/api/${namespace}/${uuid}/upload`));
+  }
+
+  async downloadFile<N extends Namespace>(namespace: N, uuid: string, _metadata: FileMetadata): Promise<string> {
     this.processResponse(await this.client.get(`/api/${namespace}/${uuid}/download`));
 
     return '';
   }
 
-  async deleteFile<T>(namespace: Namespace, uuid: string, _metadata: FileMetadata): Promise<void> {
-    this.processResponse(await this.client.delete(`/api/${namespace}/${uuid}/upload`));
-  }
 }

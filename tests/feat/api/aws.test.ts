@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 
-import { Namespace } from '~/src/models/schema';
+import { Namespace } from '~/src/models/Model';
 import { FileStorage, FileMetadata } from '~/src/files/metadata';
 import { getAwsClient } from '~/tests/utils/aws';
 
@@ -41,7 +41,7 @@ describe('feat.api.aws', () => {
 
   describe('Handles queries', () => {
     it('Lists an empty table', async () => {
-      const namespace = 'projects';
+      const namespace = Namespace.Project;
       const { client } = getAwsClient();
 
       const items = await client.list(namespace);
@@ -50,7 +50,7 @@ describe('feat.api.aws', () => {
     });
 
     it('Returns null when the item is not found', async () => {
-      const namespace = 'projects';
+      const namespace = Namespace.Project;
       const uuid = 'fake-uuid';
       const { client } = getAwsClient();
 
@@ -60,11 +60,12 @@ describe('feat.api.aws', () => {
     });
 
     it('Creates and retrieves a project', async () => {
-      const namespace = 'projects';
+      const namespace = Namespace.Project;
       const project = {
         uuid: 'uuid1',
         name: 'Project 1',
         description: 'Description',
+        portfolio: true,
       };
 
       context.refs.push({ namespace, uuid: project.uuid });
@@ -78,11 +79,12 @@ describe('feat.api.aws', () => {
     });
 
     it('Updates an existing entry', async () => {
-      const namespace = 'projects';
+      const namespace = Namespace.Project;
       const project = {
         uuid: 'uuid1',
         name: 'Project 1',
         description: 'Description',
+        portfolio: false,
       };
       const updated = {
         ...project,
@@ -103,11 +105,12 @@ describe('feat.api.aws', () => {
 
 
     it('Deletes an entry', async () => {
-      const namespace = 'projects';
+      const namespace = Namespace.Project;
       const project = {
         uuid: 'uuid1',
         name: 'Project 1',
         description: 'Description',
+        portfolio: true,
       };
 
       context.refs.push({ namespace, uuid: project.uuid });
@@ -126,7 +129,7 @@ describe('feat.api.aws', () => {
     const file = fs.readFileSync(__filename);
 
     it('Uploads the file', async () => {
-      const namespace = 'fragments';
+      const namespace = Namespace.Medium;
       const uuid = 'uuid1';
       const metadata = {
         filename: 'filename',

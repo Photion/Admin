@@ -7,17 +7,17 @@ import {
   DrivePaths,
   DriveFile,
 } from '~/src/api/googleDrive/types';
-import { Schema } from '~/src/models/schema';
+import { CollectionSchema } from '~/src/models/schema';
 import { save, secrets } from '~/src/state/secrets';
 
 /** Photion DB file name  */
 export const PHOTION_DB_FILENAME = 'photion.json';
 
 /** Photion DB default schema */
-export const PHOTION_DB_SCHEMA: Schema = {
+export const PHOTION_DB_SCHEMA: CollectionSchema = {
+  folders: {},
+  media: {},
   projects: {},
-  concepts: {},
-  fragments: {},
 };
 
 /**
@@ -348,7 +348,7 @@ export const getDb = async (ensure = false): Promise<string> => {
  * @param db
  * @returns The `fileId` of the database
  */
-export const updateDb = async (db: Schema): Promise<string> => {
+export const updateDb = async (db: CollectionSchema): Promise<string> => {
   const parent = await getRootFolder();
   const databaseId = await getDb();
 

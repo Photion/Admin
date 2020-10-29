@@ -1,13 +1,14 @@
 import { AbstractClient } from '~/src/api/AbstractClient';
 import * as api from '~/src/api/googleDrive/api';
 import { isWithFileAttached } from '~/src/models/Model';
-import { Schema, Group, Namespace, Model } from '~/src/models/schema';
+import { CollectionSchema, ModelSchema } from '~/src/models/schema';
 import { FileMetadata } from '~/src/files/metadata';
+import { Namespace } from '~/src/models/Model';
 
 export class GoogleDriveClient extends AbstractClient {
 
   static BASE_FOLDER = 'Photion';
-  db: Schema | null;
+  db: CollectionSchema | null;
 
   constructor() {
     super();
@@ -17,7 +18,7 @@ export class GoogleDriveClient extends AbstractClient {
   async getDb(ensure = false) {
     if (!this.db || ensure) {
       const databaseId = await api.getDb();
-      this.db = await api.downloadFile<Schema>(databaseId, 'json');
+      this.db = await api.downloadFile<CollectionSchema>(databaseId, 'json');
     }
 
     return this.db;
@@ -33,70 +34,72 @@ export class GoogleDriveClient extends AbstractClient {
     return this.db;
   }
 
-  async writeDb(namespace: Namespace, uuid: string, values: Record<string, unknown> | undefined) {
+  async writeDb<N extends Namespace>(namespace: N, uuid: string, values: ModelSchema[N] | undefined) {
     // Fetch the latest copy of the db
     // to avoid concurrency writes
     await this.getDb(true);
-    const group = await this.getGroup(namespace);
+    const collection = await this.getModelCollection(namespace);
 
-    if (!group) {
+    if (!collection) {
       throw new Error(`Undefined namespace: '${namespace}'`);
     }
 
     if (values) {
-      group[uuid] = values;
+      Object.assign(collection, { [uuid]: values });
     } else {
-      delete group[uuid];
+      delete collection[uuid];
     }
   }
 
 
-  async getGroup(namespace: Namespace): Promise<Group> {
+  async getModelCollection<N extends Namespace>(namespace: N): Promise<CollectionSchema[N]> {
     const db = await this.getDb();
-    const group = db[namespace];
+    const collection = db[namespace];
 
-    return group;
+    return collection;
   }
 
-  async getEntity(namespace: Namespace, uuid: string): Promise<Model | null>  {
-    const group = await this.getGroup(namespace);
+  async getEntity<N extends Namespace>(namespace: N, uuid: string): Promise<ModelSchema[N] | null>  {
+    const collection = await this.getModelCollection(namespace);
 
-    return group[uuid] || null;
-  }
+    const entity = (collection[uuid] || null) as ModelSchema[N] | null;
 
-  async retrieve<T>(namespace: Namespace, uuid: string): Promise<T> {
-    const entity = await this.getEntity(namespace, uuid) as T;
     return entity;
   }
 
-  async list<T>(namespace: Namespace): Promise<T[]> {
-    const group = await this.getGroup(namespace);
+  async retrieve<N extends Namespace>(namespace: N, uuid: string): Promise<ModelSchema[N] | null> {
+    const entity = await this.getEntity(namespace, uuid);
+    return entity;
+  }
 
-    if (!group) {
+  async list<N extends Namespace>(namespace: N): Promise<ModelSchema[N][]> {
+    const collection = await this.getModelCollection(namespace);
+
+    if (!collection) {
       return [];
     }
 
-    return Object.values(group) as T[];
+    return Object.values(collection);
   }
 
-  async create<T>(namespace: Namespace, values: Required<T> & { uuid: string }): Promise<Required<T>> {
+  async create<N extends Namespace>(namespace: N, values: ModelSchema[N] & { uuid: string }): Promise<ModelSchema[N]> {
     await this.writeDb(namespace, values.uuid, values);
     await this.saveDb();
     return values;
   }
 
-  async update<T>(namespace: Namespace, uuid: string, values: Required<T>): Promise<Required<T>> {
+  async update<N extends Namespace>(namespace: N, uuid: string, values: ModelSchema[N]): Promise<ModelSchema[N]> {
     await this.writeDb(namespace, uuid, values);
     await this.saveDb();
     return values;
   }
 
-  async remove(namespace: Namespace, uuid: string): Promise<void> {
+  async remove<N extends Namespace>(namespace: N, uuid: string): Promise<void> {
     await this.writeDb(namespace, uuid, undefined);
     await this.saveDb();
   }
 
-  async uploadFile(namespace: Namespace, uuid: string, metadata: FileMetadata, file: File) {
+  async uploadFile<N extends Namespace>(namespace: N, uuid: string, metadata: FileMetadata, file: File) {
     const instance = await this.getEntity(namespace, uuid);
 
     if (!instance) {
@@ -118,24 +121,25 @@ export class GoogleDriveClient extends AbstractClient {
 
     const response = await api.createFile(googleMetadata, file);
 
-    instance.fileId = response.data.id as string;
+    instance.file.id = response.data.id as string;
 
     this.saveDb();
 
     return response.data.id as string;
   }
 
-  async downloadFile(namespace: Namespace, uuid: string, metadata: FileMetadata) {
+  async downloadFile<N extends Namespace>(namespace: N, uuid: string, metadata: FileMetadata) {
     const entity = await this.getEntity(namespace, uuid);
 
     if (!entity) {
       throw new Error('Could not find Entity');
     }
 
-    if (!('fileId' in entity)) {
-      throw new Error('Entity does not define a fileId');
+    if (!isWithFileAttached(entity)) {
+      throw new Error(`Cannot upload file to ${namespace}`);
     }
-    const data = await api.downloadFile(entity.fileId as string);
+
+    const data = await api.downloadFile(entity.file.id as string);
 
     return new Promise<string>((resolve) => {
       const blob = new Blob([data], { type: metadata.mime });
@@ -149,18 +153,18 @@ export class GoogleDriveClient extends AbstractClient {
     });
   }
 
-  async deleteFile(namespace: Namespace, uuid: string, _metadata: FileMetadata) {
+  async deleteFile<N extends Namespace>(namespace: N, uuid: string, _metadata: FileMetadata) {
     const entity = await this.getEntity(namespace, uuid);
 
     if (!entity) {
       throw new Error('Entity not found');
     }
 
-    if (!('fileId' in entity)) {
-      throw new Error('Entity does not define a fileId');
+    if (!isWithFileAttached(entity)) {
+      throw new Error(`Cannot upload file to ${namespace}`);
     }
 
-    await api.deleteFile(String(entity.fileId));
+    await api.deleteFile(String(entity.file.id));
   }
 
 }

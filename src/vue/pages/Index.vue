@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-      <PhoCard v-if="ready" clickable name="index.concepts">
-        <router-link class="no-decoration" to="/concepts">
-          <div><strong>List Concepts</strong></div>
+      <PhoCard v-if="ready" clickable name="index.folders">
+        <router-link class="no-decoration" to="/folders">
+          <div><strong>List Folders</strong></div>
           <div><small>Navigate, search and manage your media archive</small></div>
         </router-link>
       </PhoCard>

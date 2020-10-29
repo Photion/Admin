@@ -10,7 +10,7 @@ context('/', () => {
 
     it('Displays a valid page', () => {
       cy.get('a[href="/services"]').should('exist');
-      cy.get('a[href="/concepts"]').should('not.exist');
+      cy.get('a[href="/folders"]').should('not.exist');
     });
   });
 
@@ -22,7 +22,7 @@ context('/', () => {
 
     it('Displays a valid page', () => {
       cy.get('a[href="/services"]');
-      cy.get('a[href="/concepts"]').should('exist');
+      cy.get('a[href="/folders"]').should('exist');
     });
   });
 

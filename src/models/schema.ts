@@ -1,21 +1,27 @@
-import { ConceptProps } from '~/src/models/Concept';
-import { FragmentProps } from '~/src/models/Fragment';
-import { ProjectProps } from '~/src/models/Project';
+import { Namespace } from '~/src/models/Model';
+import { Folder } from '~/src/models/Folder';
+import { Medium } from '~/src/models/Medium';
+import { Project } from '~/src/models/Project';
 
-export {
-  ConceptProps,
-  FragmentProps,
-  ProjectProps,
-};
-
-export interface Schema {
-  concepts: { [key: string]: ConceptProps | undefined };
-  fragments: { [key: string]: FragmentProps | undefined };
-  projects: { [key: string]: ProjectProps | undefined };
+export interface ModelCollection<T> {
+  [key: string]: T | undefined;
 }
 
-export type Model = ConceptProps | FragmentProps | ProjectProps;
+export type ModelSchema = {
+  [Namespace.Folder]: Required<Folder>;
+  [Namespace.Medium]: Required<Medium>;
+  [Namespace.Project]: Required<Project>;
+}
 
-export type Group = { [key: string]: Model | undefined };
+export type Props = ModelSchema[Namespace];
 
-export type Namespace = keyof Schema;
+export type CollectionSchema = {
+  [T in keyof ModelSchema]: ModelCollection<ModelSchema[T]>;
+}
+
+export type Collections = CollectionSchema[keyof CollectionSchema]
+
+export interface Schema {
+  models: ModelSchema;
+  collections: CollectionSchema;
+}

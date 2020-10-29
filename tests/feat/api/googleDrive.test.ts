@@ -4,6 +4,7 @@ import crypto from '@trust/webcrypto';
 import TextEncoding from 'text-encoding-utf-8';
 
 import * as googleDrive from '~/src/api/googleDrive';
+import { Namespace } from '~/src/models/Model';
 import { secrets } from '~/src/state/secrets';
 import { getOfflineAccessToken } from '~/tests/utils/googleDrive';
 
@@ -56,8 +57,8 @@ describe('feat.api.googleDrive', () => {
         const client1 = new googleDrive.GoogleDriveClient();
         const client2 = new googleDrive.GoogleDriveClient();
 
-        await client1.create('concepts', { uuid: 'concept-1', data: 'abc' });
-        await client2.create('concepts', { uuid: 'concept-2', data: 'def' });
+        await client1.create(Namespace.Project, { uuid: 'folder-1', name: 'a', description: 'a', portfolio: false });
+        await client2.create(Namespace.Project, { uuid: 'folder-2', name: 'b', description: 'b', portfolio: false });
 
         expect(client2.db).toMatchSnapshot();
       }, 20 * 1000);
@@ -67,12 +68,12 @@ describe('feat.api.googleDrive', () => {
 
       it('Creates with one client, retrieves with another', async () => {
         const client1 = new googleDrive.GoogleDriveClient();
-        await client1.create('concepts', { uuid: 'concept-1', data: 'abc' });
+        await client1.create(Namespace.Project, { uuid: 'folder-1', name: 'a', description: 'a', portfolio: false });
 
         const client2 = new googleDrive.GoogleDriveClient();
-        const concept = await client2.retrieve('concepts', 'concept-1');
+        const folder = await client2.retrieve(Namespace.Project, 'folder-1');
 
-        expect(concept).toMatchSnapshot();
+        expect(folder).toMatchSnapshot();
 
       }, 20 * 1000);
     });

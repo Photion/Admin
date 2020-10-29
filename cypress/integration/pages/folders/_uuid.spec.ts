@@ -2,10 +2,11 @@
 /// <reference path="../../../support/index.d.ts" />
 
 import dayjs from 'dayjs';
-import { concepts, fragments, projects } from '../../../../tests/mocks/models';
+import { folders, media, projects } from '../../../../tests/mocks/models';
 
-describe('/concepts/:uuid', () => {
+describe('/folders/:uuid', () => {
   const today = dayjs().format('YYYY-MM-DD');
+  const now = Date.now();
   // const [year, month, day] = today.split('-').map(Number);
 
   // Ensure another day has 2 digits
@@ -13,8 +14,8 @@ describe('/concepts/:uuid', () => {
   // const targetDate = dayjs(new Date([year, month, anotherDay].map(String).join('-'))).format('YYYY-MM-DD');
   const targetDate = today;
 
-  describe('Creating a new concept', () => {
-    const concept = {
+  describe('Creating a new folder', () => {
+    const folder = {
       uuid: null,
       name: 'assets/alinatrifan.sheffield',
       description: 'My Description',
@@ -24,12 +25,15 @@ describe('/concepts/:uuid', () => {
       date: targetDate,
       public: true,
       featured: false,
+      created: 0,
     };
 
-    const fragment = {
+    const medium = {
       uuid: '8de15315-0719-4ae4-96b9-40cdfd1145fc',
-      concept: '1f95737a-0344-4791-8680-02de5af82a7d',
-      fileId: '',
+      folder: '1f95737a-0344-4791-8680-02de5af82a7d',
+      file: {
+        id: '',
+      },
       meta: {
         filename: 'assets/alinatrifan.sheffield.jpg',
         mime: 'image/jpeg',
@@ -77,23 +81,24 @@ describe('/concepts/:uuid', () => {
         date: null,
       },
       notes: '',
+      created: 0,
     };
 
     beforeEach(() => {
       cy.useHttp();
       cy.server();
-      cy.route('GET', '/api/concepts/**', {}).as('concepts/get');
-      cy.route('POST', '/api/concepts', {}).as('concepts/post');
-      cy.route('DELETE', '/api/concepts/**', {}).as('concepts/delete');
+      cy.route('GET', '/api/folders/**', {}).as('folders/get');
+      cy.route('POST', '/api/folders', {}).as('folders/post');
+      cy.route('DELETE', '/api/folders/**', {}).as('folders/delete');
 
-      cy.route('GET', '/api/fragments', {}).as('fragments/get');
-      cy.route('POST', '/api/fragments/**/upload', {}).as('fragments/upload');
-      cy.route('POST', '/api/fragments', {}).as('fragments/post');
-      cy.route('DELETE', '/api/fragments/**', {}).as('fragments/delete');
+      cy.route('GET', '/api/media', {}).as('media/get');
+      cy.route('POST', '/api/media/**/upload', {}).as('media/upload');
+      cy.route('POST', '/api/media', {}).as('media/post');
+      cy.route('DELETE', '/api/media/**', {}).as('media/delete');
 
       cy.route('GET', '/api/projects', projects.valid).as('projects/get');
 
-      cy.visit('/concepts/new');
+      cy.visit('/folders/new');
     });
 
 
@@ -108,87 +113,91 @@ describe('/concepts/:uuid', () => {
             .trigger('drop', { dataTransfer: value.dataTransfer });
         });
 
-      cy.getCy('field:concept.name')
+      cy.getCy('field:folder.name')
         .contains('assets/alinatrifan.sheffield');
 
-      cy.getCy('field:concept.description')
+      cy.getCy('field:folder.description')
         .should('have.value', '')
         .click()
-        .type(concept.description)
-        .should('have.value', concept.description);
+        .type(folder.description)
+        .should('have.value', folder.description);
 
-      cy.getCy('field:concept.type')
-        .should('have.value', concept.type);
+      cy.getCy('field:folder.type')
+        .should('have.value', folder.type);
 
-      cy.phoSelect('field:concept.type', ['VIDEO']);
-      cy.phoSelect('field:concept.type', [concept.type]);
+      cy.phoSelect('field:folder.type', ['VIDEO']);
+      cy.phoSelect('field:folder.type', [folder.type]);
 
-      cy.phoSelect('field:concept.projects', [projects.valid[0].uuid], true);
+      cy.phoSelect('field:folder.projects', [projects.valid[0].uuid], true);
 
-      cy.getCy('field:concept.date')
+      cy.getCy('field:folder.date')
         .should('have.value', dayjs().format('YYYY-MM-DD'))
         .click();
 
-      cy.getCy('field:concept.public')
+      cy.getCy('field:folder.public')
         .click();
 
-      cy.getCy('field:concept.featured')
+      cy.getCy('field:folder.featured')
         .click()
         .click();
 
-      cy.getCy('button:concept.save')
+      cy.getCy('button:folder.save')
         .click();
 
-      cy.wait('@concepts/post')
+      cy.wait('@folders/post')
         .then((xhr) => {
           if (typeof xhr.request.body === 'string') {
             throw new Error('Invalid body');
           }
+          folder.uuid = xhr.request.body.uuid;
+          folder.created = xhr.request.body.created;
 
-          concept.uuid = xhr.request.body.uuid;
-          fragment.concept = concept.uuid;
-          expect(xhr.request.body).to.deep.equal(concept);
+          medium.folder = folder.uuid;
+          expect(xhr.request.body).to.deep.equal(folder);
+          expect(folder.created).to.be.greaterThan(now);
           cy.url()
-            .should('include', `/concepts/${concept.uuid}`);
+            .should('include', `/folders/${folder.uuid}`);
         });
 
-      cy.getCy('fragment.card');
+      cy.getCy('medium.card');
 
-      cy.getCy('button:fragment.download')
+      cy.getCy('button:medium.download')
         .should('not.exist');
 
-      cy.getCy('button:fragment.upload')
+      cy.getCy('button:medium.upload')
         .click();
 
-      cy.wait('@fragments/post')
+      cy.wait('@media/post')
         .then((xhr) => {
           if (typeof xhr.request.body === 'string') {
             throw new Error('Invalid body');
           }
 
-          fragment.uuid = xhr.request.body.uuid;
-          expect(xhr.request.body).to.be.deep.equal(fragment);
+          medium.uuid = xhr.request.body.uuid;
+          medium.created = xhr.request.body.created;
+          expect(xhr.request.body).to.be.deep.equal(medium);
+          expect(medium.created).to.be.greaterThan(now);
         });
 
-      cy.wait('@fragments/upload');
+      cy.wait('@media/upload');
 
-      cy.getCy('button:fragment.download');
+      cy.getCy('button:medium.download');
 
-      cy.getCy('button:fragment.remove')
+      cy.getCy('button:medium.remove')
         .click();
 
-      cy.wait('@fragments/delete');
+      cy.wait('@media/delete');
 
-      cy.getCy('fragment.card')
+      cy.getCy('medium.card')
         .should('not.exist');
 
-      cy.getCy('button:concept.remove')
+      cy.getCy('button:folder.remove')
         .click();
 
-      cy.wait('@concepts/delete');
+      cy.wait('@folders/delete');
     });
 
-    it('Allows users to delete a fragment before it has been uploaded', () => {
+    it('Allows users to delete a medium before it has been uploaded', () => {
       cy.wait('@projects/get');
 
       cy.getFile('assets/alinatrifan.sheffield.jpg', 'image/jpeg')
@@ -198,10 +207,10 @@ describe('/concepts/:uuid', () => {
             .trigger('drop', { dataTransfer: value.dataTransfer });
         });
 
-      cy.getCy('button:fragment.remove')
+      cy.getCy('button:medium.remove')
         .click();
 
-      cy.getCy('fragment.card')
+      cy.getCy('medium.card')
         .should('not.exist');
     });
 
@@ -215,7 +224,7 @@ describe('/concepts/:uuid', () => {
         '-999999-01-01',
       ]
         .forEach((value) => {
-          cy.getCy('field:concept.date')
+          cy.getCy('field:folder.date')
             .invoke('val', value)
             .should('have.value', '');
         });
@@ -230,7 +239,7 @@ describe('/concepts/:uuid', () => {
         `${nextYear}-01-01`,
       ]
         .forEach((value) => {
-          cy.getCy('field:concept.date')
+          cy.getCy('field:folder.date')
             .invoke('val', value)
             .should((input) => {
               expect(input.get(0).checkValidity()).to.be.equal(false);
@@ -245,7 +254,7 @@ describe('/concepts/:uuid', () => {
         `${currentYear}-12-31`,
       ]
         .forEach((value) => {
-          cy.getCy('field:concept.date')
+          cy.getCy('field:folder.date')
             .invoke('val', value)
             .should((input) => {
               expect(input.get(0).checkValidity()).to.be.equal(true);
@@ -255,62 +264,62 @@ describe('/concepts/:uuid', () => {
 
   });
 
-  describe('With one concept', () => {
-    const concept = concepts.valid[0];
+  describe('With one folder', () => {
+    const folder = folders.valid[0];
 
     beforeEach(() => {
       cy.useHttp();
       cy.server();
 
-      cy.route('GET', `/api/concepts/${concept.uuid}`, concept).as('concepts/get');
-      cy.route('GET', '/api/fragments', fragments.valid).as('fragments/get');
+      cy.route('GET', `/api/folders/${folder.uuid}`, folder).as('folders/get');
+      cy.route('GET', '/api/media', media.valid).as('media/get');
       cy.route('GET', '/api/projects', projects.valid).as('projects/get');
 
-      cy.visit(`/concepts/${concept.uuid}`);
+      cy.visit(`/folders/${folder.uuid}`);
     });
 
     it('Displays a valid page', () => {
-      cy.wait('@concepts/get');
-      cy.wait('@fragments/get');
+      cy.wait('@folders/get');
+      cy.wait('@media/get');
       cy.wait('@projects/get');
 
-      cy.getCy('field:concept.name').contains(concept.name);
-      cy.getCy('field:concept.description').should('have.value', concept.description);
-      cy.getCy('field:concept.type').should('have.value', concept.type);
-      cy.getCy('field:concept.projects').should('have.deep.value', concept.projects.join(','));
-      cy.getCy('field:concept.date').should('have.value', concept.date);
+      cy.getCy('field:folder.name').contains(folder.name);
+      cy.getCy('field:folder.description').should('have.value', folder.description);
+      cy.getCy('field:folder.type').should('have.value', folder.type);
+      cy.getCy('field:folder.projects').should('have.deep.value', folder.projects.join(','));
+      cy.getCy('field:folder.date').should('have.value', folder.date);
     });
-    it('Reroutes to concepts', () => {
-      cy.wait('@concepts/get');
-      cy.wait('@fragments/get');
+    it('Reroutes to folders', () => {
+      cy.wait('@folders/get');
+      cy.wait('@media/get');
       cy.wait('@projects/get');
 
-      cy.getCy('button:fragment.remove').click();
+      cy.getCy('button:medium.remove').click();
       cy.url()
-        .should('include', '/concepts');
+        .should('include', '/folders');
     });
   });
 
   describe('Without projects', () => {
-    const concept = concepts.valid[0];
+    const folder = folders.valid[0];
 
     beforeEach(() => {
       cy.useHttp();
       cy.server();
 
-      cy.route('GET', `/api/concepts/${concept.uuid}`, concept).as('concepts/get');
-      cy.route('GET', '/api/fragments', fragments.valid).as('fragments/get');
+      cy.route('GET', `/api/folders/${folder.uuid}`, folder).as('folders/get');
+      cy.route('GET', '/api/media', media.valid).as('media/get');
       cy.route('GET', '/api/projects', []).as('projects/get');
 
-      cy.visit(`/concepts/${concept.uuid}`);
+      cy.visit(`/folders/${folder.uuid}`);
     });
 
     it('Doesn\'t display \'Projects\' if thet are not defined', () => {
-      cy.wait('@concepts/get');
-      cy.wait('@fragments/get');
+      cy.wait('@folders/get');
+      cy.wait('@media/get');
       cy.wait('@projects/get');
 
-      cy.getCy('field:concept.projects')
+      cy.getCy('field:folder.projects')
         .should('not.exist');
 
     });

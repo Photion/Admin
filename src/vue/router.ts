@@ -28,9 +28,9 @@ export const routes: Array<RouteRecordRaw> = [
   createRoute('Services/GoogleDrive'),
   createRoute('Services/Browser'),
 
-  // Concepts
-  createRoute('Concepts/Index'),
-  createRoute('Concepts/_uuid'),
+  // Folders
+  createRoute('Folders/Index'),
+  createRoute('Folders/_uuid'),
 ];
 
 export const scrollBehavior = (
