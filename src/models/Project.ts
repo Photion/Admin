@@ -1,18 +1,26 @@
+import { v4 as uuid4 } from 'uuid';
+import * as yup from 'yup';
 
-import { modelize, ModelProps } from '~/src/models/Model';
+import { Model, ModelName, Namespace } from '~/src/models/Model';
 
-export interface ProjectProps extends ModelProps {
+export interface Project {
+  uuid?: string;
   name?: string;
   description?: string;
+  portfolio?: boolean;
+  created: number;
 }
 
-export interface Project extends Required<ProjectProps> {}
-
-
-export class Project extends modelize<ProjectProps>('projects', ['uuid', 'name', 'description']) {
-  constructor(props: ProjectProps) {
-    super(props);
-    this.name = props.name ?? '';
-    this.description = props.description ?? '';
-  }
-}
+export const ProjectModel: Model<Required<Project>> = {
+  name: ModelName.Project,
+  namespace: Namespace.Project,
+  schema: yup
+    .object({
+      uuid: yup.string().uuid().default(() => uuid4()).required(),
+      name: yup.string().default(() => '').required(),
+      description: yup.string().default(() => '').required(),
+      portfolio: yup.boolean().default(() => false).required(),
+      created: yup.number().integer().default(() => 0).defined(),
+    })
+    .required(),
+};

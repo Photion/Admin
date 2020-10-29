@@ -9,7 +9,7 @@ describe('unit.app.api.aws.AwsClient', () => {
   afterEach(() => sinon.restore());
 
   describe('.constructor', () => {
-    it('Creates a Fragment', () => {
+    it('Creates a AwsClient', () => {
       const { client } = getAwsClient();
       expect(client.constructor.name).toEqual('AwsClient');
     });

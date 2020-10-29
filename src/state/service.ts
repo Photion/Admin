@@ -1,7 +1,7 @@
 
 import { ref, computed, ComputedRef } from 'vue';
 
-import { AbstractClient } from '~/src/api/AbstractClient';
+import { AbstractClient, Client } from '~/src/api/AbstractClient';
 import { BrowserClient } from '~/src/api/BrowserClient';
 import { HttpClient } from '~/src/api/HttpClient';
 import { AwsClient } from '~/src/api/aws/client';
@@ -102,7 +102,7 @@ export const ready = computed(() => {
 /**
  * Tracks the current client.
  */
-export const client = computed((): AbstractClient => {
+export const api = computed((): AbstractClient => {
   if (clientName.value === aws.slug) {
     return new AwsClient({
       username: user.name,
@@ -119,6 +119,12 @@ export const client = computed((): AbstractClient => {
   }
 
   return new HttpClient();
+});
+
+export const client = computed((): Client<AbstractClient> => {
+  const client = new Client(api.value);
+
+  return client;
 });
 
 export const saveClient = async (slug: string, redirect = true) => {

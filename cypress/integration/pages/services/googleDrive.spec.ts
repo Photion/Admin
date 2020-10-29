@@ -86,7 +86,7 @@ describe('/services/googleDrive', () => {
 
       cy.get('a' );
 
-      cy.getCy('card:index.concepts');
+      cy.getCy('card:index.folders');
       cy.getCy('card:index.services');
     });
 

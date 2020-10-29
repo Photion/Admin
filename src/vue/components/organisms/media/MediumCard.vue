@@ -1,35 +1,35 @@
 <template>
-  <div cy="fragment.card" class="py-3">
+  <div cy="medium.card" class="py-3">
     <div class="flex gap-4">
       <PhoTextField
-        v-model="fragment.meta.filename"
+        v-model="medium.meta.filename"
         label="Filename"
-        name="fragment.meta.filename"
+        name="medium.meta.filename"
         class="w-full sm:w-6/12"
         disabled />
       <PhoSelect
-        v-model="fragment.meta.storage"
+        v-model="medium.meta.storage"
         :options="storages"
         label="Role"
-        name="fragment.meta.storage"
+        name="medium.meta.storage"
         @update:modelValue="fn.save"
         class="w-full sm:w-4/12" />
       <PhoBoolean
-        v-model="fragment.meta.public"
+        v-model="medium.meta.public"
         label="Public"
-        name="fragment.meta.public"
+        name="medium.meta.public"
         @input="fn.save"
         class="w-full sm:w-2/12" />
     </div>
     <div class="w-full text-right">
       <div class="space-x-1">
-        <PhoButton v-if="fragment.created" cy="button:fragment.download" color="success" disabled>
+        <PhoButton v-if="medium.created" cy="button:medium.download" color="success" disabled>
           <FontAwesomeIcon icon="cloud-download-alt" />
         </PhoButton>
-        <PhoButton v-else cy="button:fragment.upload" @click="fn.upload">
+        <PhoButton v-else cy="button:medium.upload" @click="fn.upload">
           <FontAwesomeIcon icon="cloud-upload-alt" />
         </PhoButton>
-        <PhoButton cy="button:fragment.remove" color="danger" @click="fn.remove">
+        <PhoButton cy="button:medium.remove" color="danger" @click="fn.remove">
           <FontAwesomeIcon icon="trash" />
         </PhoButton>
       </div>
@@ -41,9 +41,9 @@
 import { computed, defineComponent } from 'vue';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-
-import { Concept } from '~/src/models/Concept';
-import { Fragment } from '~/src/models/Fragment';
+import { client } from '~/src/state/service';
+import { Folder } from '~/src/models/Folder';
+import { Medium, MediumModel } from '~/src/models/Medium';
 import { FileStorage } from '~/src/files/metadata';
 import { toOption } from '~/src/utils';
 import PhoButton from '~/src/vue/components/ui/PhoButton.vue';
@@ -68,26 +68,32 @@ export default defineComponent({
   },
 
   props: {
-    concept: {
-      type: Concept,
+    folder: {
+      type: Object as () => Required<Folder>,
       required: true,
     },
-    fragment: {
-      type: Fragment,
+    medium: {
+      type: Object as () => Required<Medium>,
       required: true,
     },
   },
 
   setup(props, { emit }) {
     const storages = Object.values(FileStorage).map(toOption);
-    const preview = computed(() => Component[props.concept.type]);
+    const preview = computed(() => Component[props.folder.type]);
 
     return {
       storages,
       preview,
       fn: {
-        upload: () => props.fragment.upload(),
-        save: () => props.fragment.save(),
+        upload: async () => {
+          await client.value.save(MediumModel, props.medium);
+
+          if (props.medium.file.file) {
+            return client.value.api.uploadFile(MediumModel.namespace, props.medium.uuid, props.medium.meta, props.medium.file.file);
+          }
+        },
+        save: () => client.value.save(MediumModel, props.medium),
         remove: () => emit('remove'),
       },
     };

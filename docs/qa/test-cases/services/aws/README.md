@@ -10,7 +10,7 @@
 1. Go to https://admin.photion.app/services
 2. Select `Amazon Web Services`
 
-**Expected Results**: 
+**Expected Results**:
 
 1. https://admin.photion.app/services/aws should be displayed
 2. A fill-in form with user data should be displayed
@@ -34,7 +34,7 @@
 
 1. Login successful
 2. Homepage https://admin.photion.app/ should be displayed
-3. `List Concepts` card is now visible on the homepage and is clickable
+3. `List Folders` card is now visible on the homepage and is clickable
 
 ---
 

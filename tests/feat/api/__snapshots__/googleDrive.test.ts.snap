@@ -2,24 +2,30 @@
 
 exports[`feat.api.googleDrive GoogleDriveClient Retrieves a saved entity Creates with one client, retrieves with another 1`] = `
 Object {
-  "data": "abc",
-  "uuid": "concept-1",
+  "description": "a",
+  "name": "a",
+  "portfolio": false,
+  "uuid": "folder-1",
 }
 `;
 
 exports[`feat.api.googleDrive GoogleDriveClient Sustains two concurrent GoogleDriveClients Create doesn't overwrite 1`] = `
 Object {
-  "concepts": Object {
-    "concept-1": Object {
-      "data": "abc",
-      "uuid": "concept-1",
+  "folders": Object {},
+  "media": Object {},
+  "projects": Object {
+    "folder-1": Object {
+      "description": "a",
+      "name": "a",
+      "portfolio": false,
+      "uuid": "folder-1",
     },
-    "concept-2": Object {
-      "data": "def",
-      "uuid": "concept-2",
+    "folder-2": Object {
+      "description": "b",
+      "name": "b",
+      "portfolio": false,
+      "uuid": "folder-2",
     },
   },
-  "fragments": Object {},
-  "projects": Object {},
 }
 `;

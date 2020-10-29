@@ -1,6 +1,7 @@
 import { AbstractClient } from '~/src/api/AbstractClient';
 import { FileMetadata } from '~/src/files/metadata';
-import { Namespace } from '~/src/models/schema';
+import { Namespace } from '~/src/models/Model';
+import { ModelSchema } from '~/src/models/schema';
 
 interface InMemoryTable {
   [key: string]: {
@@ -33,23 +34,23 @@ export class BrowserClient extends AbstractClient {
     return this.db[namespace];
   }
 
-  async retrieve<T>(namespace: Namespace, uuid: string): Promise<Required<T> | null> {
+  async retrieve<N extends Namespace>(namespace: N, uuid: string): Promise<ModelSchema[N] | null> {
     const table = this.getTable(namespace);
 
-    const instance = (table[uuid]?.values || null) as Required<T> | null;
+    const instance = (table[uuid]?.values || null) as ModelSchema[N] | null;
 
     return instance;
   }
 
-  async list<T>(namespace: Namespace): Promise<Required<T>[]> {
+  async list<N extends Namespace>(namespace: N): Promise<ModelSchema[N][]> {
     const table = this.getTable(namespace);
 
-    const instances = Object.values(table).map((row) => row.values) as Required<T>[];
+    const instances = Object.values(table).map((row) => row.values) as ModelSchema[N][];
 
     return instances;
   }
 
-  async create<T>(namespace: Namespace, values: Required<T> & { uuid: string }): Promise<Required<T>> {
+  async create<N extends Namespace>(namespace: N, values: ModelSchema[N]): Promise<ModelSchema[N]> {
     const table = this.getTable(namespace);
 
     table[values.uuid] =  { values, file: null };
@@ -57,7 +58,7 @@ export class BrowserClient extends AbstractClient {
     return values;
   }
 
-  async update<T>(namespace: Namespace, uuid: string, values: Required<T>): Promise<Required<T>> {
+  async update<N extends Namespace>(namespace: N, uuid: string, values: ModelSchema[N]): Promise<ModelSchema[N]> {
     const table = this.getTable(namespace);
 
     if (!(uuid in table)) {
@@ -67,13 +68,13 @@ export class BrowserClient extends AbstractClient {
     return values;
   }
 
-  async remove<T>(namespace: Namespace, uuid: string): Promise<void> {
+  async remove<N extends Namespace>(namespace: N, uuid: string): Promise<void> {
     const table = this.getTable(namespace);
 
     delete table[uuid];
   }
 
-  async uploadFile<T>(namespace: Namespace, uuid: string, metadata: FileMetadata, file: File): Promise<string> {
+  async uploadFile<N extends Namespace>(namespace: N, uuid: string, metadata: FileMetadata, file: File | Buffer): Promise<string> {
     const table = this.getTable(namespace);
 
     if (!(uuid in table)) {
@@ -85,7 +86,7 @@ export class BrowserClient extends AbstractClient {
     return uuid;
   }
 
-  async deleteFile<T>(namespace: Namespace, uuid: string, _metadata: FileMetadata): Promise<void> {
+  async deleteFile<N extends Namespace>(namespace: N, uuid: string, _metadata: FileMetadata): Promise<void> {
     const table = this.getTable(namespace);
 
     if (!(uuid in table)) {
@@ -95,7 +96,7 @@ export class BrowserClient extends AbstractClient {
     table[uuid].file = null;
   }
 
-  async downloadFile(namespace: Namespace, uuid: string, _metadata: FileMetadata): Promise<string> {
+  async downloadFile<N extends Namespace>(namespace: N, uuid: string, _metadata: FileMetadata): Promise<string> {
     const table = this.getTable(namespace);
 
     if (!(uuid in table)) {
