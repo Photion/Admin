@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw, RouteLocationNormalized } from 'vue-router';
 
 import { ready } from '~/src/state/service';
 
@@ -33,8 +33,15 @@ export const routes: Array<RouteRecordRaw> = [
   createRoute('Concepts/_uuid'),
 ];
 
+export const scrollBehavior = (
+  _to: RouteLocationNormalized,
+  _from: RouteLocationNormalized,
+  _savedPosition: unknown,
+) => ({ left: 0, top: 0 });
+
 export const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
+  scrollBehavior,
   routes,
 });
 
