@@ -1,3 +1,6 @@
-.card__logo {
-	width: 2rem;
+@media only screen and (max-width: 640px) {
+	.card__logo {
+		width: 3rem;
+		margin: 0 auto;
+	}
 }
