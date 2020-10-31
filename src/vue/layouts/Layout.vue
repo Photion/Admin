@@ -1,9 +1,12 @@
 <template>
   <div class="root">
-    <header>
-      <h1 class="mt-5 mb-10 text-5xl">
+    <header class="mt-5 mb-10">
+      <h1 class="text-5xl">
         <router-link to="/">Photion</router-link>
       </h1>
+      <div v-if="service" cy="index.service">
+        <span class="text-xs">Using {{ service.name }}</span>
+      </div>
     </header>
     <main class="container main__container">
       <router-view />

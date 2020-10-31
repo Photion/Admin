@@ -119,7 +119,19 @@ Cypress.Commands.add('useHttp', () => {
  * Helpful in `before` hooks to setup an integration.
  */
 Cypress.Commands.add('useAws', () => {
+  const defaults = JSON.stringify({
+    aws: {
+      region: 'region',
+      accessKeyId: 'accessKeyId',
+      secretAccessKey: 'secretAccessKey',
+    },
+  });
+
+  const credentials = Cypress.env('SESSION_CREDENTIALS_AWS') || defaults;
+
+  console.log({ credentials });
+
   window.localStorage.setItem('PHOTION_INTEGRATION', 'aws');
   window.sessionStorage.setItem('PHOTION_USERNAME', Cypress.env('USERNAME'));
-  window.sessionStorage.setItem('PHOTION_SESSION_CREDENTIALS', Cypress.env('SESSION_CREDENTIALS_AWS'));
+  window.sessionStorage.setItem('PHOTION_SESSION_CREDENTIALS', credentials);
 });
