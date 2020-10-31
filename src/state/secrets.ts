@@ -92,7 +92,6 @@ export const load = async () => {
 
 export const init = () => {
   const encoded = window.sessionStorage.getItem(PHOTION_SESSION_CREDENTIALS);
-
   if (encoded) {
     deserialize(JSON.parse(encoded));
   }

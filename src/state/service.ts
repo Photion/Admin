@@ -65,6 +65,14 @@ export const browser = new Service({
   values: {},
 });
 
+export const http = new Service({
+  name: 'Your HTTP API',
+  logo: '',
+  slug: 'http',
+  description: 'An HTTP API you developed',
+  values: {},
+});
+
 
 /**
  * Tracks the current client name.
@@ -72,7 +80,7 @@ export const browser = new Service({
 export const clientName = ref(window.localStorage.getItem('PHOTION_INTEGRATION') || '');
 
 export const service = computed(() => {
-  if (!clientName.value || clientName.value === 'http') {
+  if (!clientName.value) {
     return null;
   }
 
@@ -82,6 +90,7 @@ export const service = computed(() => {
   case 'googleDrive':
     return googleDrive;
   case 'http':
+    return http;
   default:
     return null;
   }
