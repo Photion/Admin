@@ -20,7 +20,7 @@
     "@sentry/integrations": "^5.25.0",
     "@sentry/tracing": "^5.25.0",
     "aws-sdk": "^2.769.0",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "dayjs": "^1.9.1",
     "exifreader": "^3.12.2",
